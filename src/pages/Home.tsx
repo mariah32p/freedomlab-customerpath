@@ -529,15 +529,15 @@ export function Home() {
               Start Your Free Trial
             </a>
             
-            <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-              Enterprise features, custom integrations, or higher limits available.
-            </p>
-            
             <button className="group border-2 border-white/30 text-white hover:bg-white/10 px-10 py-5 rounded-2xl font-bold text-lg transition-all inline-flex items-center justify-center backdrop-blur-sm">
               <PlayIcon className="mr-3 h-6 w-6" />
               Watch Demo
             </button>
           </div>
+          
+          <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
+            Enterprise features, custom integrations, or higher limits available.
+          </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-8 text-blue-200">
             <div className="flex items-center">
@@ -560,7 +560,5 @@ export function Home() {
         <div className="absolute bottom-20 left-20 w-32 h-32 bg-brand-purple/10 rounded-full blur-2xl animate-pulse-slow"></div>
       </div>
     </div>
-  )
-}
   )
 }
