@@ -74,6 +74,5 @@ export function ProductCard({ product }: ProductCardProps) {
         `Get ${product.name}`
       )}
     </button>
-    </div>
   )
 }
