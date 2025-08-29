@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { Product } from '../stripe-config'
+import { ArrowRightIcon } from '@heroicons/react/24/outline'
 
 interface ProductCardProps {
   product: Product
@@ -59,19 +60,22 @@ export function ProductCard({ product }: ProductCardProps) {
     <button
       onClick={handleCheckout}
       disabled={loading}
-      className={`w-full text-center p-6 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 ${
+      className={`group w-full text-center p-6 rounded-2xl font-bold text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl ${
         isBasic
-          ? 'bg-gray-900 hover:bg-gray-800 text-white'
-          : 'bg-blue-600 hover:bg-blue-700 text-white'
+          ? 'bg-gradient-to-r from-brand-navy to-blue-800 hover:from-brand-navy/90 hover:to-blue-800/90 text-white'
+          : 'bg-gradient-to-r from-brand-teal to-brand-teal/90 hover:from-brand-teal/90 hover:to-brand-teal text-white'
       } disabled:opacity-50 disabled:transform-none`}
     >
       {loading ? (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center space-x-2">
           <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-          Processing...
+          <span>Processing...</span>
         </div>
       ) : (
-        `Get ${product.name}`
+        <div className="flex items-center justify-center space-x-2">
+          <span>Get {product.name}</span>
+          <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+        </div>
       )}
     </button>
   )
