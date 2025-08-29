@@ -528,6 +528,7 @@ export function Home() {
             >
               Start Your Free Trial
             <p className="text-gray-600 mb-6">
+            </a>
               Enterprise features, custom integrations, or higher limits available.
             <button className="group border-2 border-white/30 text-white hover:bg-white/10 px-10 py-5 rounded-2xl font-bold text-lg transition-all inline-flex items-center justify-center backdrop-blur-sm">
               <PlayIcon className="mr-3 h-6 w-6" />
@@ -556,7 +557,5 @@ export function Home() {
         <div className="absolute bottom-20 left-20 w-32 h-32 bg-brand-purple/10 rounded-full blur-2xl animate-pulse-slow"></div>
       </div>
     </div>
-  )
-}
   )
 }
