@@ -43,9 +43,8 @@ export function Home() {
                 </span>
               </h1>
               
-              <p className="text-xl text-blue-100 mb-8 leading-relaxed max-w-lg">
-                Transform how you understand and optimize customer experiences with our intuitive 
-                drag-and-drop journey builder. Track progress, identify drop-offs, and boost conversions.
+              <p className="text-xl text-blue-100 mb-8 leading-relaxed max-w-xl">
+                Visualize touchpoints, track satisfaction, and optimize your entire customer lifecycle.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
@@ -151,10 +150,10 @@ export function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl font-bold text-brand-navy mb-6">
-              Everything You Need to Map Customer Success
+              Core MVP Features
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Our MVP includes all the essential tools to visualize, track, and optimize your customer journeys with precision and clarity
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Essential tools to visualize, track, and optimize customer journeys
             </p>
           </div>
 
@@ -167,8 +166,8 @@ export function Home() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-brand-navy mb-4">Visual Journey Builder</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Drag-and-drop interface to create customer journey maps with intuitive stage definitions and visual flow representation.
+              <p className="text-gray-600">
+                Drag-and-drop interface to create custom journey maps with visual stage definitions.
               </p>
             </div>
 
@@ -180,8 +179,8 @@ export function Home() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-brand-navy mb-4">Stage Tracking</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Define custom stages like "Awareness → Trial → Purchase → Onboarding" and track customer progress through each phase.
+              <p className="text-gray-600">
+                Define stages like "Awareness → Trial → Purchase" and track customer progress.
               </p>
             </div>
 
@@ -193,8 +192,8 @@ export function Home() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-brand-navy mb-4">Customer Progress Tracking</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Manually move customers through stages and maintain detailed notes about their journey and interactions.
+              <p className="text-gray-600">
+                Move customers through stages and maintain detailed journey notes.
               </p>
             </div>
 
@@ -206,8 +205,8 @@ export function Home() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-brand-navy mb-4">Analytics Dashboard</h3>
-              <p className="text-gray-600 leading-relaxed">
-                View conversion rates between stages, identify drop-off points, and get insights into customer behavior patterns.
+              <p className="text-gray-600">
+                View conversion rates, identify drop-offs, and analyze customer behavior.
               </p>
             </div>
 
@@ -219,8 +218,8 @@ export function Home() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-brand-navy mb-4">Customer Notes</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Add detailed notes about individual customer progress, interactions, and important milestones in their journey.
+              <p className="text-gray-600">
+                Add detailed notes about customer progress and key milestones.
               </p>
             </div>
 
@@ -232,8 +231,8 @@ export function Home() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-brand-navy mb-4">Simple Export</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Export your journey maps as high-quality images or PDF documents to share with stakeholders and team members.
+              <p className="text-gray-600">
+                Export journey maps as high-quality images or PDFs for sharing.
               </p>
             </div>
           </div>
@@ -245,10 +244,10 @@ export function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-brand-navy mb-6">
-              See CustomerPath in Action
+              CustomerPath in Action
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Experience the power of visual customer journey mapping with our intuitive interface
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Visual customer journey mapping with drag-and-drop simplicity
             </p>
           </div>
 
@@ -456,10 +455,10 @@ export function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl font-bold text-brand-navy mb-6">
-              How CustomerPath Works
+              Simple 3-Step Process
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Simple, powerful, and designed for teams of all sizes. Get started in minutes, not hours.
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Get started in minutes with our intuitive platform
             </p>
           </div>
 
@@ -472,9 +471,8 @@ export function Home() {
                 <div className="absolute -top-2 -right-2 w-6 h-6 bg-brand-purple rounded-full animate-pulse"></div>
               </div>
               <h3 className="text-2xl font-bold text-brand-navy mb-4">Build Your Journey</h3>
-              <p className="text-gray-600 leading-relaxed text-lg">
-                Use our drag-and-drop builder to create custom journey maps. Define stages like 
-                "Awareness → Trial → Purchase → Onboarding" with ease.
+              <p className="text-gray-600 text-lg">
+                Create custom journey maps with our drag-and-drop builder.
               </p>
             </div>
 
@@ -486,9 +484,8 @@ export function Home() {
                 <div className="absolute -top-2 -right-2 w-6 h-6 bg-brand-teal rounded-full animate-pulse"></div>
               </div>
               <h3 className="text-2xl font-bold text-brand-navy mb-4">Track Customers</h3>
-              <p className="text-gray-600 leading-relaxed text-lg">
-                Add your customers and manually move them through stages. Add notes and track 
-                their progress through your defined journey.
+              <p className="text-gray-600 text-lg">
+                Add customers and track their progress through each stage.
               </p>
             </div>
 
@@ -500,9 +497,8 @@ export function Home() {
                 <div className="absolute -top-2 -right-2 w-6 h-6 bg-brand-purple rounded-full animate-pulse"></div>
               </div>
               <h3 className="text-2xl font-bold text-brand-navy mb-4">Analyze & Optimize</h3>
-              <p className="text-gray-600 leading-relaxed text-lg">
-                View conversion rates, identify drop-off points, and export your insights. 
-                Make data-driven decisions to improve customer experience.
+              <p className="text-gray-600 text-lg">
+                View conversion rates, identify drop-offs, and export insights.
               </p>
             </div>
           </div>
@@ -515,15 +511,14 @@ export function Home() {
         
         <div className="relative max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-            Ready to Transform Your
+            Start Mapping Customer Journeys
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-brand-purple block">
-              Customer Experience?
+              Today
             </span>
           </h2>
           
-          <p className="text-xl text-blue-100 mb-10 leading-relaxed max-w-3xl mx-auto">
-            Join hundreds of businesses already using CustomerPath to optimize their customer journeys, 
-            reduce churn, and boost conversions with data-driven insights.
+          <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
+            Optimize customer journeys, reduce churn, and boost conversions with visual mapping.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
@@ -532,8 +527,8 @@ export function Home() {
               className="group bg-gradient-to-r from-brand-teal to-brand-teal/90 hover:from-brand-teal/90 hover:to-brand-teal text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all transform hover:scale-105 shadow-2xl inline-flex items-center justify-center"
             >
               Start Your Free Trial
-              <ArrowRightIcon className="ml-3 h-6 w-6 group-hover:translate-x-2 transition-transform" />
-            </a>
+            <p className="text-gray-600 mb-6">
+              Enterprise features, custom integrations, or higher limits available.
             <button className="group border-2 border-white/30 text-white hover:bg-white/10 px-10 py-5 rounded-2xl font-bold text-lg transition-all inline-flex items-center justify-center backdrop-blur-sm">
               <PlayIcon className="mr-3 h-6 w-6" />
               Watch Demo
