@@ -451,7 +451,7 @@ export function Home() {
       </div>
 
       {/* Pricing Section */}
-      <div className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+      <div id="pricing" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl font-black text-brand-navy mb-6 font-montserrat">
@@ -559,10 +559,13 @@ export function Home() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
             <a
               href="/signup"
-              className="group bg-gradient-to-r from-brand-teal to-brand-teal/90 hover:from-brand-teal/90 hover:to-brand-teal text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all transform hover:scale-105 shadow-2xl inline-flex items-center justify-center"
-            >
-              Start Your Free Trial
-              <ArrowRightIcon className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <a
+                href="#pricing"
+                className="group border-2 border-white/30 text-white hover:bg-white/10 px-10 py-5 rounded-2xl font-bold text-lg transition-all inline-flex items-center justify-center backdrop-blur-sm"
+              >
+                See Pricing
+                <ArrowRightIcon className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </a>
             </a>
             
             <button className="group border-2 border-white/30 text-white hover:bg-white/10 px-10 py-5 rounded-2xl font-bold text-lg transition-all inline-flex items-center justify-center backdrop-blur-sm">
@@ -582,7 +585,7 @@ export function Home() {
             </div>
             <div className="flex items-center">
               <CheckIcon className="h-5 w-5 mr-2 text-brand-teal" />
-              <span>Cancel anytime</span>
+              <span>7-day free trial • Cancel anytime</span>
             </div>
           </div>
         </div>

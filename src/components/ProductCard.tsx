@@ -72,9 +72,14 @@ export function ProductCard({ product }: ProductCardProps) {
           <span>Processing...</span>
         </div>
       ) : (
-        <div className="flex items-center justify-center space-x-2">
-          <span>Get {product.name}</span>
-          <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+        <div className="space-y-2">
+          <div className="flex items-center justify-center space-x-2">
+            <span>Start Free Trial</span>
+            <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+          </div>
+          <div className="text-sm opacity-80 font-normal">
+            7-day trial • Then ${product.price}/month
+          </div>
         </div>
       )}
     </button>
