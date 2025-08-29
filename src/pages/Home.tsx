@@ -559,13 +559,18 @@ export function Home() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
             <a
               href="/signup"
-              <a
+              className="group bg-brand-teal hover:bg-brand-teal/90 text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl inline-flex items-center justify-center"
+            >
+              Start Your Free Trial
+              <ArrowRightIcon className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </a>
+            
+            <a
                 href="#pricing"
                 className="group border-2 border-white/30 text-white hover:bg-white/10 px-10 py-5 rounded-2xl font-bold text-lg transition-all inline-flex items-center justify-center backdrop-blur-sm"
               >
                 See Pricing
                 <ArrowRightIcon className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </a>
             </a>
             
             <button className="group border-2 border-white/30 text-white hover:bg-white/10 px-10 py-5 rounded-2xl font-bold text-lg transition-all inline-flex items-center justify-center backdrop-blur-sm">
