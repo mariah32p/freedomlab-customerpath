@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Montserrat', 'system-ui', 'sans-serif'],
+        'sans': ['Montserrat', 'system-ui', '-apple-system', 'sans-serif'],
+        'montserrat': ['Montserrat', 'system-ui', '-apple-system', 'sans-serif'],
       },
       colors: {
         'brand': {

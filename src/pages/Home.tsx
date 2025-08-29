@@ -36,8 +36,8 @@ export function Home() {
                 <span className="text-brand-teal text-sm font-medium">Now Available</span>
               </div>
               
-              <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                Map Every Step of Your
+              <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight font-montserrat">
+                Map Every Step of Your{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-brand-purple block">
                   Customer Journey
                 </span>
