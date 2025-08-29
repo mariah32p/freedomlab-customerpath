@@ -36,15 +36,18 @@ export function Home() {
                   Start Free Trial
                   <ArrowRightIcon className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </a>
-                <button className="group border-2 border-white/20 text-white hover:bg-white/10 px-8 py-4 rounded-xl font-bold text-lg transition-all inline-flex items-center justify-center">
-                  <PlayIcon className="mr-2 h-5 w-5" />
-                  Watch Demo
-                </button>
+                <a
+                  href="#pricing"
+                  className="group border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-xl font-bold text-lg transition-all inline-flex items-center justify-center"
+                >
+                  See Pricing
+                  <ArrowRightIcon className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </a>
               </div>
               
               <div className="flex items-center justify-center lg:justify-start mt-8 text-blue-200 text-sm">
                 <CheckIcon className="h-4 w-4 mr-2 text-brand-teal" />
-                <span>14-day free trial • No credit card required</span>
+                <span>7-day free trial</span>
               </div>
             </div>
 
@@ -572,21 +575,12 @@ export function Home() {
               See Pricing
               <ArrowRightIcon className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </a>
-            
-            <button className="group border-2 border-white/30 text-white hover:bg-white/10 px-10 py-5 rounded-2xl font-bold text-lg transition-all inline-flex items-center justify-center backdrop-blur-sm">
-              <PlayIcon className="mr-3 h-6 w-6" />
-              Watch Demo
-            </button>
           </div>
           
           <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-8 text-blue-200">
             <div className="flex items-center">
               <CheckIcon className="h-5 w-5 mr-2 text-brand-teal" />
-              <span>14-day free trial</span>
-            </div>
-            <div className="flex items-center">
-              <CheckIcon className="h-5 w-5 mr-2 text-brand-teal" />
-              <span>No credit card required</span>
+              <span>7-day free trial</span>
             </div>
             <div className="flex items-center">
               <CheckIcon className="h-5 w-5 mr-2 text-brand-teal" />
