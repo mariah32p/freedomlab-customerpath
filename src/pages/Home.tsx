@@ -527,9 +527,12 @@ export function Home() {
               className="group bg-gradient-to-r from-brand-teal to-brand-teal/90 hover:from-brand-teal/90 hover:to-brand-teal text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all transform hover:scale-105 shadow-2xl inline-flex items-center justify-center"
             >
               Start Your Free Trial
-            <p className="text-gray-600 mb-6">
             </a>
+            
+            <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
               Enterprise features, custom integrations, or higher limits available.
+            </p>
+            
             <button className="group border-2 border-white/30 text-white hover:bg-white/10 px-10 py-5 rounded-2xl font-bold text-lg transition-all inline-flex items-center justify-center backdrop-blur-sm">
               <PlayIcon className="mr-3 h-6 w-6" />
               Watch Demo
