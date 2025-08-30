@@ -31,7 +31,7 @@ const SignupPage: React.FC = () => {
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl">
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold text-white mb-2">Create Your Account</h1>
-            <p className="text-white/80">No credit card required to start</p>
+            <p className="text-white/80">Start your 7-day free trial</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
