@@ -48,38 +48,55 @@ Deno.serve(async (req) => {
       throw new Error('Stripe secret key not configured')
     }
 
+    // Helper function to serialize nested objects for form data
+    function serializeFormData(obj: any, prefix = ''): string {
+      const params = new URLSearchParams()
+      
+      function addParam(key: string, value: any) {
+        if (value === null || value === undefined) return
+        
+        if (typeof value === 'object' && !Array.isArray(value)) {
+          Object.keys(value).forEach(subKey => {
+            addParam(`${key}[${subKey}]`, value[subKey])
+          })
+        } else if (Array.isArray(value)) {
+          value.forEach((item, index) => {
+            addParam(`${key}[${index}]`, item)
+          })
+        } else {
+          params.append(key, String(value))
+        }
+      }
+      
+      Object.keys(obj).forEach(key => {
+        addParam(prefix ? `${prefix}[${key}]` : key, obj[key])
+      })
+      
+      return params.toString()
+    }
+
     // Determine price ID based on plan
     const priceId = plan === 'basic' 
       ? 'price_1RzsVsDn6VTzl81btPxvpdP0'  // Basic plan
       : 'price_1RzsVsDn6VTzl81beN38eh06'   // Pro plan
 
-    // Create Stripe checkout session
-    const checkoutData = {
+    // Create checkout session data
+    const checkoutData: any = {
       mode: 'subscription',
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      success_url: `${Deno.env.get('SUPABASE_URL')}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${Deno.env.get('SUPABASE_URL')}/get-started`,
+      'line_items[0][price]': priceId,
+      'line_items[0][quantity]': '1',
+      success_url: `${req.headers.get('origin')}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.headers.get('origin')}/get-started`,
       customer_email: user.email,
-      metadata: {
-        user_id: user.id,
-        plan: plan,
-      },
+      'metadata[user_id]': user.id,
+      'metadata[plan]': plan,
     }
 
     // Add trial period if requested
     if (trial) {
-      checkoutData.subscription_data = {
-        trial_period_days: 7,
-        metadata: {
-          user_id: user.id,
-          plan: plan,
-        },
-      }
+      checkoutData['subscription_data[trial_period_days]'] = '7'
+      checkoutData['subscription_data[metadata][user_id]'] = user.id
+      checkoutData['subscription_data[metadata][plan]'] = plan
     }
 
     const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
