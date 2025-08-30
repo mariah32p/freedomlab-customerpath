@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import AuthenticatedHeader from '../components/AuthenticatedHeader'
+import Header from '../components/Header'
 import PaymentIssueBanner from '../components/PaymentIssueBanner'
 import { useAuth } from '../hooks/useAuth'
 import { shouldShowPaymentBanner, getTrialDaysRemaining } from '../utils/routeGuard'
@@ -13,7 +13,7 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 font-montserrat">
-      <AuthenticatedHeader />
+      <Header />
       
       {/* Payment Issue Banner */}
       {showPaymentBanner && profile && <PaymentIssueBanner profile={profile} />}

@@ -8,7 +8,6 @@ import PasswordStrengthIndicator from '../components/PasswordStrengthIndicator'
 import { useAuth } from '../hooks/useAuth'
 
 const SignupPage: React.FC = () => {
-  const { isAuthenticated } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -67,7 +66,7 @@ const SignupPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-navy via-brand-navy/95 to-brand-purple/20 font-montserrat">
-      {!isAuthenticated && <Header />}
+      <Header />
       
       <div className="flex items-center justify-center min-h-screen pt-20">
       <div className="max-w-md w-full mx-4 py-8">

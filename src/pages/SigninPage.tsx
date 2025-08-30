@@ -6,7 +6,6 @@ import { supabase } from '../lib/supabase'
 import { useAuth } from '../hooks/useAuth'
 
 const SigninPage: React.FC = () => {
-  const { isAuthenticated } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -43,7 +42,7 @@ const SigninPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-navy via-brand-navy/95 to-brand-purple/20 font-montserrat">
-      {!isAuthenticated && <Header />}
+      <Header />
       
       <div className="flex items-center justify-center min-h-screen pt-20">
         <div className="max-w-md w-full mx-4 py-8">

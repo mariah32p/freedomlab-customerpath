@@ -1,9 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
+import { signOut } from '../lib/auth'
 
 const Header: React.FC = () => {
   const { isAuthenticated } = useAuth()
+
+  const handleSignOut = async () => {
+    try {
+      await signOut()
+    } catch (error) {
+      console.error('Sign out failed:', error)
+    }
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gray-100 z-50 shadow-sm">
@@ -16,7 +25,7 @@ const Header: React.FC = () => {
           
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-10">
-            {isAuthenticated && (
+            {isAuthenticated ? (
               <>
                 <Link to="/dashboard" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
                   Dashboard
@@ -31,6 +40,15 @@ const Header: React.FC = () => {
                   Settings
                 </Link>
               </>
+            ) : (
+              <>
+                <a href="/#features" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
+                  Features
+                </a>
+                <Link to="/pricing" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
+                  Pricing
+                </Link>
+              </>
             )}
           </nav>
           
@@ -38,19 +56,13 @@ const Header: React.FC = () => {
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
               <button 
-                onClick={async () => {
-                  const { signOut } = await import('../lib/auth')
-                  await signOut()
-                }}
+                onClick={handleSignOut}
                 className="text-brand-navy/70 hover:text-red-600 font-medium transition-colors duration-200 font-montserrat"
               >
                 Sign Out
               </button>
             ) : (
               <>
-                <a href="/pricing" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
-                  Pricing
-                </a>
                 <Link to="/signin" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
                   Sign In
                 </Link>
