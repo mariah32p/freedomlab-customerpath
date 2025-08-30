@@ -4,6 +4,7 @@ import LandingPage from './pages/LandingPage'
 import PricingPage from './pages/PricingPage'
 import SignupPage from './pages/SignupPage'
 import SigninPage from './pages/SigninPage'
+import GetStartedPage from './pages/GetStartedPage'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signin" element={<SigninPage />} />
+        <Route path="/get-started" element={<GetStartedPage />} />
       </Routes>
     </Router>
   )

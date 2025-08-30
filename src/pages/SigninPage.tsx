@@ -1,24 +1,41 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
+import { supabase } from '../lib/supabase'
 
 const SigninPage: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+    setError('')
     
-    // TODO: Implement Supabase auth signin
-    console.log('Signin attempt:', { email, password })
-    
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      })
+
+      if (error) {
+        setError(error.message)
+        return
+      }
+
+      if (data.user) {
+        // TODO: Check user subscription status and redirect accordingly
+        // For now, redirect to dashboard (will be implemented later)
+        navigate('/dashboard')
+      }
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.')
+    } finally {
       setIsLoading(false)
-      // TODO: Redirect to /dashboard after successful signin
-    }, 1000)
+    }
   }
 
   return (
@@ -33,6 +50,12 @@ const SigninPage: React.FC = () => {
               <h1 className="text-2xl font-bold text-white mb-2">Welcome Back</h1>
               <p className="text-white/80">Sign in to your CustomerPath account</p>
             </div>
+
+            {error && (
+              <div className="mb-6 p-4 bg-red-500/20 border border-red-500/30 rounded-lg">
+                <p className="text-red-200 text-sm">{error}</p>
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
