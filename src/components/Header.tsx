@@ -12,9 +12,6 @@ const Header: React.FC = () => {
           
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-10">
-            <a href="#pricing" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
-              Pricing
-            </a>
           </nav>
           
           {/* CTA Buttons */}
