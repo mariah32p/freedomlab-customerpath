@@ -53,8 +53,9 @@ const SignupPage: React.FC = () => {
       }
 
       if (data.user) {
-        // Redirect to get-started page after successful signup
-        navigate('/get-started')
+        // The RouteGuard will handle the redirect based on subscription status
+        // For new users, this will typically go to /get-started
+        window.location.reload()
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.')

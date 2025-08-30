@@ -1,74 +1,54 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import AuthenticatedHeader from '../components/AuthenticatedHeader'
-import { supabase } from '../lib/supabase'
-import { getCurrentUser } from '../lib/auth'
+import PaymentIssueBanner from '../components/PaymentIssueBanner'
+import { useAuth } from '../hooks/useAuth'
+import { shouldShowPaymentBanner, getTrialDaysRemaining } from '../utils/routeGuard'
 
 const DashboardPage: React.FC = () => {
-  const [user, setUser] = useState<any>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const currentUser = await getCurrentUser()
-        if (!currentUser) {
-          navigate('/signin')
-          return
-        }
-        setUser(currentUser)
-      } catch (error) {
-        console.error('Auth check failed:', error)
-        navigate('/signin')
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    checkAuth()
-  }, [navigate])
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-teal mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
-        </div>
-      </div>
-    )
-  }
+  const { user, profile } = useAuth()
+  
+  const showPaymentBanner = shouldShowPaymentBanner(profile)
+  const isTrialing = profile?.subscription_status === 'trialing'
+  const trialDaysRemaining = getTrialDaysRemaining(profile?.trial_ends_at || null)
 
   return (
     <div className="min-h-screen bg-gray-50 font-montserrat">
       <AuthenticatedHeader />
       
+      {/* Payment Issue Banner */}
+      {showPaymentBanner && profile && <PaymentIssueBanner profile={profile} />}
+      
       <div className="pt-20">
-        {/* Trial Banner */}
-        <div className="bg-gradient-to-r from-brand-teal to-cyan-500 text-white">
-          <div className="max-w-7xl mx-auto px-6 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="font-semibold">Trial ends in 6 days</span>
-                <span className="ml-2 text-white/80">• Your card will be charged on Jan 15, 2025</span>
+        {/* Trial Banner - Only show during trial */}
+        {isTrialing && profile?.trial_ends_at && (
+          <div className="bg-gradient-to-r from-brand-teal to-cyan-500 text-white">
+            <div className="max-w-7xl mx-auto px-6 py-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="font-semibold">
+                    Trial ends in {trialDaysRemaining} day{trialDaysRemaining !== 1 ? 's' : ''}
+                  </span>
+                  <span className="ml-2 text-white/80">
+                    • Your card will be charged on {new Date(profile.trial_ends_at).toLocaleDateString()}
+                  </span>
+                </div>
+                <button className="text-white/80 hover:text-white text-sm font-medium transition-colors">
+                  Manage in Settings →
+                </button>
               </div>
-              <button className="text-white/80 hover:text-white text-sm font-medium transition-colors">
-                Manage in Settings →
-              </button>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Main Content */}
         <div className="max-w-7xl mx-auto px-6 py-8">
           {/* Welcome Section */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-brand-navy mb-2">
-              Welcome back{user?.email ? `, ${user.email.split('@')[0]}` : ''}!
+              Welcome back{profile?.email ? `, ${profile.email.split('@')[0]}` : ''}!
             </h1>
             <p className="text-gray-600">Here's what's happening with your customer journeys</p>
           </div>

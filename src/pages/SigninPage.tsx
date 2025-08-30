@@ -29,9 +29,8 @@ const SigninPage: React.FC = () => {
       }
 
       if (data.user) {
-        // TODO: Check user subscription status and redirect accordingly
-        // For now, redirect to dashboard (will be implemented later)
-        navigate('/dashboard')
+        // The RouteGuard will handle the redirect based on subscription status
+        window.location.reload()
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.')
