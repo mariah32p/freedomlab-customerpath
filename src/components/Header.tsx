@@ -40,11 +40,7 @@ const Header: React.FC = () => {
                   Settings
                 </Link>
               </>
-            ) : (
-              <Link to="/pricing" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
-                Pricing
-              </Link>
-            )}
+            ) : null}
           </nav>
           
           {/* CTA Buttons */}
@@ -58,6 +54,9 @@ const Header: React.FC = () => {
               </button>
             ) : (
               <>
+                <Link to="/pricing" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
+                  Pricing
+                </Link>
                 <Link to="/signin" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
                   Sign In
                 </Link>
