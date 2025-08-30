@@ -12,6 +12,15 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
   const navigate = useNavigate()
   const location = useLocation()
 
+  const handleHardRefresh = () => {
+    // Clear all local storage and session storage
+    localStorage.clear()
+    sessionStorage.clear()
+    
+    // Force a complete page reload
+    window.location.href = '/'
+  }
+
   useEffect(() => {
     console.log('RouteGuard check:', { isLoading, isAuthenticated, path: location.pathname, profile })
     
@@ -47,10 +56,10 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
           <p className="text-gray-600 font-semibold">Loading your account...</p>
           <p className="text-gray-500 text-sm mt-2">Checking authentication status...</p>
           <button 
-            onClick={() => window.location.reload()} 
+            onClick={handleHardRefresh}
             className="mt-4 text-brand-teal hover:text-brand-teal/80 text-sm font-medium transition-colors"
           >
-            Click here if this takes too long
+            Hard Refresh (Clear All Data)
           </button>
         </div>
       </div>
