@@ -115,18 +115,37 @@ Deno.serve(async (req) => {
         console.log('Current period end:', subscription.current_period_end)
 
         // Find user by customer_id
-        const { data: customer, error: customerLookupError } = await supabaseClient
+        const { data: customerRecord, error: customerLookupError } = await supabaseClient
           .from('stripe_customers')
           .select('user_id')
           .eq('customer_id', customerId)
           .single()
 
-        if (customerLookupError || !customer) {
-          console.error('Customer not found for ID:', customerId, customerLookupError)
-          break
+        let userId = customerRecord?.user_id
+
+        if (customerLookupError || !userId) {
+          console.error('Customer lookup failed or not found for ID:', customerId, customerLookupError)
+          // Fallback to subscription metadata if available
+          userId = subscription.metadata?.user_id
+          if (userId) {
+            console.log('Falling back to metadata user ID:', userId)
+            const { error: customerInsertError } = await supabaseClient
+              .from('stripe_customers')
+              .upsert({
+                user_id: userId,
+                customer_id: customerId,
+                updated_at: new Date().toISOString(),
+              })
+            if (customerInsertError) {
+              console.error('Error storing customer from fallback:', customerInsertError)
+            }
+          } else {
+            console.error('No user ID available in subscription metadata')
+            break
+          }
         }
 
-        console.log('Found user ID:', customer.user_id)
+        console.log('Using user ID:', userId)
 
         // Calculate dates
         let trialEndsAt = null
@@ -157,7 +176,7 @@ Deno.serve(async (req) => {
         const { error: profileError } = await supabaseClient
           .from('profiles')
           .update(profileUpdate)
-          .eq('id', customer.user_id)
+          .eq('id', userId)
 
         if (profileError) {
           console.error('Error updating profile subscription:', profileError)
@@ -170,11 +189,15 @@ Deno.serve(async (req) => {
           customer_id: customerId,
           subscription_id: subscription.id,
           price_id: subscription.items.data[0]?.price?.id,
-          current_period_start: subscription.current_period_start || null,
-          current_period_end: subscription.current_period_end || null,
+          current_period_start: subscription.current_period_start
+            ? new Date(subscription.current_period_start * 1000).toISOString()
+            : null,
+          current_period_end: subscription.current_period_end
+            ? new Date(subscription.current_period_end * 1000).toISOString()
+            : null,
           cancel_at_period_end: subscription.cancel_at_period_end || false,
           status: subscription.status,
-          updated_at: new Date().toISOString()
+          updated_at: new Date().toISOString(),
         }
 
         console.log('Storing subscription data:', subscriptionData)
