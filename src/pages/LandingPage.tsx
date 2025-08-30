@@ -438,3 +438,5 @@ const LandingPage: React.FC = () => {
 
                         </svg>
 export default LandingPage
+  )
+}
