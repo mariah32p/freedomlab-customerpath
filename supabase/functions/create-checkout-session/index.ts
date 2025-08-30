@@ -21,7 +21,7 @@ Deno.serve(async (req) => {
     // Initialize Supabase client
     const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
     )
 
     // Get the authorization header
@@ -42,15 +42,71 @@ Deno.serve(async (req) => {
     // Parse request body
     const { plan, trial = true }: CheckoutRequest = await req.json()
 
-    // Since Stripe isn't configured yet, simulate successful checkout
-    // In production, this would create an actual Stripe checkout session
-    
-    // For now, just return success and let the frontend handle the redirect
+    // Get Stripe secret key from environment
+    const stripeSecretKey = Deno.env.get('STRIPE_SECRET_KEY')
+    if (!stripeSecretKey) {
+      throw new Error('Stripe secret key not configured')
+    }
+
+    // Determine price ID based on plan
+    const priceId = plan === 'basic' 
+      ? Deno.env.get('STRIPE_BASIC_PRICE_ID') 
+      : Deno.env.get('STRIPE_PRO_PRICE_ID')
+
+    if (!priceId) {
+      throw new Error(`Price ID not configured for ${plan} plan`)
+    }
+
+    // Create Stripe checkout session
+    const checkoutData = {
+      mode: 'subscription',
+      line_items: [
+        {
+          price: priceId,
+          quantity: 1,
+        },
+      ],
+      success_url: `${Deno.env.get('SUPABASE_URL')}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${Deno.env.get('SUPABASE_URL')}/get-started`,
+      customer_email: user.email,
+      metadata: {
+        user_id: user.id,
+        plan: plan,
+      },
+    }
+
+    // Add trial period if requested
+    if (trial) {
+      checkoutData.subscription_data = {
+        trial_period_days: 7,
+        metadata: {
+          user_id: user.id,
+          plan: plan,
+        },
+      }
+    }
+
+    const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${stripeSecretKey}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(checkoutData).toString(),
+    })
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      throw new Error(`Stripe API error: ${errorText}`)
+    }
+
+    const session = await response.json()
+
     return new Response(
       JSON.stringify({
         success: true,
-        redirect_to_dashboard: true,
-        message: `Trial started for ${plan} plan`
+        url: session.url,
+        session_id: session.id
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
