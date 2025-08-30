@@ -16,7 +16,7 @@ const Header: React.FC = () => {
           
           {/* CTA Buttons */}
           <div className="flex items-center space-x-4">
-            <a href="#pricing" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
+            <a href="/pricing" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
               Pricing
             </a>
             <button className="text-brand-navy/70 hover:text-brand-navy font-semibold transition-colors duration-200 font-montserrat">
