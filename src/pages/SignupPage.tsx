@@ -8,11 +8,14 @@ import PasswordStrengthIndicator from '../components/PasswordStrengthIndicator'
 const SignupPage: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const navigate = useNavigate()
   
   const passwordStrength = validatePasswordStrength(password)
+  const passwordsMatch = password === confirmPassword
+  const showPasswordMismatch = confirmPassword.length > 0 && !passwordsMatch
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -20,6 +23,12 @@ const SignupPage: React.FC = () => {
     // Check password strength before submitting
     if (!passwordStrength.isValid) {
       setError('Please create a stronger password that meets all requirements.')
+      return
+    }
+    
+    // Check passwords match
+    if (!passwordsMatch) {
+      setError('Passwords do not match.')
       return
     }
     
@@ -107,9 +116,40 @@ const SignupPage: React.FC = () => {
               />
             </div>
 
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-white/90 mb-2">
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                id="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-transparent backdrop-blur-sm"
+                placeholder="Confirm your password"
+                required
+              />
+              {showPasswordMismatch && (
+                <div className="flex items-center text-xs text-red-400 mt-2">
+                  <svg className="h-3 w-3 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                  Passwords do not match
+                </div>
+              )}
+              {confirmPassword.length > 0 && passwordsMatch && (
+                <div className="flex items-center text-xs text-green-400 mt-2">
+                  <svg className="h-3 w-3 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  Passwords match
+                </div>
+              )}
+            </div>
+
             <button
               type="submit"
-              disabled={isLoading || !passwordStrength.isValid}
+              disabled={isLoading || !passwordStrength.isValid || !passwordsMatch}
               className="w-full bg-brand-teal hover:bg-brand-teal/90 disabled:bg-brand-teal/50 text-white py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-xl disabled:transform-none disabled:cursor-not-allowed"
             >
               {isLoading ? 'Creating Account...' : 'Start Free Trial'}
