@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
+import { useAuth } from '../hooks/useAuth'
 
 const GetStartedPage: React.FC = () => {
+  const { isAuthenticated } = useAuth()
   const [selectedPlan, setSelectedPlan] = useState<'basic' | 'pro'>('pro')
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
@@ -37,7 +39,7 @@ const GetStartedPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-navy via-brand-navy/95 to-brand-purple/20 font-montserrat">
-      <Header />
+      {!isAuthenticated && <Header />}
       
       <div className="pt-32 pb-20">
         <div className="max-w-4xl mx-auto px-6">

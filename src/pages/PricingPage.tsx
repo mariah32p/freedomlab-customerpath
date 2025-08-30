@@ -1,11 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
+import { useAuth } from '../hooks/useAuth'
 
 const PricingPage: React.FC = () => {
+  const { isAuthenticated } = useAuth()
+
   return (
     <div className="min-h-screen bg-white font-montserrat">
-      <Header />
+      {!isAuthenticated && <Header />}
       
       {/* Pricing Hero */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-brand-navy via-brand-navy/95 to-brand-purple/20">
