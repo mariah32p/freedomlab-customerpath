@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
-import { useAuth } from '../hooks/useAuth'
+import { supabase } from '../lib/supabase'
 
 const GetStartedPage: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState<'basic' | 'pro'>('pro')
@@ -12,11 +12,19 @@ const GetStartedPage: React.FC = () => {
     setIsLoading(true)
     
     try {
-      // TODO: Create Stripe Checkout Session with trial
-      const response = await fetch('/api/create-checkout-session', {
+      const { data: { session } } = await supabase.auth.getSession()
+      
+      if (!session) {
+        throw new Error('Not authenticated')
+      }
+
+      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-checkout-session`
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
         },
         body: JSON.stringify({
           plan: selectedPlan,
@@ -24,14 +32,18 @@ const GetStartedPage: React.FC = () => {
         })
       })
 
-      const { url } = await response.json()
+      const data = await response.json()
       
-      if (url) {
+      if (data.success && data.url) {
         // Redirect to Stripe Checkout
-        window.location.href = url
+        window.location.href = data.url
+      } else {
+        throw new Error(data.error || 'Failed to create checkout session')
       }
     } catch (error) {
       console.error('Error creating checkout session:', error)
+      // For now, just navigate to dashboard since Stripe isn't fully configured
+      navigate('/dashboard')
       setIsLoading(false)
     }
   }
