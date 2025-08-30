@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Header: React.FC = () => {
   return (
@@ -6,9 +7,9 @@ const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="text-2xl font-bold text-brand-navy font-montserrat">
+          <Link to="/" className="text-2xl font-bold text-brand-navy font-montserrat hover:text-brand-teal transition-colors">
             CustomerPath
-          </div>
+          </Link>
           
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-10">
