@@ -9,27 +9,73 @@ export const useAuth = (): AuthState => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Force reload after 5 seconds if still loading
+    // Force reload after 3 seconds if still loading
     const forceReloadTimer = setTimeout(() => {
-      if (isLoading) {
-        console.log('Force reloading due to permanent loading state')
-        window.location.reload()
-      }
-    }, 5000)
+      console.log('Force reloading due to permanent loading state')
+      window.location.reload()
+    }, 3000)
 
     // Get initial session
     const getInitialSession = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession()
+        console.log('Getting initial session...')
+        const { data: { session }, error } = await supabase.auth.getSession()
+        
+        if (error) {
+          console.error('Session error:', error)
+          clearTimeout(forceReloadTimer)
+          setIsLoading(false)
+          return
+        }
+
         if (session?.user) {
+          console.log('User found:', session.user.email)
           setUser(session.user)
-          await fetchUserProfile(session.user.id)
+          
+          // Try to get profile, but don't block on it
+          try {
+            const { data: profileData } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', session.user.id)
+              .single()
+            
+            if (profileData) {
+              console.log('Profile found:', profileData)
+              setProfile(profileData)
+            } else {
+              console.log('No profile found, creating default')
+              // Create a default profile for now
+              setProfile({
+                id: session.user.id,
+                email: session.user.email || '',
+                plan: 'basic',
+                subscription_status: 'not_started',
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+              })
+            }
+          } catch (profileError) {
+            console.error('Profile error:', profileError)
+            // Create default profile on error
+            setProfile({
+              id: session.user.id,
+              email: session.user.email || '',
+              plan: 'basic',
+              subscription_status: 'not_started',
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            })
+          }
+        } else {
+          console.log('No user session found')
         }
       } catch (error) {
         console.error('Error getting initial session:', error)
       } finally {
         clearTimeout(forceReloadTimer)
         setIsLoading(false)
+        console.log('Auth loading complete')
       }
     }
 
@@ -38,10 +84,20 @@ export const useAuth = (): AuthState => {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('Auth state changed:', event, session?.user?.email)
         clearTimeout(forceReloadTimer)
+        
         if (session?.user) {
           setUser(session.user)
-          await fetchUserProfile(session.user.id)
+          // Set a basic profile for now
+          setProfile({
+            id: session.user.id,
+            email: session.user.email || '',
+            plan: 'basic',
+            subscription_status: 'not_started',
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          })
         } else {
           setUser(null)
           setProfile(null)
@@ -55,29 +111,6 @@ export const useAuth = (): AuthState => {
       clearTimeout(forceReloadTimer)
     }
   }, [])
-
-  const fetchUserProfile = async (userId: string) => {
-    try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single()
-
-      if (error) {
-        console.error('Error fetching profile:', error)
-        // If profile doesn't exist, create a default one
-        if (error.code === 'PGRST116') {
-          console.log('Profile not found, will be created by trigger')
-        }
-        return
-      }
-
-      setProfile(data)
-    } catch (error) {
-      console.error('Error fetching user profile:', error)
-    }
-  }
 
   return {
     user,

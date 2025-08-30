@@ -13,11 +13,14 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
   const location = useLocation()
 
   useEffect(() => {
+    console.log('RouteGuard check:', { isLoading, isAuthenticated, path: location.pathname, profile })
+    
     if (isLoading) return
 
     // Skip route guard for public pages
     const publicPaths = ['/', '/pricing', '/signup', '/signin']
     if (publicPaths.includes(location.pathname)) {
+      console.log('Public path, skipping guard')
       return
     }
 
@@ -36,8 +39,14 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-teal mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your account...</p>
-          <p className="text-gray-500 text-sm mt-2">This should only take a moment</p>
+          <p className="text-gray-600 font-semibold">Loading your account...</p>
+          <p className="text-gray-500 text-sm mt-2">Checking authentication status...</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-4 text-brand-teal hover:text-brand-teal/80 text-sm font-medium transition-colors"
+          >
+            Click here if this takes too long
+          </button>
         </div>
       </div>
     )
