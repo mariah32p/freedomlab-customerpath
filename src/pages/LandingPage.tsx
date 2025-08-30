@@ -79,7 +79,7 @@ const LandingPage: React.FC = () => {
                         <div>
                           <span className="font-bold text-white text-lg">Discovery</span>
                           <p className="text-white/70 text-sm">Social media, search, ads</p>
-                          <p className="text-brand-teal text-sm font-semibold">12,847 visitors</p>
+                          <p className="text-brand-teal text-sm font-semibold">8,247 visitors</p>
                         </div>
                       </div>
                       <div className="text-right">
@@ -92,25 +92,24 @@ const LandingPage: React.FC = () => {
                     </div>
                   </div>
                   
-                  {/* Stage 2: Product Interest */}
+                  {/* Stage 2: Trial Signup */}
                   <div className="relative">
                     <div className="flex items-center justify-between bg-white/20 backdrop-blur-sm p-5 rounded-xl border border-white/30">
                       <div className="flex items-center">
                         <div className="w-12 h-12 bg-gradient-to-br from-brand-teal to-cyan-500 rounded-xl flex items-center justify-center mr-4 shadow-lg">
                           <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                           </svg>
                         </div>
                         <div>
-                          <span className="font-bold text-white text-lg">Product View</span>
-                          <p className="text-white/70 text-sm">Browse products, read reviews</p>
-                          <p className="text-brand-teal text-sm font-semibold">10,021 page views</p>
+                          <span className="font-bold text-white text-lg">Trial Signup</span>
+                          <p className="text-white/70 text-sm">Free trial registration</p>
+                          <p className="text-brand-teal text-sm font-semibold">3,421 signups</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-2xl font-bold text-white">52%</div>
-                        <div className="text-white/70 text-sm">add to cart</div>
+                        <div className="text-2xl font-bold text-white">41%</div>
+                        <div className="text-white/70 text-sm">conversion</div>
                       </div>
                     </div>
                     <div className="flex justify-center mt-3">
@@ -118,24 +117,24 @@ const LandingPage: React.FC = () => {
                     </div>
                   </div>
                   
-                  {/* Stage 3: Shopping Cart */}
+                  {/* Stage 3: Product Engagement */}
                   <div className="relative">
                     <div className="flex items-center justify-between bg-white/20 backdrop-blur-sm p-5 rounded-xl border border-white/30">
                       <div className="flex items-center">
                         <div className="w-12 h-12 bg-gradient-to-br from-brand-purple to-purple-600 rounded-xl flex items-center justify-center mr-4 shadow-lg">
                           <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17M17 13v4a2 2 0 01-2 2H9a2 2 0 01-2-2v-4m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                           </svg>
                         </div>
                         <div>
-                          <span className="font-bold text-white text-lg">Shopping Cart</span>
-                          <p className="text-white/70 text-sm">Review items, apply coupons</p>
-                          <p className="text-brand-teal text-sm font-semibold">5,211 carts created</p>
+                          <span className="font-bold text-white text-lg">Active Usage</span>
+                          <p className="text-white/70 text-sm">Feature exploration, setup</p>
+                          <p className="text-brand-teal text-sm font-semibold">2,156 active users</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-2xl font-bold text-white">68%</div>
-                        <div className="text-white/70 text-sm">checkout</div>
+                        <div className="text-2xl font-bold text-white">63%</div>
+                        <div className="text-white/70 text-sm">engagement</div>
                       </div>
                     </div>
                     <div className="flex justify-center mt-3">
@@ -143,32 +142,7 @@ const LandingPage: React.FC = () => {
                     </div>
                   </div>
                   
-                  {/* Stage 4: Checkout */}
-                  <div className="relative">
-                    <div className="flex items-center justify-between bg-white/20 backdrop-blur-sm p-5 rounded-xl border border-white/30">
-                      <div className="flex items-center">
-                        <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                          </svg>
-                        </div>
-                        <div>
-                          <span className="font-bold text-white text-lg">Checkout</span>
-                          <p className="text-white/70 text-sm">Payment & shipping info</p>
-                          <p className="text-brand-teal text-sm font-semibold">3,543 attempts</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-white">84%</div>
-                        <div className="text-white/70 text-sm">complete</div>
-                      </div>
-                    </div>
-                    <div className="flex justify-center mt-3">
-                      <div className="w-0.5 h-6 bg-gradient-to-b from-white/50 to-transparent"></div>
-                    </div>
-                  </div>
-                  
-                  {/* Stage 5: Purchase Complete */}
+                  {/* Stage 4: Paid Conversion */}
                   <div className="flex items-center justify-between bg-white/30 backdrop-blur-sm p-5 rounded-xl border border-white/40 shadow-lg">
                     <div className="flex items-center">
                       <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mr-4 shadow-lg">
@@ -177,14 +151,14 @@ const LandingPage: React.FC = () => {
                         </svg>
                       </div>
                       <div>
-                        <span className="font-bold text-white text-lg">Purchase Complete</span>
-                        <p className="text-white/70 text-sm">Order confirmation & fulfillment</p>
-                        <p className="text-brand-teal text-sm font-semibold">2,976 orders</p>
+                        <span className="font-bold text-white text-lg">Paid Customer</span>
+                        <p className="text-white/70 text-sm">Subscription conversion</p>
+                        <p className="text-brand-teal text-sm font-semibold">1,358 customers</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-2xl font-bold text-green-400">$247k</div>
-                      <div className="text-white/70 text-sm">revenue</div>
+                      <div className="text-2xl font-bold text-green-400">$67k</div>
+                      <div className="text-white/70 text-sm">MRR</div>
                     </div>
                   </div>
                 </div>
@@ -193,15 +167,15 @@ const LandingPage: React.FC = () => {
                 <div className="mt-8 pt-6 border-t border-white/20">
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
-                      <div className="text-2xl font-bold text-white">23.2%</div>
+                      <div className="text-2xl font-bold text-white">16.5%</div>
                       <div className="text-white/70 text-sm">Overall Conversion</div>
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-brand-teal">$83</div>
-                      <div className="text-white/70 text-sm">Avg Order Value</div>
+                      <div className="text-2xl font-bold text-brand-teal">$49</div>
+                      <div className="text-white/70 text-sm">Avg Customer Value</div>
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-purple-400">4.2</div>
+                      <div className="text-2xl font-bold text-purple-400">7.3</div>
                       <div className="text-white/70 text-sm">Days to Convert</div>
                     </div>
                   </div>
