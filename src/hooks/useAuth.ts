@@ -45,29 +45,59 @@ export const useAuth = (): AuthState => {
               setProfile(profileData)
             } else {
               console.log('No profile found, creating new profile in database')
+              
+              // Define profile data to insert
+              const profileDataToInsert = {
+                id: session.user.id,
+                email: session.user.email || '',
+                plan: 'basic',
+                subscription_status: 'not_started'
+              }
+              
               // Create profile in database
               const { data: newProfile, error: insertError } = await supabase
                 .from('profiles')
-                .insert({
-                  id: session.user.id,
-                  email: session.user.email || '',
-                  plan: 'basic',
-                  subscription_status: 'not_started'
-                })
+                .insert(profileDataToInsert)
                 .select()
                 .single()
               
               if (insertError) {
-                console.error('Error creating profile:', insertError)
-                // Fallback to local profile
-                setProfile({
-                  id: session.user.id,
-                  email: session.user.email || '',
-                  plan: 'basic',
-                  subscription_status: 'not_started',
-                  created_at: new Date().toISOString(),
-                  updated_at: new Date().toISOString()
-                })
+                // Check if it's a duplicate key error (profile already exists)
+                if (insertError.code === '23505') {
+                  console.log('Profile already exists, fetching existing profile')
+                  // Re-fetch the existing profile
+                  const { data: existingProfile } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', session.user.id)
+                    .single()
+                  
+                  if (existingProfile) {
+                    console.log('Existing profile found:', existingProfile)
+                    setProfile(existingProfile)
+                  } else {
+                    // Fallback to local profile if still can't fetch
+                    setProfile({
+                      id: session.user.id,
+                      email: session.user.email || '',
+                      plan: 'basic',
+                      subscription_status: 'not_started',
+                      created_at: new Date().toISOString(),
+                      updated_at: new Date().toISOString()
+                    })
+                  }
+                } else {
+                  console.error('Error creating profile:', insertError)
+                  // Fallback to local profile for other errors
+                  setProfile({
+                    id: session.user.id,
+                    email: session.user.email || '',
+                    plan: 'basic',
+                    subscription_status: 'not_started',
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString()
+                  })
+                }
               } else {
                 console.log('Profile created:', newProfile)
                 setProfile(newProfile)
