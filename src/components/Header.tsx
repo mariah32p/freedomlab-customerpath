@@ -1,16 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { signOut } from '../lib/auth'
 
 const Header: React.FC = () => {
-  const handleSignOut = async () => {
-    try {
-      await signOut()
-    } catch (error) {
-      console.error('Sign out failed:', error)
-    }
-  }
-
   return (
     <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gray-100 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-6">
@@ -35,14 +26,6 @@ const Header: React.FC = () => {
             <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 font-montserrat">
               Start Free Trial
             </Link>
-            {/* Sign Out Button - Only show when user is authenticated */}
-            <button 
-              onClick={handleSignOut}
-              className="text-red-600 hover:text-red-700 font-medium transition-colors duration-200 font-montserrat hidden"
-              id="signout-btn"
-            >
-              Sign Out
-            </button>
           </div>
         </div>
       </div>
