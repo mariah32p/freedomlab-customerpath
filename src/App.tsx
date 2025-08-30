@@ -5,6 +5,7 @@ import PricingPage from './pages/PricingPage'
 import SignupPage from './pages/SignupPage'
 import SigninPage from './pages/SigninPage'
 import GetStartedPage from './pages/GetStartedPage'
+import DashboardPage from './pages/DashboardPage'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/get-started" element={<GetStartedPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
       </Routes>
     </Router>
   )
