@@ -2,14 +2,22 @@ import React from 'react'
 
 const CTASection: React.FC = () => {
   return (
-    <section className="py-24 bg-brand-navy text-white">
-      <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+    <section className="py-20 bg-brand-navy text-white relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }}></div>
+      </div>
+      
+      <div className="relative max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
           Ready to Optimize Your
           <span className="block text-brand-teal">Customer Journeys?</span>
         </h2>
         
-        <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
+        <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto leading-relaxed">
           Join hundreds of companies using CustomerPath to increase conversions and reduce churn.
         </p>
         
@@ -18,7 +26,7 @@ const CTASection: React.FC = () => {
             Start Your Free Trial
           </button>
           
-          <button className="border-2 border-white/30 text-white hover:bg-white/10 px-10 py-5 rounded-lg font-semibold text-lg transition-all">
+          <button className="border-2 border-white/30 text-white hover:bg-white/10 px-10 py-5 rounded-lg font-semibold text-lg transition-all backdrop-blur-sm">
             Schedule Demo
           </button>
         </div>

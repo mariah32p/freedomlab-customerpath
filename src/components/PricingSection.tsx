@@ -2,7 +2,7 @@ import React from 'react'
 
 const PricingSection: React.FC = () => {
   return (
-    <section id="pricing" className="py-24 bg-gray-50">
+    <section id="pricing" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-brand-navy mb-4">
@@ -26,31 +26,31 @@ const PricingSection: React.FC = () => {
 
             <div className="space-y-4 mb-8">
               <div className="flex items-center">
-                <svg className="h-5 w-5 text-brand-teal mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                <span className="text-gray-700">1 customer journey map</span>
+                <span className="text-gray-700">Up to 3 customer journey maps</span>
               </div>
               <div className="flex items-center">
-                <svg className="h-5 w-5 text-brand-teal mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                <span className="text-gray-700">Up to 100 customers tracked</span>
+                <span className="text-gray-700">Up to 1,000 customers tracked</span>
               </div>
               <div className="flex items-center">
-                <svg className="h-5 w-5 text-brand-teal mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
                 <span className="text-gray-700">Basic analytics dashboard</span>
               </div>
               <div className="flex items-center">
-                <svg className="h-5 w-5 text-brand-teal mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
                 <span className="text-gray-700">Export to PNG/PDF</span>
               </div>
               <div className="flex items-center">
-                <svg className="h-5 w-5 text-brand-teal mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
                 <span className="text-gray-700">Email support</span>
@@ -73,38 +73,38 @@ const PricingSection: React.FC = () => {
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold text-brand-navy mb-2">Pro</h3>
               <div className="text-5xl font-bold text-brand-navy mb-2">
-                $49<span className="text-xl font-normal text-gray-500">/month</span>
+                $79<span className="text-xl font-normal text-gray-500">/month</span>
               </div>
               <p className="text-gray-600">For growing teams</p>
             </div>
 
             <div className="space-y-4 mb-8">
               <div className="flex items-center">
-                <svg className="h-5 w-5 text-brand-teal mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
                 <span className="text-gray-700">Unlimited journey maps</span>
               </div>
               <div className="flex items-center">
-                <svg className="h-5 w-5 text-brand-teal mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                <span className="text-gray-700">Up to 1,000 customers tracked</span>
+                <span className="text-gray-700">Up to 10,000 customers tracked</span>
               </div>
               <div className="flex items-center">
-                <svg className="h-5 w-5 text-brand-teal mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
                 <span className="text-gray-700">Advanced analytics & AI insights</span>
               </div>
               <div className="flex items-center">
-                <svg className="h-5 w-5 text-brand-teal mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
                 <span className="text-gray-700">API access & integrations</span>
               </div>
               <div className="flex items-center">
-                <svg className="h-5 w-5 text-brand-teal mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
                 <span className="text-gray-700">Priority support & training</span>

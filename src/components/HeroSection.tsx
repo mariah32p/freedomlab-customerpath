@@ -2,43 +2,53 @@ import React from 'react'
 
 const HeroSection: React.FC = () => {
   return (
-    <section className="bg-white pt-16 pb-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+    <section className="relative min-h-screen bg-gradient-to-br from-brand-navy via-brand-navy to-brand-purple overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }}></div>
+      </div>
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+        <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[80vh]">
           {/* Left Column - Content */}
           <div className="text-center lg:text-left">
-            <div className="inline-flex items-center bg-brand-teal/10 text-brand-teal px-4 py-2 rounded-full text-sm font-semibold mb-8">
+            <div className="inline-flex items-center bg-brand-teal/20 text-brand-teal px-4 py-2 rounded-full text-sm font-semibold mb-8 border border-brand-teal/30">
               <span className="w-2 h-2 bg-brand-teal rounded-full mr-2 animate-pulse"></span>
-              7-Day Free Trial
+              Now Available - 7-Day Free Trial
             </div>
             
-            <h1 className="text-5xl lg:text-6xl font-bold text-brand-navy mb-6 leading-tight">
+            <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Visualize Every
-              <span className="block text-brand-teal">Customer Journey</span>
+              <span className="block bg-gradient-to-r from-brand-teal to-cyan-400 bg-clip-text text-transparent">
+                Customer Journey
+              </span>
             </h1>
             
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
+            <p className="text-xl text-blue-100 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
               Map touchpoints, track conversions, and optimize your entire customer lifecycle with powerful visual tools.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
-              <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+              <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl">
                 Start Free Trial
               </button>
-              <button className="border-2 border-gray-300 text-gray-700 hover:border-brand-navy hover:text-brand-navy px-8 py-4 rounded-lg font-semibold text-lg transition-all">
+              <button className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-lg font-semibold text-lg transition-all backdrop-blur-sm">
                 Watch Demo
               </button>
             </div>
             
-            <div className="flex items-center justify-center lg:justify-start space-x-6 text-sm text-gray-500">
+            <div className="flex items-center justify-center lg:justify-start space-x-6 text-sm text-blue-200">
               <div className="flex items-center">
-                <svg className="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-4 w-4 mr-2 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
                 No credit card required
               </div>
               <div className="flex items-center">
-                <svg className="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-4 w-4 mr-2 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
                 Cancel anytime
@@ -47,8 +57,8 @@ const HeroSection: React.FC = () => {
           </div>
 
           {/* Right Column - Dashboard Mockup */}
-          <div className="relative">
-            <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+          <div className="relative animate-fade-in-up">
+            <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-500">
               {/* Browser Header */}
               <div className="bg-gray-50 px-6 py-4 border-b flex items-center justify-between">
                 <div className="flex items-center space-x-3">
