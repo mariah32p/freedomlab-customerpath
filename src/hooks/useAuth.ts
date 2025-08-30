@@ -123,64 +123,6 @@ export const useAuth = (): AuthState => {
         setIsLoading(false)
       }
     )
-                id: session.user.id,
-                email: session.user.email || '',
-                plan: 'basic',
-                subscription_status: 'not_started',
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString()
-              })
-            }
-          } catch (profileError) {
-            console.error('Profile error:', profileError)
-            // Create default profile on error
-            setProfile({
-              id: session.user.id,
-              email: session.user.email || '',
-              plan: 'basic',
-              subscription_status: 'not_started',
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString()
-            })
-          }
-        } else {
-          console.log('No user session found')
-        }
-      } catch (error) {
-        console.error('Error getting initial session:', error)
-      } finally {
-        clearTimeout(forceReloadTimer)
-        setIsLoading(false)
-        console.log('Auth loading complete')
-      }
-    }
-
-    getInitialSession()
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        console.log('Auth state changed:', event, session?.user?.email)
-        clearTimeout(forceReloadTimer)
-        
-        if (session?.user) {
-          setUser(session.user)
-          // Set a basic profile for now
-          setProfile({
-            id: session.user.id,
-            email: session.user.email || '',
-            plan: 'basic',
-            subscription_status: 'not_started',
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-          })
-        } else {
-          setUser(null)
-          setProfile(null)
-        }
-        setIsLoading(false)
-      }
-    )
 
     return () => {
       subscription.unsubscribe()
