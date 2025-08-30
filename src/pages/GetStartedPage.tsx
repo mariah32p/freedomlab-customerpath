@@ -36,8 +36,8 @@ const GetStartedPage: React.FC = () => {
       
       if (data.success) {
         if (data.url) {
-          // Open Stripe Checkout in new tab
-          window.open(data.url, '_blank')
+          // Redirect to Stripe Checkout in same tab for proper return flow
+          window.location.href = data.url
         } else {
           // Fallback to dashboard if no URL provided
           navigate('/dashboard')

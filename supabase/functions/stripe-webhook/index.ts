@@ -51,7 +51,7 @@ Deno.serve(async (req) => {
 
         console.log('Checkout completed for user:', userId, 'plan:', plan)
 
-        // Store customer ID and subscription ID
+        // Update or create profile with customer info
         const { error: profileError } = await supabaseClient
           .from('profiles')
           .upsert({
@@ -59,7 +59,7 @@ Deno.serve(async (req) => {
             email: session.customer_email || session.customer_details?.email,
             plan: plan,
             customer_id: session.customer,
-            subscription_status: 'not_started', // Will be updated by subscription.created
+            subscription_status: 'incomplete', // Will be updated by subscription.created
             updated_at: new Date().toISOString()
           })
 
