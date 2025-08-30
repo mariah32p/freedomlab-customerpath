@@ -16,9 +16,9 @@ export const useAuth = (): AuthState => {
         .from('profiles')
         .select('*')
         .eq('id', userId)
-        .single()
+        .maybeSingle()
 
-      if (error) {
+      if (error || !profileData) {
         console.error('Error loading profile:', error)
         // If profile doesn't exist, create a basic one
         const { data: userData } = await supabase.auth.getUser()
