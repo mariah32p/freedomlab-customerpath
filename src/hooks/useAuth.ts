@@ -137,15 +137,40 @@ export const useAuth = (): AuthState => {
         
         if (session?.user) {
           setUser(session.user)
-          // Set a basic profile for now
-          setProfile({
-            id: session.user.id,
-            email: session.user.email || '',
-            plan: 'basic',
-            subscription_status: 'not_started',
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-          })
+          
+          // Try to get profile from database
+          try {
+            const { data: profileData } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', session.user.id)
+              .maybeSingle()
+            
+            if (profileData) {
+              setProfile(profileData)
+            } else {
+              // Create default profile if none exists
+              setProfile({
+                id: session.user.id,
+                email: session.user.email || '',
+                plan: 'basic',
+                subscription_status: 'not_started',
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+              })
+            }
+          } catch (error) {
+            console.error('Error fetching profile on auth change:', error)
+            // Fallback profile
+            setProfile({
+              id: session.user.id,
+              email: session.user.email || '',
+              plan: 'basic',
+              subscription_status: 'not_started',
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            })
+          }
         } else {
           setUser(null)
           setProfile(null)

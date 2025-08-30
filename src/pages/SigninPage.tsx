@@ -29,8 +29,8 @@ const SigninPage: React.FC = () => {
       }
 
       if (data.user) {
-        // The RouteGuard will handle the redirect based on subscription status
-        window.location.reload()
+        // Force a page reload to trigger RouteGuard with new auth state
+        window.location.href = '/dashboard'
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.')

@@ -15,7 +15,10 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
   useEffect(() => {
     console.log('RouteGuard check:', { isLoading, isAuthenticated, path: location.pathname, profile })
     
-    if (isLoading) return
+    if (isLoading) {
+      console.log('Still loading, waiting...')
+      return
+    }
 
     // Skip route guard for public pages
     const publicPaths = ['/', '/pricing', '/signup', '/signin']
@@ -30,6 +33,8 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
     if (redirectPath && redirectPath !== location.pathname) {
       console.log('Redirecting from', location.pathname, 'to', redirectPath)
       navigate(redirectPath, { replace: true })
+    } else {
+      console.log('No redirect needed, staying on', location.pathname)
     }
   }, [isLoading, isAuthenticated, profile, location.pathname, navigate])
 
