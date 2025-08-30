@@ -370,31 +370,6 @@ const LandingPage: React.FC = () => {
           <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
             Join hundreds of companies using CustomerPath to increase conversions and reduce churn.
           </p>
-          
-          <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-10 py-5 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-xl">
-            Start Your Free Trial
-          </button>
-          
-          <div className="flex items-center justify-center space-x-8 text-white/70 text-sm mt-8">
-            <div className="flex items-center">
-              <svg className="h-4 w-4 mr-2 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>7-day free trial</span>
-            </div>
-            <div className="flex items-center">
-              <svg className="h-4 w-4 mr-2 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>No credit card required</span>
-            </div>
-            <div className="flex items-center">
-              <svg className="h-4 w-4 mr-2 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>Cancel anytime</span>
-            </div>
-          </div>
         </div>
       </section>
     </div>
