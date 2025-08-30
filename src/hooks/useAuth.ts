@@ -128,13 +128,17 @@ export const useAuth = (): AuthState => {
         },
         (payload) => {
           console.log('Profile updated via real-time:', payload)
-          if (payload.new) {
+          if (payload.eventType === 'UPDATE' && payload.new) {
+            setProfile(payload.new as UserProfile)
+          } else if (payload.eventType === 'INSERT' && payload.new) {
             setProfile(payload.new as UserProfile)
           }
         }
       )
       .subscribe()
 
+    // Also refresh profile data immediately when user changes
+    loadProfile(user.id)
     return () => {
       profileSubscription.unsubscribe()
     }
