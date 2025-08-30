@@ -32,9 +32,6 @@ const LandingPage: React.FC = () => {
                 <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl">
                   Start Free Trial
                 </button>
-                <button className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-xl font-semibold text-lg transition-all backdrop-blur-sm">
-                  See Pricing
-                </button>
               </div>
               
               <div className="flex items-center justify-center lg:justify-start space-x-8 text-sm text-white/70">
