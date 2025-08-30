@@ -34,16 +34,22 @@ const GetStartedPage: React.FC = () => {
 
       const data = await response.json()
       
-      if (data.success && data.url) {
-        // Redirect to Stripe Checkout
-        window.location.href = data.url
+      if (data.success) {
+        if (data.redirect_to_dashboard) {
+          // For now, just go to dashboard since Stripe isn't configured
+          navigate('/dashboard')
+        } else if (data.url) {
+          // In production, redirect to Stripe Checkout
+          window.location.href = data.url
+        }
       } else {
         throw new Error(data.error || 'Failed to create checkout session')
       }
     } catch (error) {
       console.error('Error creating checkout session:', error)
-      // For now, just navigate to dashboard since Stripe isn't fully configured
+      // Fallback: navigate to dashboard
       navigate('/dashboard')
+    } finally {
       setIsLoading(false)
     }
   }

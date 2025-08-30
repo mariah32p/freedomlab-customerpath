@@ -42,14 +42,15 @@ Deno.serve(async (req) => {
     // Parse request body
     const { plan, trial = true }: CheckoutRequest = await req.json()
 
-    // For now, return a mock response since we don't have Stripe configured
+    // Since Stripe isn't configured yet, simulate successful checkout
     // In production, this would create an actual Stripe checkout session
-    const mockCheckoutUrl = `https://checkout.stripe.com/pay/mock-session?plan=${plan}&trial=${trial}&customer=${user.id}`
-
+    
+    // For now, just return success and let the frontend handle the redirect
     return new Response(
       JSON.stringify({
-        url: mockCheckoutUrl,
-        success: true
+        success: true,
+        redirect_to_dashboard: true,
+        message: `Trial started for ${plan} plan`
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
