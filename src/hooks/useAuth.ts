@@ -9,6 +9,14 @@ export const useAuth = (): AuthState => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    // Force reload after 5 seconds if still loading
+    const forceReloadTimer = setTimeout(() => {
+      if (isLoading) {
+        console.log('Force reloading due to permanent loading state')
+        window.location.reload()
+      }
+    }, 5000)
+
     // Get initial session
     const getInitialSession = async () => {
       try {
@@ -20,6 +28,7 @@ export const useAuth = (): AuthState => {
       } catch (error) {
         console.error('Error getting initial session:', error)
       } finally {
+        clearTimeout(forceReloadTimer)
         setIsLoading(false)
       }
     }
@@ -29,6 +38,7 @@ export const useAuth = (): AuthState => {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        clearTimeout(forceReloadTimer)
         if (session?.user) {
           setUser(session.user)
           await fetchUserProfile(session.user.id)
@@ -40,7 +50,10 @@ export const useAuth = (): AuthState => {
       }
     )
 
-    return () => subscription.unsubscribe()
+    return () => {
+      subscription.unsubscribe()
+      clearTimeout(forceReloadTimer)
+    }
   }, [])
 
   const fetchUserProfile = async (userId: string) => {
@@ -53,6 +66,10 @@ export const useAuth = (): AuthState => {
 
       if (error) {
         console.error('Error fetching profile:', error)
+        // If profile doesn't exist, create a default one
+        if (error.code === 'PGRST116') {
+          console.log('Profile not found, will be created by trigger')
+        }
         return
       }
 

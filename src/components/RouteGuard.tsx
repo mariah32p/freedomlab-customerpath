@@ -25,6 +25,7 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
     const redirectPath = getRedirectPath(isAuthenticated, profile)
     
     if (redirectPath && redirectPath !== location.pathname) {
+      console.log('Redirecting from', location.pathname, 'to', redirectPath)
       navigate(redirectPath, { replace: true })
     }
   }, [isLoading, isAuthenticated, profile, location.pathname, navigate])
@@ -35,7 +36,8 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-teal mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
+          <p className="text-gray-600">Loading your account...</p>
+          <p className="text-gray-500 text-sm mt-2">This should only take a moment</p>
         </div>
       </div>
     )
