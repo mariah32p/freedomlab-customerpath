@@ -23,9 +23,9 @@ const Header: React.FC = () => {
             <button className="text-brand-navy/70 hover:text-brand-navy font-semibold transition-colors duration-200 font-montserrat">
               Sign In
             </button>
-            <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 font-montserrat">
+            <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 font-montserrat">
               Start Free Trial
-            </button>
+            </Link>
           </div>
         </div>
       </div>
