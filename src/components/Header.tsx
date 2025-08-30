@@ -12,19 +12,16 @@ const Header: React.FC = () => {
           
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-10">
-            <a href="#features" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
-              Features
-            </a>
             <a href="#pricing" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
               Pricing
-            </a>
-            <a href="#how-it-works" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
-              How it Works
             </a>
           </nav>
           
           {/* CTA Buttons */}
           <div className="flex items-center space-x-4">
+            <a href="#pricing" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
+              Pricing
+            </a>
             <button className="text-brand-navy/70 hover:text-brand-navy font-semibold transition-colors duration-200 font-montserrat">
               Sign In
             </button>
