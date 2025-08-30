@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import { supabase } from '../lib/supabase'
+import { validatePasswordStrength } from '../utils/passwordValidation'
+import PasswordStrengthIndicator from '../components/PasswordStrengthIndicator'
 
 const SignupPage: React.FC = () => {
   const [email, setEmail] = useState('')
@@ -9,9 +11,18 @@ const SignupPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const navigate = useNavigate()
+  
+  const passwordStrength = validatePasswordStrength(password)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Check password strength before submitting
+    if (!passwordStrength.isValid) {
+      setError('Please create a stronger password that meets all requirements.')
+      return
+    }
+    
     setIsLoading(true)
     setError('')
     
@@ -87,13 +98,18 @@ const SignupPage: React.FC = () => {
                 className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-transparent backdrop-blur-sm"
                 placeholder="Create a secure password"
                 required
-                minLength={6}
+                minLength={8}
+              />
+              <PasswordStrengthIndicator 
+                password={password} 
+                strength={passwordStrength}
+                showFeedback={true}
               />
             </div>
 
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || !passwordStrength.isValid}
               className="w-full bg-brand-teal hover:bg-brand-teal/90 disabled:bg-brand-teal/50 text-white py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-xl disabled:transform-none disabled:cursor-not-allowed"
             >
               {isLoading ? 'Creating Account...' : 'Start Free Trial'}
