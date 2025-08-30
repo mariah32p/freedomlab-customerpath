@@ -29,6 +29,15 @@ export const getRedirectPath = (
     return '/dashboard'
   }
 
+  // If status is incomplete but has a valid trial (webhook race condition), treat as trialing
+  if (profile.subscription_status === 'incomplete' && profile.trial_ends_at) {
+    const trialEnd = new Date(profile.trial_ends_at)
+    const now = new Date()
+    if (trialEnd > now) {
+      return '/dashboard'
+    }
+  }
+
   // If past_due and within 30-day grace period, allow dashboard (with banner)
   if (profile.subscription_status === 'past_due' && isInGracePeriod(profile.payment_issue_since)) {
     return '/dashboard'
