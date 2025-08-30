@@ -43,9 +43,9 @@ const SigninPage: React.FC = () => {
       <Header />
       
       <div className="flex items-center justify-center min-h-screen pt-20">
-        <div className="max-w-md w-full mx-4">
+        <div className="max-w-md w-full mx-4 py-8">
           {/* Signin Form */}
-          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl">
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl mt-8">
             <div className="text-center mb-8">
               <h1 className="text-2xl font-bold text-white mb-2">Welcome Back</h1>
               <p className="text-white/80">Sign in to your CustomerPath account</p>
@@ -88,11 +88,7 @@ const SigninPage: React.FC = () => {
                 />
               </div>
 
-              <div className="flex items-center justify-between">
-                <label className="flex items-center">
-                  <input type="checkbox" className="rounded border-white/30 bg-white/20 text-brand-teal focus:ring-brand-teal focus:ring-offset-0" />
-                  <span className="ml-2 text-sm text-white/80">Remember me</span>
-                </label>
+              <div className="flex justify-end">
                 <button type="button" className="text-sm text-brand-teal hover:text-brand-teal/80 transition-colors">
                   Forgot password?
                 </button>
