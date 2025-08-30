@@ -50,12 +50,8 @@ Deno.serve(async (req) => {
 
     // Determine price ID based on plan
     const priceId = plan === 'basic' 
-      ? Deno.env.get('STRIPE_BASIC_PRICE_ID') 
-      : Deno.env.get('STRIPE_PRO_PRICE_ID')
-
-    if (!priceId) {
-      throw new Error(`Price ID not configured for ${plan} plan`)
-    }
+      ? 'price_1RzsVsDn6VTzl81btPxvpdP0'  // Basic plan
+      : 'price_1RzsVsDn6VTzl81beN38eh06'   // Pro plan
 
     // Create Stripe checkout session
     const checkoutData = {
