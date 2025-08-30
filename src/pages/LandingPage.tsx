@@ -42,12 +42,6 @@ const LandingPage: React.FC = () => {
                   <svg className="h-4 w-4 mr-2 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  No credit card required
-                </div>
-                <div className="flex items-center">
-                  <svg className="h-4 w-4 mr-2 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
                   Cancel anytime
                 </div>
               </div>
@@ -224,7 +218,7 @@ const LandingPage: React.FC = () => {
           </h2>
           
           <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Join hundreds of companies using CustomerPath to increase conversions and reduce churn.
+            All plans include a 7-day free trial.
           </p>
           
           <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-12 py-5 rounded-xl font-bold text-xl transition-all transform hover:scale-105 shadow-2xl">
