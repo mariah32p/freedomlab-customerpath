@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import Header from '../components/Header'
 
 const SignupPage: React.FC = () => {
   const [email, setEmail] = useState('')
@@ -21,7 +22,10 @@ const SignupPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-brand-navy via-brand-navy/95 to-brand-purple/20 flex items-center justify-center font-montserrat">
+    <div className="min-h-screen bg-gradient-to-br from-brand-navy via-brand-navy/95 to-brand-purple/20 font-montserrat">
+      <Header />
+      
+      <div className="flex items-center justify-center min-h-screen pt-20">
       <div className="max-w-md w-full mx-4">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -114,6 +118,7 @@ const SignupPage: React.FC = () => {
           </Link>
         </div>
       </div>
+    </div>
     </div>
   )
 }
