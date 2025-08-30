@@ -65,9 +65,9 @@ const SignupPage: React.FC = () => {
       <Header />
       
       <div className="flex items-center justify-center min-h-screen pt-20">
-      <div className="max-w-md w-full mx-4">
+      <div className="max-w-md w-full mx-4 py-8">
         {/* Signup Form */}
-        <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl">
+        <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl mt-8">
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold text-white mb-2">Create Your Account</h1>
             <p className="text-white/80">Start your 7-day free trial</p>
