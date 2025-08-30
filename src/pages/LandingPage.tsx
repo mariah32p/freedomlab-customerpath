@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 
 const LandingPage: React.FC = () => {
@@ -29,9 +30,9 @@ const LandingPage: React.FC = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
-                <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl">
+                <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl inline-block text-center">
                   Start Free Trial
-                </button>
+                </Link>
               </div>
               
               <div className="flex items-center justify-center lg:justify-start space-x-8 text-sm text-white/70">
@@ -393,9 +394,9 @@ const LandingPage: React.FC = () => {
           </div>
           
           <div className="text-center mt-12">
-            <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-10 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-xl">
+            <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-10 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-xl inline-block">
               Start Free Trial
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -488,9 +489,9 @@ const LandingPage: React.FC = () => {
             Join hundreds of teams using CustomerPath to boost conversions and reduce churn.
           </p>
           
-          <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-12 py-5 rounded-xl font-bold text-xl transition-all transform hover:scale-105 shadow-2xl">
+          <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-12 py-5 rounded-xl font-bold text-xl transition-all transform hover:scale-105 shadow-2xl inline-block">
             Start Free Trial
-          </button>
+          </Link>
           
           <p className="text-white/60 mt-6">7-day free trial • Cancel anytime</p>
         </div>

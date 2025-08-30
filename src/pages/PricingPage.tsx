@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 
 const PricingPage: React.FC = () => {
@@ -154,9 +155,9 @@ const PricingPage: React.FC = () => {
             Join hundreds of teams using CustomerPath to boost conversions and reduce churn.
           </p>
           
-          <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-12 py-5 rounded-xl font-bold text-xl transition-all transform hover:scale-105 shadow-2xl">
+          <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-12 py-5 rounded-xl font-bold text-xl transition-all transform hover:scale-105 shadow-2xl inline-block">
             Start Free Trial
-          </button>
+          </Link>
           
           <p className="text-white/60 mt-6">7-day free trial • Cancel anytime</p>
         </div>
