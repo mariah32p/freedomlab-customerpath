@@ -55,7 +55,7 @@ const LandingPage: React.FC = () => {
 
             {/* Right Column - Dashboard Mockup */}
             <div className="relative">
-              <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden transform rotate-2 hover:rotate-0 transition-transform duration-500">
+              <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden transform rotate-1 hover:rotate-0 transition-transform duration-500">
                 {/* Browser Header */}
                 <div className="bg-gray-50 px-6 py-4 border-b flex items-center">
                   <div className="flex space-x-2 mr-4">
@@ -63,84 +63,118 @@ const LandingPage: React.FC = () => {
                     <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
                     <div className="w-3 h-3 bg-green-400 rounded-full"></div>
                   </div>
-                  <div className="bg-gray-100 rounded-lg px-4 py-1 text-sm text-gray-600 font-medium">
+                  <div className="bg-gray-100 rounded-md px-4 py-1 text-sm text-gray-600 font-medium">
                     app.customerpath.com
                   </div>
                 </div>
                 
-                {/* Dashboard Content */}
+                {/* Customer Journey Visualization */}
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-lg font-bold text-brand-navy">E-commerce Customer Journey</h3>
+                    <h3 className="text-lg font-bold text-brand-navy">SaaS Onboarding Journey</h3>
                     <div className="flex space-x-2">
-                      <button className="bg-brand-teal text-white px-3 py-1 rounded-lg text-xs font-medium">Export</button>
-                      <button className="border border-gray-300 text-gray-600 px-3 py-1 rounded-lg text-xs font-medium">Share</button>
+                      <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">Live</span>
+                      <button className="bg-brand-teal text-white px-3 py-1 rounded text-xs font-medium">Export</button>
                     </div>
                   </div>
                   
-                  {/* Journey Steps */}
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between bg-blue-50 p-4 rounded-xl border border-blue-100">
-                      <div className="flex items-center">
-                        <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4">
-                          <span className="text-white text-sm font-bold">1</span>
+                  {/* Customer Journey Flow */}
+                  <div className="space-y-4">
+                    {/* Awareness Stage */}
+                    <div className="relative">
+                      <div className="flex items-center justify-between bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <div className="flex items-center">
+                          <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-3">
+                            <span className="text-white text-xs font-bold">1</span>
+                          </div>
+                          <div>
+                            <span className="font-semibold text-brand-navy text-sm">Google Search</span>
+                            <p className="text-xs text-gray-500">2,847 visitors</p>
+                          </div>
                         </div>
-                        <div>
-                          <div className="font-semibold text-brand-navy">Landing Page Visit</div>
-                          <div className="text-xs text-gray-500">1,247 visitors</div>
+                        <div className="text-right">
+                          <div className="text-sm font-bold text-brand-navy">72%</div>
+                          <div className="text-xs text-gray-500">to landing</div>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-lg font-bold text-brand-navy">85%</div>
-                        <div className="text-xs text-gray-500">conversion</div>
-                      </div>
+                      {/* Connection Arrow */}
+                      <div className="absolute left-4 top-12 w-0.5 h-4 bg-gray-300"></div>
                     </div>
                     
-                    <div className="flex items-center justify-between bg-brand-teal/10 p-4 rounded-xl border border-brand-teal/20">
-                      <div className="flex items-center">
-                        <div className="w-10 h-10 bg-brand-teal rounded-full flex items-center justify-center mr-4">
-                          <span className="text-white text-sm font-bold">2</span>
+                    {/* Interest Stage */}
+                    <div className="relative">
+                      <div className="flex items-center justify-between bg-brand-teal/10 p-4 rounded-lg border border-brand-teal/30">
+                        <div className="flex items-center">
+                          <div className="w-8 h-8 bg-brand-teal rounded-full flex items-center justify-center mr-3">
+                            <span className="text-white text-xs font-bold">2</span>
+                          </div>
+                          <div>
+                            <span className="font-semibold text-brand-navy text-sm">Landing Page</span>
+                            <p className="text-xs text-gray-500">2,050 engaged</p>
+                          </div>
                         </div>
-                        <div>
-                          <div className="font-semibold text-brand-navy">Product Demo</div>
-                          <div className="text-xs text-gray-500">1,060 viewers</div>
+                        <div className="text-right">
+                          <div className="text-sm font-bold text-brand-navy">45%</div>
+                          <div className="text-xs text-gray-500">to demo</div>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-lg font-bold text-brand-navy">62%</div>
-                        <div className="text-xs text-gray-500">conversion</div>
-                      </div>
+                      <div className="absolute left-4 top-12 w-0.5 h-4 bg-gray-300"></div>
                     </div>
                     
-                    <div className="flex items-center justify-between bg-purple-50 p-4 rounded-xl border border-purple-100">
-                      <div className="flex items-center">
-                        <div className="w-10 h-10 bg-brand-purple rounded-full flex items-center justify-center mr-4">
-                          <span className="text-white text-sm font-bold">3</span>
+                    {/* Consideration Stage */}
+                    <div className="relative">
+                      <div className="flex items-center justify-between bg-purple-50 p-4 rounded-lg border border-purple-200">
+                        <div className="flex items-center">
+                          <div className="w-8 h-8 bg-brand-purple rounded-full flex items-center justify-center mr-3">
+                            <span className="text-white text-xs font-bold">3</span>
+                          </div>
+                          <div>
+                            <span className="font-semibold text-brand-navy text-sm">Product Demo</span>
+                            <p className="text-xs text-gray-500">923 viewers</p>
+                          </div>
                         </div>
-                        <div>
-                          <div className="font-semibold text-brand-navy">Trial Signup</div>
-                          <div className="text-xs text-gray-500">657 signups</div>
+                        <div className="text-right">
+                          <div className="text-sm font-bold text-brand-navy">38%</div>
+                          <div className="text-xs text-gray-500">to trial</div>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-lg font-bold text-brand-navy">45%</div>
-                        <div className="text-xs text-gray-500">conversion</div>
-                      </div>
+                      <div className="absolute left-4 top-12 w-0.5 h-4 bg-gray-300"></div>
                     </div>
                     
-                    <div className="flex items-center justify-between bg-green-50 p-4 rounded-xl border border-green-100">
+                    {/* Trial Stage */}
+                    <div className="relative">
+                      <div className="flex items-center justify-between bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                        <div className="flex items-center">
+                          <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center mr-3">
+                            <span className="text-white text-xs font-bold">4</span>
+                          </div>
+                          <div>
+                            <span className="font-semibold text-brand-navy text-sm">Free Trial</span>
+                            <p className="text-xs text-gray-500">351 signups</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-sm font-bold text-brand-navy">67%</div>
+                          <div className="text-xs text-gray-500">to paid</div>
+                        </div>
+                      </div>
+                      <div className="absolute left-4 top-12 w-0.5 h-4 bg-gray-300"></div>
+                    </div>
+                    
+                    {/* Conversion Stage */}
+                    <div className="flex items-center justify-between bg-green-50 p-4 rounded-lg border border-green-200">
                       <div className="flex items-center">
-                        <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center mr-4">
-                          <span className="text-white text-sm font-bold">4</span>
+                        <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mr-3">
+                          <span className="text-white text-xs font-bold">5</span>
                         </div>
                         <div>
-                          <div className="font-semibold text-brand-navy">Paid Conversion</div>
-                          <div className="text-xs text-gray-500">296 customers</div>
+                          <span className="font-semibold text-brand-navy text-sm">Paid Customer</span>
+                          <p className="text-xs text-gray-500">235 conversions</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-lg font-bold text-green-600">$47k</div>
-                        <div className="text-xs text-gray-500">revenue</div>
+                        <div className="text-sm font-bold text-green-600">$18.8k</div>
+                        <div className="text-xs text-gray-500">MRR</div>
                       </div>
                     </div>
                   </div>
