@@ -170,11 +170,9 @@ Deno.serve(async (req) => {
           customer_id: customerId,
           subscription_id: subscription.id,
           price_id: subscription.items.data[0]?.price?.id,
-          current_period_start: subscription.current_period_start,
-          current_period_end: subscription.current_period_end,
+          current_period_start: subscription.current_period_start || null,
+          current_period_end: subscription.current_period_end || null,
           cancel_at_period_end: subscription.cancel_at_period_end || false,
-          payment_method_brand: subscription.default_payment_method?.card?.brand || null,
-          payment_method_last4: subscription.default_payment_method?.card?.last4 || null,
           status: subscription.status,
           updated_at: new Date().toISOString()
         }
