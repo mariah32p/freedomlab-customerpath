@@ -8,6 +8,38 @@ export const useAuth = (): AuthState => {
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
+  const loadProfile = async (userId: string) => {
+    try {
+      console.log('Loading profile for user:', userId)
+      
+      const { data: profileData, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single()
+
+      if (error) {
+        console.error('Error loading profile:', error)
+        // Create a basic profile if none exists
+        const basicProfile: UserProfile = {
+          id: userId,
+          email: user?.email || '',
+          plan: 'basic',
+          subscription_status: 'not_started',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        }
+        setProfile(basicProfile)
+        return
+      }
+
+      console.log('Profile loaded:', profileData)
+      setProfile(profileData)
+    } catch (error) {
+      console.error('Error in loadProfile:', error)
+    }
+  }
+
   useEffect(() => {
     let mounted = true
 
@@ -17,7 +49,7 @@ export const useAuth = (): AuthState => {
         console.log('Auth timeout reached, stopping loading')
         setIsLoading(false)
       }
-    }, 2000)
+    }, 3000)
 
     const initAuth = async () => {
       try {
@@ -35,18 +67,7 @@ export const useAuth = (): AuthState => {
         if (session?.user) {
           console.log('User found:', session.user.email)
           setUser(session.user)
-          
-          // Create simple profile without database complexity
-          const simpleProfile: UserProfile = {
-            id: session.user.id,
-            email: session.user.email || '',
-            plan: 'basic',
-            subscription_status: 'not_started',
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-          }
-          
-          setProfile(simpleProfile)
+          await loadProfile(session.user.id)
         } else {
           console.log('No user session found')
         }
@@ -71,18 +92,7 @@ export const useAuth = (): AuthState => {
         
         if (session?.user) {
           setUser(session.user)
-          
-          // Create simple profile
-          const simpleProfile: UserProfile = {
-            id: session.user.id,
-            email: session.user.email || '',
-            plan: 'basic',
-            subscription_status: 'not_started',
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-          }
-          
-          setProfile(simpleProfile)
+          await loadProfile(session.user.id)
         } else {
           setUser(null)
           setProfile(null)
@@ -92,12 +102,33 @@ export const useAuth = (): AuthState => {
       }
     )
 
+    // Subscribe to real-time profile changes
+    const profileSubscription = supabase
+      .channel('profile-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'profiles',
+          filter: user ? `id=eq.${user.id}` : undefined
+        },
+        (payload) => {
+          console.log('Profile updated via real-time:', payload)
+          if (payload.new && mounted) {
+            setProfile(payload.new as UserProfile)
+          }
+        }
+      )
+      .subscribe()
+
     return () => {
       mounted = false
       subscription.unsubscribe()
+      profileSubscription.unsubscribe()
       clearTimeout(timeout)
     }
-  }, [])
+  }, [user?.id])
 
   return {
     user,
