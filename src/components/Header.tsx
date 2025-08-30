@@ -41,14 +41,9 @@ const Header: React.FC = () => {
                 </Link>
               </>
             ) : (
-              <>
-                <a href="/#features" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
-                  Features
-                </a>
-                <Link to="/pricing" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
-                  Pricing
-                </Link>
-              </>
+              <Link to="/pricing" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
+                Pricing
+              </Link>
             )}
           </nav>
           
