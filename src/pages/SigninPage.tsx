@@ -29,8 +29,8 @@ const SigninPage: React.FC = () => {
       }
 
       if (data.user) {
-        // Force a page reload to trigger RouteGuard with new auth state
-        window.location.href = '/dashboard'
+        // Navigate directly without reload
+        navigate('/dashboard')
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.')

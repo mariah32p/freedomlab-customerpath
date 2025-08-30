@@ -53,8 +53,8 @@ const SignupPage: React.FC = () => {
       }
 
       if (data.user) {
-        // For new users, redirect to get-started to choose plan
-        window.location.href = '/get-started'
+        // Navigate directly without reload
+        navigate('/get-started')
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.')
