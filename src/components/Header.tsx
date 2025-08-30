@@ -20,9 +20,9 @@ const Header: React.FC = () => {
             <a href="/pricing" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
               Pricing
             </a>
-            <button className="text-brand-navy/70 hover:text-brand-navy font-semibold transition-colors duration-200 font-montserrat">
+            <Link to="/signin" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
               Sign In
-            </button>
+            </Link>
             <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 font-montserrat">
               Start Free Trial
             </Link>
