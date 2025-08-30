@@ -1,3 +1,84 @@
+                      </div>
+                      <div>
+                        <span className="font-bold text-white text-lg">Shopping Cart</span>
+                        <p className="text-white/70 text-sm">Review items, apply coupons</p>
+                        <p className="text-brand-teal text-sm font-semibold">5,211 carts created</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-white">68%</div>
+                      <div className="text-white/70 text-sm">checkout</div>
+                    </div>
+                  </div>
+                  <div className="flex justify-center mt-3">
+                    <div className="w-0.5 h-6 bg-gradient-to-b from-white/50 to-transparent"></div>
+                  </div>
+                </div>
+                
+                {/* Stage 4: Purchase */}
+                <div className="relative">
+                  <div className="flex items-center justify-between bg-white/20 backdrop-blur-sm p-5 rounded-xl border border-white/30">
+                    <div className="flex items-center">
+                      <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mr-4 shadow-lg">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <span className="font-bold text-white text-lg">Checkout</span>
+                        <p className="text-white/70 text-sm">Payment & shipping info</p>
+                        <p className="text-brand-teal text-sm font-semibold">3,543 attempts</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-white">84%</div>
+                      <div className="text-white/70 text-sm">complete</div>
+                    </div>
+                  </div>
+                  <div className="flex justify-center mt-3">
+                    <div className="w-0.5 h-6 bg-gradient-to-b from-white/50 to-transparent"></div>
+                  </div>
+                </div>
+                
+                {/* Stage 5: Purchase Complete */}
+                <div className="flex items-center justify-between bg-white/30 backdrop-blur-sm p-5 rounded-xl border border-white/40 shadow-lg">
+                  <div className="flex items-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mr-4 shadow-lg">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <span className="font-bold text-white text-lg">Purchase Complete</span>
+                      <p className="text-white/70 text-sm">Order confirmation & fulfillment</p>
+                      <p className="text-brand-teal text-sm font-semibold">2,976 orders</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-2xl font-bold text-green-400">$247k</div>
+                    <div className="text-white/70 text-sm">revenue</div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Journey Metrics */}
+              <div className="mt-8 pt-6 border-t border-white/20">
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <div className="text-2xl font-bold text-white">23.2%</div>
+                    <div className="text-white/70 text-sm">Overall Conversion</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-brand-teal">$83</div>
+                    <div className="text-white/70 text-sm">Avg Order Value</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-purple-400">4.2</div>
+                    <div className="text-white/70 text-sm">Days to Convert</div>
+                  </div>
+                </div>
+              </div>
+            </div>
 import React from 'react'
 import Header from '../components/Header'
 
@@ -183,11 +264,11 @@ const LandingPage: React.FC = () => {
               
               {/* Floating Elements */}
               <div className="absolute -top-4 -right-4 bg-brand-teal text-white px-4 py-2 rounded-lg shadow-lg text-sm font-semibold animate-pulse">
-                Live Data
-              </div>
+            <div className="absolute -top-6 -right-6 bg-brand-teal text-white px-6 py-3 rounded-xl shadow-xl text-sm font-bold animate-bounce">
+              🔥 Live Analytics
               <div className="absolute -bottom-4 -left-4 bg-white border border-gray-200 px-4 py-2 rounded-lg shadow-lg text-sm text-brand-navy">
-                Real-time Updates
-              </div>
+            <div className="absolute -bottom-6 -left-6 bg-white/90 backdrop-blur-sm px-6 py-3 rounded-xl shadow-xl text-sm font-bold text-brand-navy">
+              📊 Real-time Insights
             </div>
           </div>
         </div>
@@ -215,199 +296,145 @@ const LandingPage: React.FC = () => {
               <h3 className="text-xl font-bold text-brand-navy mb-3">Visual Journey Builder</h3>
               <p className="text-gray-600 leading-relaxed">Create detailed customer journey maps with our intuitive drag-and-drop interface</p>
             </div>
+            {/* Customer Journey Visualization */}
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-              <div className="w-16 h-16 bg-brand-teal/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-teal/20 transition-colors">
-                <svg className="w-8 h-8 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-brand-navy mb-3">Real-time Analytics</h3>
-              <p className="text-gray-600 leading-relaxed">Track conversion rates and identify bottlenecks with live data visualization</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-              <div className="w-16 h-16 bg-brand-purple/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-purple/20 transition-colors">
-                <svg className="w-8 h-8 text-brand-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-brand-navy mb-3">Customer Segmentation</h3>
-              <p className="text-gray-600 leading-relaxed">Group customers by behavior patterns and optimize journeys for each segment</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-              <div className="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-green-100 transition-colors">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-brand-navy mb-3">Automated Insights</h3>
-              <p className="text-gray-600 leading-relaxed">Get AI-powered recommendations to improve conversion rates automatically</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-              <div className="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-100 transition-colors">
-                <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2v0a2 2 0 01-2-2v-5z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-brand-navy mb-3">Export & Share</h3>
-              <p className="text-gray-600 leading-relaxed">Export journey maps as PDFs or share interactive dashboards with your team</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-              <div className="w-16 h-16 bg-brand-navy/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-navy/20 transition-colors">
-                <svg className="w-8 h-8 text-brand-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-brand-navy mb-3">Integration Ready</h3>
-              <p className="text-gray-600 leading-relaxed">Connect with your existing tools via API or import data from CSV files</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-brand-navy mb-4">
-              Simple, Transparent Pricing
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Start with a 7-day free trial. No setup fees, cancel anytime.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Basic Plan */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-brand-navy mb-2">Basic</h3>
-                <div className="text-5xl font-bold text-brand-navy mb-2">
-                  $29<span className="text-xl font-normal text-gray-500">/month</span>
-                </div>
-                <p className="text-gray-600">Perfect for small teams</p>
-              </div>
-
-              <div className="space-y-4 mb-8">
-                <div className="flex items-center">
-                  <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-gray-700">Up to 3 customer journey maps</span>
-                </div>
-                <div className="flex items-center">
-                  <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-gray-700">Up to 1,000 customers tracked</span>
-                </div>
-                <div className="flex items-center">
-                  <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-gray-700">Basic analytics dashboard</span>
-                </div>
-                <div className="flex items-center">
-                  <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-gray-700">Export to PNG/PDF</span>
-                </div>
-                <div className="flex items-center">
-                  <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-gray-700">Email support</span>
-                </div>
-              </div>
-
-              <button className="w-full bg-gray-100 hover:bg-gray-200 text-brand-navy py-4 rounded-xl font-semibold text-lg transition-all border-2 border-gray-200 hover:border-gray-300">
-                Start Free Trial
-              </button>
-            </div>
-
-            {/* Pro Plan */}
-            <div className="relative bg-white rounded-2xl p-8 shadow-xl border-2 border-brand-teal">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <span className="bg-brand-teal text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg">
-                  Most Popular
-                </span>
-              </div>
-              
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-brand-navy mb-2">Pro</h3>
-                <div className="text-5xl font-bold text-brand-navy mb-2">
+            <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl">
                   $79<span className="text-xl font-normal text-gray-500">/month</span>
+              <div className="flex items-center justify-between mb-8">
                 </div>
+                <h3 className="text-xl font-bold text-white">E-commerce Customer Journey</h3>
                 <p className="text-gray-600">For growing teams</p>
+                <div className="flex items-center space-x-2">
               </div>
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
 
+                  <span className="text-white/80 text-sm font-medium">Live Data</span>
               <div className="space-y-4 mb-8">
-                <div className="flex items-center">
-                  <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-gray-700">Unlimited journey maps</span>
                 </div>
                 <div className="flex items-center">
-                  <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-gray-700">Up to 10,000 customers tracked</span>
-                </div>
-                <div className="flex items-center">
-                  <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-gray-700">Advanced analytics & AI insights</span>
-                </div>
-                <div className="flex items-center">
-                  <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-gray-700">API access & integrations</span>
-                </div>
-                <div className="flex items-center">
-                  <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-gray-700">Priority support & training</span>
-                </div>
               </div>
+                  <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+              {/* Journey Flow */}
+                  </svg>
+              <div className="space-y-6">
+                  <span className="text-gray-700">Unlimited journey maps</span>
+                {/* Stage 1: Awareness */}
+                </div>
+                <div className="relative">
+                <div className="flex items-center">
+                  <div className="flex items-center justify-between bg-white/20 backdrop-blur-sm p-5 rounded-xl border border-white/30">
+                  <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="flex items-center">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mr-4 shadow-lg">
+                  </svg>
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span className="text-gray-700">Up to 10,000 customers tracked</span>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </div>
+                        </svg>
+                <div className="flex items-center">
+                      </div>
+                  <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                        <span className="font-bold text-white text-lg">Discovery</span>
+                  </svg>
+                        <p className="text-white/70 text-sm">Social media, search, ads</p>
+                  <span className="text-gray-700">Advanced analytics & AI insights</span>
+                        <p className="text-brand-teal text-sm font-semibold">12,847 visitors</p>
+                </div>
+                      </div>
+                <div className="flex items-center">
+                    </div>
+                  <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="text-right">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                      <div className="text-2xl font-bold text-white">78%</div>
+                  </svg>
+                      <div className="text-white/70 text-sm">engagement</div>
+                  <span className="text-gray-700">API access & integrations</span>
+                    </div>
+                </div>
+                  </div>
+                <div className="flex items-center">
+                  <div className="flex justify-center mt-3">
+                  <svg className="h-5 w-5 text-brand-teal mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-0.5 h-6 bg-gradient-to-b from-white/50 to-transparent"></div>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </div>
+                  </svg>
+                </div>
+                  <span className="text-gray-700">Priority support & training</span>
+                
+                </div>
+                {/* Stage 2: Interest */}
+              </div>
+                <div className="relative">
 
+                  <div className="flex items-center justify-between bg-white/20 backdrop-blur-sm p-5 rounded-xl border border-white/30">
               <button className="w-full bg-brand-teal hover:bg-brand-teal/90 text-white py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg">
+                    <div className="flex items-center">
                 Start Free Trial
+                      <div className="w-12 h-12 bg-gradient-to-br from-brand-teal to-cyan-500 rounded-xl flex items-center justify-center mr-4 shadow-lg">
               </button>
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             </div>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
           </div>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
 
+                        </svg>
           <div className="text-center mt-12">
+                      </div>
             <p className="text-gray-600">
+                      <div>
               All plans include a 7-day free trial. No credit card required to start.
+                        <span className="font-bold text-white text-lg">Product View</span>
             </p>
+                        <p className="text-white/70 text-sm">Browse products, read reviews</p>
           </div>
+                        <p className="text-brand-teal text-sm font-semibold">10,021 page views</p>
         </div>
+                      </div>
       </section>
+                    </div>
 
+                    <div className="text-right">
       {/* Final CTA */}
+                      <div className="text-2xl font-bold text-white">52%</div>
       <section className="py-20 bg-brand-navy text-white">
+                      <div className="text-white/70 text-sm">add to cart</div>
         <div className="max-w-4xl mx-auto text-center px-6">
+                    </div>
           <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                  </div>
             Ready to Optimize Your
+                  <div className="flex justify-center mt-3">
             <span className="block text-brand-teal">Customer Journeys?</span>
+                    <div className="w-0.5 h-6 bg-gradient-to-b from-white/50 to-transparent"></div>
           </h2>
+                  </div>
           
+                </div>
           <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
+                
             Join hundreds of companies using CustomerPath to increase conversions and reduce churn.
+                {/* Stage 3: Consideration */}
           </p>
+                <div className="relative">
         </div>
+                  <div className="flex items-center justify-between bg-white/20 backdrop-blur-sm p-5 rounded-xl border border-white/30">
       </section>
+                    <div className="flex items-center">
     </div>
+                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-brand-purple rounded-xl flex items-center justify-center mr-4 shadow-lg">
   )
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 }
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17M17 13v4a2 2 0 01-2 2H9a2 2 0 01-2-2v-4m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
 
+                        </svg>
 export default LandingPage
