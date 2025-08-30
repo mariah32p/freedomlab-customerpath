@@ -33,7 +33,7 @@ const LandingPage: React.FC = () => {
                   Start Free Trial
                 </button>
                 <button className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-xl font-semibold text-lg transition-all backdrop-blur-sm">
-                  Watch Demo
+                  See Pricing
                 </button>
               </div>
               
@@ -117,32 +117,7 @@ const LandingPage: React.FC = () => {
                     </div>
                   </div>
                   
-                  {/* Stage 3: Product Engagement */}
-                  <div className="relative">
-                    <div className="flex items-center justify-between bg-white/20 backdrop-blur-sm p-5 rounded-xl border border-white/30">
-                      <div className="flex items-center">
-                        <div className="w-12 h-12 bg-gradient-to-br from-brand-purple to-purple-600 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                          </svg>
-                        </div>
-                        <div>
-                          <span className="font-bold text-white text-lg">Active Usage</span>
-                          <p className="text-white/70 text-sm">Feature exploration, setup</p>
-                          <p className="text-brand-teal text-sm font-semibold">2,156 active users</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-white">63%</div>
-                        <div className="text-white/70 text-sm">engagement</div>
-                      </div>
-                    </div>
-                    <div className="flex justify-center mt-3">
-                      <div className="w-0.5 h-6 bg-gradient-to-b from-white/50 to-transparent"></div>
-                    </div>
-                  </div>
-                  
-                  {/* Stage 4: Paid Conversion */}
+                  {/* Stage 3: Paid Conversion */}
                   <div className="flex items-center justify-between bg-white/30 backdrop-blur-sm p-5 rounded-xl border border-white/40 shadow-lg">
                     <div className="flex items-center">
                       <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mr-4 shadow-lg">
@@ -153,11 +128,11 @@ const LandingPage: React.FC = () => {
                       <div>
                         <span className="font-bold text-white text-lg">Paid Customer</span>
                         <p className="text-white/70 text-sm">Subscription conversion</p>
-                        <p className="text-brand-teal text-sm font-semibold">1,358 customers</p>
+                        <p className="text-brand-teal text-sm font-semibold">2,289 customers</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-2xl font-bold text-green-400">$67k</div>
+                      <div className="text-2xl font-bold text-green-400">$114k</div>
                       <div className="text-white/70 text-sm">MRR</div>
                     </div>
                   </div>
@@ -167,15 +142,15 @@ const LandingPage: React.FC = () => {
                 <div className="mt-8 pt-6 border-t border-white/20">
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
-                      <div className="text-2xl font-bold text-white">16.5%</div>
+                      <div className="text-2xl font-bold text-white">27.8%</div>
                       <div className="text-white/70 text-sm">Overall Conversion</div>
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-brand-teal">$49</div>
+                      <div className="text-2xl font-bold text-brand-teal">$50</div>
                       <div className="text-white/70 text-sm">Avg Customer Value</div>
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-purple-400">7.3</div>
+                      <div className="text-2xl font-bold text-purple-400">5.2</div>
                       <div className="text-white/70 text-sm">Days to Convert</div>
                     </div>
                   </div>
