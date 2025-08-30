@@ -1,162 +1,95 @@
-# CustomerPath Production Checklist
+Overview: Subscription + App MVP (Supabase + Stripe on Netlify)
+1) Core flow (happy path)
+Landing page: Every button is a single CTA (“Start Free Trial”). All of them open the sign-up flow (no plan-specific buttons on the landing page).
+Sign-up: Create the user in Supabase Auth (email confirmation is turned off), then send them to /get-started.
+Get Started: User chooses Basic or Pro. When they click “Start 7-day trial,” the server creates a Stripe Checkout Session with a trial and redirects them to Stripe.
+Return: After Checkout, Stripe sends the user back to /dashboard. Your webhook marks the subscription as “trialing” and stores the trial end date.
+Dashboard: Shows the product’s real sections (e.g., Dashboard, Forms, Submissions, Settings) plus Settings. A small banner shows trial days left and charge date. All features work during the trial.
+Auto-upgrade: At the end of the trial, Stripe automatically charges the card and the subscription becomes “active.”
 
-## Pre-Launch Essentials
+2) App structure
+Routes
+/landing
+/signup: email/password sign-up
+/get-started: plan selection + start trial (go to Checkout)
+/dashboard: protected app with product sections + Settings
+Sections are tailored to the product (no generic “Features” tab). Settings is always the last tab.
 
-### 🔐 Authentication & Security
-- [ ] Set up Supabase authentication with email/password
-- [ ] Configure email confirmation settings
-- [ ] Implement password reset functionality
-- [ ] Set up proper RLS policies for all database tables
-- [ ] Review and test all security policies
-- [ ] Enable HTTPS in production
-- [ ] Configure CORS settings properly
+3) Plans, trials, and portal
+Trial: 7 days; card is collected at start; everything is unlocked during the trial.
 
-### 💳 Payment Integration
-- [ ] Set up Stripe account and get production keys
-- [ ] Configure Stripe webhooks for subscription events
-- [ ] Test payment flows end-to-end
-- [ ] Set up subscription management (upgrade/downgrade/cancel)
-- [ ] Implement invoice generation
-- [ ] Test failed payment handling
-- [ ] Configure tax settings if applicable
+After trial:
+If active and Pro → full access.
+If active and Basic → same UI, but Basic-gated actions remain disabled.
 
-### 🗄️ Database & Backend
-- [ ] Review all database migrations
-- [ ] Set up database backups
-- [ ] Configure production environment variables
-- [ ] Test all Supabase Edge Functions
-- [ ] Set up monitoring for database performance
-- [ ] Review and optimize database indexes
-- [ ] Test data export/import functionality
+If past_due or other payment issues → show a “Payment issue” banner and allow a 30-day grace window; after 30 days, treat as no active subscription.
+If no active subscription (canceled, >30-day payment issue, or sign-up abandoned before payment) → route to /get-started.
+Settings → Manage Subscription: Opens Stripe Customer Portal (https://billing.stripe.com/p/login/28E28r3f7fJDc9y7sG5os00) for cancel and payment method updates only. Do not use the portal for plan switching.
+Upgrade/Downgrade (plan changes): Handled manually in-app. When the user changes plans, the server starts a new Checkout Session without a trial, and Stripe charges immediately based on your proration policy. (Plan changes do not create a new trial.) Basic Price ID: price_1Rznb5Dn6VTzl81bjqFfCagv, Pro Price ID price_1Rznb5Dn6VTzl81b8Hx5UQt6. Both monthly subscriptions.
 
-### 🎨 Frontend & UX
-- [ ] Replace signup placeholder with actual signup form
-- [ ] Implement customer dashboard
-- [ ] Build journey mapping interface
-- [ ] Add analytics dashboard
-- [ ] Implement customer tracking features
-- [ ] Test responsive design on all devices
-- [ ] Optimize images and assets
-- [ ] Add loading states and error handling
+4) Data model (Supabase)
+profiles (one row per user, keyed by auth.users.id) stores:
+email
+plan (basic | pro)
+subscription_status (trialing, active, past_due, canceled, etc.)
+trial_ends_at, current_period_end
+customer_id, subscription_id
+payment_issue_since (timestamp set on first payment failure; cleared on recovery)
+RLS: Users can read and update only their own profile row.
 
-### 📊 Analytics & Monitoring
-- [ ] Set up Google Analytics or similar
-- [ ] Configure error tracking (Sentry, etc.)
-- [ ] Set up uptime monitoring
-- [ ] Implement user behavior tracking
-- [ ] Configure performance monitoring
-- [ ] Set up conversion tracking
+Feature data: Create normal app tables for your product (e.g., events, projects, etc.). All reads/writes persist via Supabase with RLS so users only see their own data.
 
-### 🚀 Deployment & Infrastructure
-- [ ] Set up production domain
-- [ ] Configure SSL certificate
-- [ ] Set up CDN for static assets
-- [ ] Configure environment variables for production
-- [ ] Set up staging environment
-- [ ] Configure automated deployments
-- [ ] Test deployment process
+5) Environment & deployment (Netlify)
+Server-only env vars: Stripe Secret Key, Stripe Webhook Secret, Supabase Service Role Key, App URL.
+Client env vars: Stripe Publishable Key, Supabase URL, Supabase Anon Key.
+Redeploy after setting env.
 
-### 📧 Email & Communications
-- [ ] Set up transactional email service
-- [ ] Configure welcome email sequence
-- [ ] Set up trial expiration reminders
-- [ ] Create subscription confirmation emails
-- [ ] Set up support email system
-- [ ] Configure email templates
+6) Server endpoints (what each should do)
+Create Checkout Session (POST /api/create-checkout-session)
+For sign-up trials: Create a subscription Checkout Session with a 7-day trial for the selected price. Set success URL to /dashboard and cancel URL to /get-started. Return the Stripe URL to redirect the user.
+For plan changes: Create a subscription Checkout Session without a trial that changes the plan immediately (use your proration policy). Return the Stripe URL.
+Create Portal Session (POST /api/create-portal-session)
+Look up the user’s Stripe customer_id (and, if you support many products, the exact subscription_id to manage).
+Create a Stripe Billing Portal session that does not allow plan switching. Return the portal URL.
+Stripe Webhook (POST /api/stripe-webhook)
+Verify the signature.
+On checkout.session.completed: store customer_id and subscription_id on the user’s profile.
+On customer.subscription.created/updated: update plan, subscription_status, trial_ends_at, and current_period_end. If payment recovered, clear payment_issue_since.
+On invoice.payment_failed: set status to past_due and, if not already set, record payment_issue_since.
+On customer.subscription.deleted: set status to canceled.
 
-### 🧪 Testing & Quality Assurance
-- [ ] Write unit tests for core functionality
-- [ ] Perform end-to-end testing
-- [ ] Test payment flows thoroughly
-- [ ] Test user registration and login
-- [ ] Verify email delivery
-- [ ] Test on multiple browsers
-- [ ] Perform mobile testing
-- [ ] Load testing for expected traffic
+Ensure idempotency so events are processed once.
 
-### 📋 Legal & Compliance
-- [ ] Create Terms of Service
-- [ ] Create Privacy Policy
-- [ ] Set up cookie consent (if required)
-- [ ] Review data handling compliance (GDPR, etc.)
-- [ ] Set up refund policy
-- [ ] Configure data retention policies
+7) Client logic (what the app should do)
+Route guard (everywhere users enter the app):
+If not signed in → send to /signup.
+If status is trialing or active → send to /dashboard.
+If past_due and the first failure was within 30 days → allow /dashboard but show a payment-issue banner.
+Otherwise → send to /get-started.
+Grace helper: Determine whether a user is in the 30-day grace window by comparing the current time to payment_issue_since.
 
-### 📞 Support & Documentation
-- [ ] Create user documentation/help center
-- [ ] Set up customer support system
-- [ ] Create onboarding tutorials
-- [ ] Set up FAQ section
-- [ ] Configure support ticket system
-- [ ] Create admin documentation
+Feature gating:
+If status is trialing, allow all features.
+Otherwise, gate actions based on plan. Keep Pro actions visible but disabled on Basic with a small inline “Upgrade” prompt (copy can still say “Upgrade” even though the card is already on file).
+Trial banner (on /dashboard during trial): Show “Trial ends in X days. Your card will be charged on [date]. Manage in Settings.”
 
-## Launch Day
+8) Analytics & notifications (nice to have)
 
-### 🎯 Final Checks
-- [ ] Verify all environment variables are set
-- [ ] Test complete user journey from signup to active use
-- [ ] Verify payment processing works
-- [ ] Check all email notifications
-- [ ] Test customer support channels
-- [ ] Verify analytics tracking
-- [ ] Check mobile responsiveness
-- [ ] Test performance under load
+Events to track: landing CTA click, sign-up completed, Get Started viewed, Checkout started, Checkout completed, trial started, trial ends soon, trial converted/charged, payment failed, grace started, grace resolved, subscription canceled, plan changed.
+Attribution: carry ?src= and UTM params from landing to sign-up and store on profile or in an analytics system.
+Emails (via Stripe or your tool): trial started, trial ending soon, payment failed, grace ending, cancellation confirmation.
 
-### 📢 Marketing & Launch
-- [ ] Prepare launch announcement
-- [ ] Set up social media accounts
-- [ ] Configure SEO meta tags
-- [ ] Submit to relevant directories
-- [ ] Prepare press kit
-- [ ] Set up referral tracking
+9) QA checklist (condensed)
+Sign-up → Get Started → Checkout (trial) → Dashboard works.
+Trial banner shows correct days left and charge date.
+Webhooks set trialing, then flip to active automatically.
+Basic vs Pro gates behave; trial overrides gating.
+Payment failure shows banner and starts 30-day grace; after 30 days, the app routes to Get Started.
+Settings → Portal handles cancel/payment only.
+Plan change triggers a Checkout without a trial and charges immediately per proration rules.
+Feature data persists via Supabase with correct RLS.
 
-## Post-Launch
-
-### 📈 Monitoring & Optimization
-- [ ] Monitor server performance
-- [ ] Track user engagement metrics
-- [ ] Monitor conversion rates
-- [ ] Review customer feedback
-- [ ] Monitor payment success rates
-- [ ] Track support ticket volume
-- [ ] Analyze user behavior patterns
-
-### 🔄 Ongoing Maintenance
-- [ ] Regular security updates
-- [ ] Database maintenance and optimization
-- [ ] Regular backups verification
-- [ ] Performance optimization
-- [ ] Feature usage analysis
-- [ ] Customer success tracking
-
-## Key Metrics to Track
-
-### 📊 Business Metrics
-- Monthly Recurring Revenue (MRR)
-- Customer Acquisition Cost (CAC)
-- Customer Lifetime Value (CLV)
-- Churn rate
-- Trial-to-paid conversion rate
-- Net Promoter Score (NPS)
-
-### 🔧 Technical Metrics
-- Page load times
-- Server response times
-- Error rates
-- Uptime percentage
-- Database query performance
-- API response times
-
-## Emergency Contacts & Procedures
-
-### 🚨 Critical Issues
-- [ ] Document escalation procedures
-- [ ] Set up on-call rotation
-- [ ] Create incident response playbook
-- [ ] Configure alerting thresholds
-- [ ] Document rollback procedures
-- [ ] Set up status page
-
----
-
-**Note**: This checklist should be reviewed and updated regularly as the product evolves. Each item should be thoroughly tested before marking as complete.
+10) Final “don’t forgets”
+Show dates in the user’s timezone when displaying trial_ends_at.
+If a user signs up but never finishes Checkout, the next visit should route them to /get-started.
+Decide and document your proration policy for plan changes (and reflect it in Settings copy).
