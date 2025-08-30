@@ -114,38 +114,42 @@ Deno.serve(async (req) => {
         console.log('Trial end:', subscription.trial_end)
         console.log('Current period end:', subscription.current_period_end)
 
-        // Find user by customer_id
-        const { data: customerRecord, error: customerLookupError } = await supabaseClient
+        // Try to find user by customer_id first
+        const { data: customer, error: customerLookupError } = await supabaseClient
           .from('stripe_customers')
           .select('user_id')
           .eq('customer_id', customerId)
           .single()
 
-        let userId = customerRecord?.user_id
+        let userId = customer?.user_id
 
-        if (customerLookupError || !userId) {
-          console.error('Customer lookup failed or not found for ID:', customerId, customerLookupError)
-          // Fallback to subscription metadata if available
-          userId = subscription.metadata?.user_id
-          if (userId) {
-            console.log('Falling back to metadata user ID:', userId)
-            const { error: customerInsertError } = await supabaseClient
-              .from('stripe_customers')
-              .upsert({
-                user_id: userId,
-                customer_id: customerId,
-                updated_at: new Date().toISOString(),
-              })
-            if (customerInsertError) {
-              console.error('Error storing customer from fallback:', customerInsertError)
-            }
+        // Fallback: if customer not found, try to get user_id from subscription metadata
+        if (!userId && subscription.metadata?.user_id) {
+          console.log('Customer record not found, using fallback from subscription metadata')
+          userId = subscription.metadata.user_id
+
+          // Create the missing customer record
+          const { error: customerInsertError } = await supabaseClient
+            .from('stripe_customers')
+            .upsert({
+              user_id: userId,
+              customer_id: customerId,
+              updated_at: new Date().toISOString(),
+            })
+
+          if (customerInsertError) {
+            console.error('Error creating missing customer record:', customerInsertError)
           } else {
-            console.error('No user ID available in subscription metadata')
-            break
+            console.log('Created missing customer record for user:', userId)
           }
         }
 
-        console.log('Using user ID:', userId)
+        if (!userId) {
+          console.error('Could not resolve user_id for customer:', customerId, customerLookupError)
+          break
+        }
+
+        console.log('Resolved user ID:', userId)
 
         // Calculate dates
         let trialEndsAt = null
