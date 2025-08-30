@@ -27,14 +27,6 @@ const SignupPage: React.FC = () => {
       
       <div className="flex items-center justify-center min-h-screen pt-20">
       <div className="max-w-md w-full mx-4">
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <Link to="/" className="text-3xl font-bold text-white hover:text-brand-teal transition-colors">
-            CustomerPath
-          </Link>
-          <p className="text-white/70 mt-2">Start your 7-day free trial</p>
-        </div>
-
         {/* Signup Form */}
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl">
           <div className="text-center mb-8">
