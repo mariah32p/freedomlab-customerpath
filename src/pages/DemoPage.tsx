@@ -763,27 +763,6 @@ const DemoPage: React.FC = () => {
         )}
       </div>
     </div>
-  }
-
-  return (
-    <div className="min-h-screen bg-gray-50 font-montserrat">
-      <Header />
-      
-      <div className="pt-24 pb-12">
-        <div className="max-w-7xl mx-auto px-6">
-          {/* Demo content will go here */}
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-brand-navy mb-4">
-              Interactive Demo Coming Soon
-            </h1>
-            <p className="text-gray-600">
-              We're building an amazing interactive demo experience.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
   )
 }
 
