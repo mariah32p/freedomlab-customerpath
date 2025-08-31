@@ -166,6 +166,108 @@ const DemoPage = () => {
         />
       </div>
 
+      {/* Featured Journey Funnel */}
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="bg-white rounded-xl border border-gray-100 shadow-sm p-8"
+      >
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h3 className="text-2xl font-bold text-gray-900">SaaS Customer Journey</h3>
+            <p className="text-gray-600">Your highest converting funnel</p>
+          </div>
+          <div className="flex items-center space-x-2 bg-emerald-50 px-4 py-2 rounded-lg border border-emerald-200">
+            <div className="w-2 h-2 bg-emerald-500 rounded-full" />
+            <span className="text-emerald-700 font-semibold text-sm">78% Overall Conversion</span>
+          </div>
+        </div>
+        
+        {/* Beautiful Funnel Flow */}
+        <div className="relative">
+          {/* Connection Lines */}
+          <div className="absolute top-16 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-300 via-teal-400 to-emerald-400 opacity-30" />
+          
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+            {/* Landing Page */}
+            <div className="text-center relative z-10">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <MousePointerClick className="w-10 h-10 text-white" />
+              </div>
+              <h4 className="font-bold text-gray-900 mb-2">Landing</h4>
+              <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                <p className="text-3xl font-bold text-blue-600 mb-1">8,247</p>
+                <p className="text-blue-700 text-sm font-medium">Visitors</p>
+              </div>
+            </div>
+            
+            {/* Demo Booking */}
+            <div className="text-center relative z-10">
+              <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Calendar className="w-10 h-10 text-white" />
+              </div>
+              <h4 className="font-bold text-gray-900 mb-2">Demo</h4>
+              <div className="bg-teal-50 rounded-xl p-4 border border-teal-100">
+                <p className="text-3xl font-bold text-teal-600 mb-1">6,432</p>
+                <p className="text-teal-700 text-sm font-medium">Bookings</p>
+              </div>
+              <div className="mt-2 text-xs text-red-600 font-semibold bg-red-50 px-2 py-1 rounded-full border border-red-200">
+                -22% Drop-off
+              </div>
+            </div>
+            
+            {/* Trial Signup */}
+            <div className="text-center relative z-10">
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Users className="w-10 h-10 text-white" />
+              </div>
+              <h4 className="font-bold text-gray-900 mb-2">Trial</h4>
+              <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
+                <p className="text-3xl font-bold text-purple-600 mb-1">3,987</p>
+                <p className="text-purple-700 text-sm font-medium">Signups</p>
+              </div>
+              <div className="mt-2 text-xs text-red-600 font-semibold bg-red-50 px-2 py-1 rounded-full border border-red-200">
+                -38% Drop-off
+              </div>
+            </div>
+            
+            {/* Paid Customers */}
+            <div className="text-center relative z-10">
+              <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <DollarSign className="w-10 h-10 text-white" />
+              </div>
+              <h4 className="font-bold text-gray-900 mb-2">Paid</h4>
+              <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
+                <p className="text-3xl font-bold text-emerald-600 mb-1">$47.2k</p>
+                <p className="text-emerald-700 text-sm font-medium">Revenue</p>
+              </div>
+              <div className="mt-2 text-xs text-emerald-600 font-semibold bg-emerald-50 px-2 py-1 rounded-full border border-emerald-200">
+                2,289 Customers
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Key Insights */}
+        <div className="mt-8 bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-6 border border-gray-200">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
+                <TrendingDown className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h4 className="font-bold text-gray-900">Biggest Drop-off Point</h4>
+                <p className="text-gray-600 text-sm">Demo → Trial: 38% of potential customers lost</p>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-lg font-bold text-orange-600">+$18k potential</p>
+              <p className="text-gray-600 text-sm">if improved by 10%</p>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 
