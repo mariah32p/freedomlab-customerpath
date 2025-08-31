@@ -578,7 +578,8 @@ const DemoPage = () => {
               ))}
             </nav>
             
-          <div></div>
+            <div></div>
+          </div>
         </div>
       </header>
 
