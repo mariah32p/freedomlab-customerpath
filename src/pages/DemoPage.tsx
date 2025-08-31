@@ -19,44 +19,6 @@ interface Stage {
 }
 
 const DemoPage: React.FC = () => {
-  const [currentStep, setCurrentStep] = useState(0)
-  const [selectedJourney, setSelectedJourney] = useState(0)
-  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(customers[0]) // Auto-select first customer
-  const [isPlaying, setIsPlaying] = useState(true)
-  const [editingStages, setEditingStages] = useState(false)
-  const [newStageName, setNewStageName] = useState('')
-
-  const journeys = [
-    {
-      name: "E-commerce Funnel",
-      description: "Main product purchase journey",
-      customers: 8247,
-      stages: [
-        { id: 0, name: "Landing Page", color: "bg-blue-500", customers: 8247, conversionRate: 73 },
-        { id: 1, name: "Product Demo", color: "bg-indigo-500", customers: 6020, conversionRate: 58 },
-        { id: 2, name: "Pricing Page", color: "bg-violet-500", customers: 4156, conversionRate: 84 },
-        { id: 3, name: "Free Trial", color: "bg-purple-500", customers: 3492, conversionRate: 42 },
-        { id: 4, name: "Purchase", color: "bg-green-500", customers: 1467, conversionRate: 89 },
-        { id: 5, name: "Onboarding", color: "bg-emerald-500", customers: 1306, conversionRate: 94 },
-        { id: 6, name: "Active User", color: "bg-teal-500", customers: 1228, conversionRate: 0 }
-      ]
-    },
-    {
-      name: "SaaS Onboarding",
-      description: "New user activation flow",
-      customers: 4156,
-      stages: [
-        { id: 0, name: "Account Created", color: "bg-cyan-500", customers: 4156, conversionRate: 87 },
-        { id: 1, name: "Email Verified", color: "bg-blue-500", customers: 3616, conversionRate: 76 },
-        { id: 2, name: "Profile Complete", color: "bg-indigo-500", customers: 2748, conversionRate: 69 },
-        { id: 3, name: "First Login", color: "bg-violet-500", customers: 2156, conversionRate: 88 },
-        { id: 4, name: "First Project", color: "bg-purple-500", customers: 1896, conversionRate: 82 },
-        { id: 5, name: "Team Invited", color: "bg-pink-500", customers: 1555, conversionRate: 91 },
-        { id: 6, name: "Power User", color: "bg-green-500", customers: 1415, conversionRate: 0 }
-      ]
-    }
-  ]
-
   const customers: Customer[] = [
     {
       id: "1",
@@ -65,16 +27,22 @@ const DemoPage: React.FC = () => {
       currentStage: 3,
       joinedAt: "2025-01-15",
       notes: "Completed purchase yesterday. Very engaged with onboarding materials. Asked about team collaboration features and API access. High potential for upsell to enterprise plan.",
-      avatar: "SC"
+      avatar: "SC",
+      source: "Google Ads",
+      value: "$2,400",
+      lastActivity: "2 hours ago"
     },
     {
       id: "2", 
       name: "Mike Rodriguez",
       email: "mike@startup.io",
-      currentStage: 5,
+      currentStage: 6,
       joinedAt: "2025-01-12",
       notes: "Extremely active user. Uses advanced features daily. Created 12 journey maps in first week. Excellent case study candidate. Referred 3 new customers.",
-      avatar: "MR"
+      avatar: "MR",
+      source: "Referral",
+      value: "$4,800",
+      lastActivity: "15 minutes ago"
     },
     {
       id: "3",
@@ -83,16 +51,22 @@ const DemoPage: React.FC = () => {
       currentStage: 2,
       joinedAt: "2025-01-18",
       notes: "Marketing agency owner. Interested in white-label options. Currently in trial phase, testing with 3 client projects. Needs bulk import functionality.",
-      avatar: "JL"
+      avatar: "JL",
+      source: "LinkedIn",
+      value: "$1,200",
+      lastActivity: "1 day ago"
     },
     {
       id: "4",
       name: "David Park",
       email: "david@ecommerce.co",
-      currentStage: 4,
+      currentStage: 5,
       joinedAt: "2025-01-10",
       notes: "E-commerce store owner. Purchased Pro plan after 5-day trial. Currently setting up product funnel tracking. Needs help with advanced segmentation features.",
-      avatar: "DP"
+      avatar: "DP",
+      source: "Content Marketing",
+      value: "$3,600",
+      lastActivity: "3 hours ago"
     },
     {
       id: "5",
@@ -101,7 +75,10 @@ const DemoPage: React.FC = () => {
       currentStage: 1,
       joinedAt: "2025-01-20",
       notes: "Business consultant. New lead from LinkedIn campaign. Watched demo video twice. Scheduled onboarding call for tomorrow. Interested in client reporting features.",
-      avatar: "EW"
+      avatar: "EW",
+      source: "Demo Video",
+      value: "$0",
+      lastActivity: "30 minutes ago"
     },
     {
       id: "6",
@@ -110,16 +87,22 @@ const DemoPage: React.FC = () => {
       currentStage: 2,
       joinedAt: "2025-01-14",
       notes: "Growth marketing specialist. Currently in trial. Built 2 journey maps for different product lines. Asking about API integrations with existing tools.",
-      avatar: "AT"
+      avatar: "AT",
+      source: "Product Hunt",
+      value: "$600",
+      lastActivity: "6 hours ago"
     },
     {
       id: "7",
       name: "Maria Garcia",
       email: "maria@retailplus.com",
-      currentStage: 4,
+      currentStage: 5,
       joinedAt: "2025-01-08",
       notes: "Retail chain marketing director. Pro customer since week 1. Managing 5 different customer journeys across store locations. Very satisfied with results.",
-      avatar: "MG"
+      avatar: "MG",
+      source: "Direct",
+      value: "$7,200",
+      lastActivity: "4 hours ago"
     },
     {
       id: "8",
@@ -128,10 +111,27 @@ const DemoPage: React.FC = () => {
       currentStage: 1,
       joinedAt: "2025-01-19",
       notes: "AI startup founder. Watched product demo, very interested in advanced analytics. Currently evaluating against competitors. Price-sensitive but sees value.",
-      avatar: "JK"
-    }
-  ]
-
+      avatar: "JK",
+      source: "Webinar",
+      value: "$0",
+      lastActivity: "12 hours ago"
+    },
+    {
+      id: "9",
+      name: "Lisa Zhang",
+      email: "lisa@fintech.co",
+      currentStage: 4,
+      joinedAt: "2025-01-16",
+      notes: "Fintech startup CMO. Very data-driven approach. Loves the analytics features. Currently in trial but showing strong engagement signals.",
+      avatar: "LZ",
+      source: "Twitter",
+      value: "$1,800",
+      lastActivity: "1 hour ago"
+    },
+    {
+      id: "10",
+      name: "Robert Johnson",
+      email: "rob@consulting.pro",
   const demoSteps = [
     "Journey Overview",
     "Visual Builder",
