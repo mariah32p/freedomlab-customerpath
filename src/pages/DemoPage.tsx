@@ -190,50 +190,11 @@ const DemoPage: React.FC = () => {
       </header>
 
       <div className="pt-6">
-        {/* Demo Controls */}
-                        💡 Customers spending &gt;7 days in Trial have 23% higher conversion rates
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <h1 className="text-xl font-bold text-brand-navy">Demo Walkthrough</h1>
-                <div className="flex items-center space-x-2">
-                  {demoSteps.map((step, index) => (
-                    <div
-                      key={index}
-                      className={`w-3 h-3 rounded-full transition-all ${
-                        index === currentStep ? 'bg-brand-teal' : 
-                        index < currentStep ? 'bg-brand-teal/50' : 'bg-gray-300'
-                      }`}
-                    />
-                  ))}
-                </div>
-                <span className="text-sm text-gray-600">
-                  {currentStep + 1} of {demoSteps.length}: {demoSteps[currentStep]}
-                </span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <button
-                  onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
-                  disabled={currentStep === 0}
-                  className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  Previous
-                </button>
-                <button
-                  onClick={() => setIsPlaying(!isPlaying)}
-                  className="px-4 py-2 bg-brand-teal text-white rounded-lg text-sm font-medium hover:bg-brand-teal/90 transition-colors"
-                >
-                  {isPlaying ? 'Pause' : 'Auto Play'}
-                </button>
-                <button
-                  onClick={() => setCurrentStep(Math.min(demoSteps.length - 1, currentStep + 1))}
-                  disabled={currentStep === demoSteps.length - 1}
-                  className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  Next
-                </button>
-              </div>
-            </div>
+        <div className="max-w-7xl mx-auto px-6 mb-6">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <p className="text-blue-700 text-sm font-medium">
+              💡 Customers spending &gt;7 days in Trial have 23% higher conversion rates
+            </p>
           </div>
         </div>
 
