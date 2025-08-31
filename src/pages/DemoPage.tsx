@@ -21,8 +21,10 @@ interface Stage {
 const DemoPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0)
   const [selectedJourney, setSelectedJourney] = useState(0)
-  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null)
+  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(customers[0]) // Auto-select first customer
   const [isPlaying, setIsPlaying] = useState(true)
+  const [editingStages, setEditingStages] = useState(false)
+  const [newStageName, setNewStageName] = useState('')
 
   const journeys = [
     {
@@ -32,10 +34,11 @@ const DemoPage: React.FC = () => {
       stages: [
         { id: 0, name: "Landing Page", color: "bg-blue-500", customers: 8247, conversionRate: 73 },
         { id: 1, name: "Product Demo", color: "bg-indigo-500", customers: 6020, conversionRate: 58 },
-        { id: 2, name: "Free Trial", color: "bg-purple-500", customers: 3492, conversionRate: 42 },
-        { id: 3, name: "Purchase", color: "bg-green-500", customers: 1467, conversionRate: 89 },
-        { id: 4, name: "Onboarding", color: "bg-emerald-500", customers: 1306, conversionRate: 94 },
-        { id: 5, name: "Active User", color: "bg-teal-500", customers: 1228, conversionRate: 0 }
+        { id: 2, name: "Pricing Page", color: "bg-violet-500", customers: 4156, conversionRate: 84 },
+        { id: 3, name: "Free Trial", color: "bg-purple-500", customers: 3492, conversionRate: 42 },
+        { id: 4, name: "Purchase", color: "bg-green-500", customers: 1467, conversionRate: 89 },
+        { id: 5, name: "Onboarding", color: "bg-emerald-500", customers: 1306, conversionRate: 94 },
+        { id: 6, name: "Active User", color: "bg-teal-500", customers: 1228, conversionRate: 0 }
       ]
     },
     {
@@ -46,9 +49,10 @@ const DemoPage: React.FC = () => {
         { id: 0, name: "Account Created", color: "bg-cyan-500", customers: 4156, conversionRate: 87 },
         { id: 1, name: "Email Verified", color: "bg-blue-500", customers: 3616, conversionRate: 76 },
         { id: 2, name: "Profile Complete", color: "bg-indigo-500", customers: 2748, conversionRate: 69 },
-        { id: 3, name: "First Project", color: "bg-purple-500", customers: 1896, conversionRate: 82 },
-        { id: 4, name: "Team Invited", color: "bg-pink-500", customers: 1555, conversionRate: 91 },
-        { id: 5, name: "Power User", color: "bg-green-500", customers: 1415, conversionRate: 0 }
+        { id: 3, name: "First Login", color: "bg-violet-500", customers: 2156, conversionRate: 88 },
+        { id: 4, name: "First Project", color: "bg-purple-500", customers: 1896, conversionRate: 82 },
+        { id: 5, name: "Team Invited", color: "bg-pink-500", customers: 1555, conversionRate: 91 },
+        { id: 6, name: "Power User", color: "bg-green-500", customers: 1415, conversionRate: 0 }
       ]
     }
   ]
@@ -124,13 +128,13 @@ const DemoPage: React.FC = () => {
       currentStage: 1,
       joinedAt: "2025-01-19",
       notes: "AI startup founder. Watched product demo, very interested in advanced analytics. Currently evaluating against competitors. Price-sensitive but sees value.",
-      avatar: "EW"
+      avatar: "JK"
     }
   ]
 
   const demoSteps = [
     "Journey Overview",
-    "Funnel Analytics",
+    "Visual Builder",
     "Customer Management",
     "Analytics Dashboard",
     "Individual Tracking",
@@ -145,9 +149,17 @@ const DemoPage: React.FC = () => {
         }
         return prev + 1
       })
-    }, 5000)
+    }, 6000)
     return () => clearInterval(interval)
   }, [demoSteps.length])
+
+  // Auto-select different customers as we cycle through steps
+  useEffect(() => {
+    if (currentStep === 4) { // Individual Tracking step
+      const customerIndex = Math.floor(Date.now() / 10000) % customers.length
+      setSelectedCustomer(customers[customerIndex])
+    }
+  }, [currentStep])
 
   const currentJourney = journeys[selectedJourney]
 
@@ -193,7 +205,8 @@ const DemoPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6 mb-6">
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <p className="text-blue-700 text-sm font-medium">
-              💡 Customers spending &gt;7 days in Trial have 23% higher conversion rates
+              💡 Customers spending &gt;7 days in Trial have 23% higher conversion rates • 
+              <span className="font-bold">Current Step: {demoSteps[currentStep]}</span>
             </p>
           </div>
         </div>
@@ -256,7 +269,7 @@ const DemoPage: React.FC = () => {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <span className="text-gray-600">Total Customers</span>
-                      <span className="font-bold text-brand-navy">2,103</span>
+                      <span className="font-bold text-brand-navy">12,403</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-gray-600">Active Journeys</span>
@@ -264,11 +277,11 @@ const DemoPage: React.FC = () => {
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-gray-600">Avg Conversion</span>
-                      <span className="font-bold text-green-600">24.8%</span>
+                      <span className="font-bold text-green-600">14.9%</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-gray-600">Revenue Impact</span>
-                      <span className="font-bold text-brand-navy">$127k</span>
+                      <span className="font-bold text-brand-navy">$847k</span>
                     </div>
                   </div>
                 </div>
@@ -278,15 +291,19 @@ const DemoPage: React.FC = () => {
                   <div className="space-y-3">
                     <div className="flex items-center text-sm">
                       <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                      <span className="text-gray-600">Sarah Chen moved to Purchase</span>
+                      <span className="text-gray-600">Sarah Chen moved to Purchase • 2m ago</span>
                     </div>
                     <div className="flex items-center text-sm">
                       <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                      <span className="text-gray-600">12 new customers in Awareness</span>
+                      <span className="text-gray-600">47 new customers in Landing Page • 5m ago</span>
                     </div>
                     <div className="flex items-center text-sm">
                       <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
-                      <span className="text-gray-600">Trial conversion up 3.2%</span>
+                      <span className="text-gray-600">Trial conversion up 3.2% • 1h ago</span>
+                    </div>
+                    <div className="flex items-center text-sm">
+                      <div className="w-2 h-2 bg-brand-teal rounded-full mr-3"></div>
+                      <span className="text-gray-600">Mike Rodriguez became Active User • 3h ago</span>
                     </div>
                   </div>
                 </div>
@@ -499,6 +516,7 @@ const DemoPage: React.FC = () => {
                 <div className="space-y-4">
                   {currentJourney.stages.map((stage, index) => {
                     const width = (stage.customers / currentJourney.stages[0].customers) * 100
+                    const dropOff = index > 0 ? currentJourney.stages[index - 1].customers - stage.customers : 0
                     return (
                       <div key={stage.id} className="relative">
                         <div className="flex items-center justify-between mb-2">
@@ -511,17 +529,28 @@ const DemoPage: React.FC = () => {
                             {index < currentJourney.stages.length - 1 && (
                               <span className="text-green-600 font-semibold">{stage.conversionRate}% convert</span>
                             )}
+                            {dropOff > 0 && (
+                              <span className="text-red-500 font-medium">-{dropOff.toLocaleString()} dropped</span>
+                            )}
                           </div>
                         </div>
-                        <div className="bg-gray-100 rounded-full h-8 overflow-hidden">
+                        <div className="bg-gray-100 rounded-full h-10 overflow-hidden relative">
                           <div 
-                            className={`h-full ${stage.color} transition-all duration-1000 flex items-center justify-end pr-4`}
+                            className={`h-full ${stage.color} transition-all duration-1000 flex items-center justify-between px-4`}
                             style={{ width: `${width}%` }}
                           >
-                            <span className="text-white text-sm font-semibold">
-                              {Math.round(width)}%
+                            <span className="text-white text-sm font-medium">
+                              {stage.name}
+                            </span>
+                            <span className="text-white text-sm font-bold">
+                              {stage.customers.toLocaleString()}
                             </span>
                           </div>
+                          {index < currentJourney.stages.length - 1 && dropOff > 0 && (
+                            <div className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-medium">
+                              -{Math.round(((dropOff / currentJourney.stages[index].customers) * 100))}%
+                            </div>
+                          )}
                         </div>
                       </div>
                     )
@@ -596,12 +625,12 @@ const DemoPage: React.FC = () => {
                       {/* Move Customer */}
                       <div>
                         <h4 className="font-bold text-brand-navy mb-4">Move to Stage</h4>
-                        <div className="flex items-center space-x-3">
+                        <div className="grid grid-cols-2 gap-3">
                           {currentJourney.stages.map((stage, index) => (
                             <button
                               key={stage.id}
                               onClick={() => setSelectedCustomer({...selectedCustomer, currentStage: index})}
-                              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                              className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
                                 index === selectedCustomer.currentStage
                                   ? `${stage.color} text-white`
                                   : 'border border-gray-300 text-gray-600 hover:border-brand-teal hover:text-brand-teal'
@@ -627,6 +656,34 @@ const DemoPage: React.FC = () => {
                           Save Notes
                         </button>
                       </div>
+
+                      {/* Customer Timeline */}
+                      <div>
+                        <h4 className="font-bold text-brand-navy mb-4">Activity Timeline</h4>
+                        <div className="space-y-3">
+                          <div className="flex items-start space-x-3">
+                            <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+                            <div>
+                              <div className="font-medium text-brand-navy text-sm">Moved to {currentJourney.stages[selectedCustomer.currentStage].name}</div>
+                              <div className="text-xs text-gray-500">2 hours ago</div>
+                            </div>
+                          </div>
+                          <div className="flex items-start space-x-3">
+                            <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                            <div>
+                              <div className="font-medium text-brand-navy text-sm">Completed previous stage</div>
+                              <div className="text-xs text-gray-500">1 day ago</div>
+                            </div>
+                          </div>
+                          <div className="flex items-start space-x-3">
+                            <div className="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
+                            <div>
+                              <div className="font-medium text-brand-navy text-sm">First interaction recorded</div>
+                              <div className="text-xs text-gray-500">{Math.floor(Math.random() * 10) + 3} days ago</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   )}
 
@@ -651,7 +708,7 @@ const DemoPage: React.FC = () => {
                       </div>
                       <div>
                         <div className="font-medium text-brand-navy">Sarah Chen</div>
-                        <div className="text-gray-600">Moved to Purchase • 2h ago</div>
+                        <div className="text-gray-600">Moved to Purchase • 2m ago</div>
                       </div>
                     </div>
                     <div className="flex items-center text-sm">
@@ -660,7 +717,16 @@ const DemoPage: React.FC = () => {
                       </div>
                       <div>
                         <div className="font-medium text-brand-navy">Mike Rodriguez</div>
-                        <div className="text-gray-600">Moved to Active User • 1d ago</div>
+                        <div className="text-gray-600">Moved to Active User • 15m ago</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center text-sm">
+                      <div className="w-8 h-8 bg-brand-navy rounded-full flex items-center justify-center mr-3">
+                        <span className="text-white text-xs font-bold">JL</span>
+                      </div>
+                      <div>
+                        <div className="font-medium text-brand-navy">Jessica Liu</div>
+                        <div className="text-gray-600">Moved to Pricing Page • 1h ago</div>
                       </div>
                     </div>
                   </div>
@@ -671,15 +737,19 @@ const DemoPage: React.FC = () => {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-600">Best Converting</span>
-                      <span className="text-sm font-semibold text-green-600">Onboarding (92%)</span>
+                      <span className="text-sm font-semibold text-green-600">Onboarding (94%)</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-600">Needs Attention</span>
-                      <span className="text-sm font-semibold text-red-600">Trial (45%)</span>
+                      <span className="text-sm font-semibold text-red-600">Free Trial (42%)</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-600">Avg Time in Stage</span>
-                      <span className="text-sm font-semibold text-brand-navy">3.2 days</span>
+                      <span className="text-sm font-semibold text-brand-navy">4.7 days</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">This Week</span>
+                      <span className="text-sm font-semibold text-green-600">+127 customers</span>
                     </div>
                   </div>
                 </div>
