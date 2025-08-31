@@ -51,13 +51,13 @@ const DemoPage = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setLiveMetrics(prev => ({
-        totalJourneys: prev.totalJourneys,
-        customersTracked: prev.customersTracked + Math.floor(Math.random() * 2),
-        conversionRate: Math.max(60, Math.min(75, prev.conversionRate + (Math.random() - 0.5) * 0.8)),
-        revenue: prev.revenue + Math.floor(Math.random() * 300)
-      }));
-    }, 3000);
+      setCurrentStep(prev => (prev + 1) % 5)
+    }, 15000)
+        customersTracked: prev.customersTracked + Math.floor(Math.random() * 3),
+        conversionRate: Math.max(65, Math.min(70, prev.conversionRate + (Math.random() - 0.5) * 0.2)),
+        revenue: prev.revenue + Math.floor(Math.random() * 150)
+      }))
+    }, 8000)
     return () => clearInterval(interval);
   }, []);
   
@@ -548,25 +548,25 @@ const DemoPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Clean, Professional Header */}
+      {/* Clean Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-brand-teal to-blue-600 rounded-lg flex items-center justify-center">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <Target className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-gray-900">CustomerPath</span>
-            </Link>
+              <span className="text-xl font-semibold text-gray-900">CustomerPath</span>
+            </div>
             
-            {/* Navigation Tabs */}
+            {/* Navigation */}
             <nav className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
               {steps.map((step, index) => (
                 <button
                   key={step.name}
                   onClick={() => setCurrentStep(index)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
                     currentStep === index 
                       ? 'bg-white text-gray-900 shadow-sm' 
                       : 'text-gray-600 hover:text-gray-900'
@@ -578,11 +578,10 @@ const DemoPage = () => {
               ))}
             </nav>
             
-            <div></div>
+            <div className="w-32"></div>
           </div>
         </div>
       </header>
-
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-8">
         <AnimatePresence mode="wait">
