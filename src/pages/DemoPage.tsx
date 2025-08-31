@@ -82,7 +82,7 @@ const DemoPage: React.FC = () => {
   useEffect(() => {
     if (!isTyping) return;
     
-    const text = "Just upgraded to Pro plan! 🎉 Ready to scale our customer journey optimization with unlimited maps and AI insights.";
+    const text = "The checkout flow is working perfectly! Conversion rate improved by 15% after optimizing the payment page.";
     let index = 0;
     
     const typeInterval = setInterval(() => {
@@ -121,8 +121,8 @@ const DemoPage: React.FC = () => {
   const showConversionModal = () => {
     setModalContent({
       type: 'conversion',
-      title: 'Customer Conversion Success!',
-      content: 'A customer just upgraded to our Pro plan! Watch how the system automatically tracks this conversion and updates our analytics.'
+      title: 'Customer Journey Optimization!',
+      content: 'A customer just completed their purchase! Watch how the system automatically tracks this conversion and updates our analytics.'
     });
     setShowModal(true);
     setIsTyping(true);
@@ -364,7 +364,7 @@ const DemoPage: React.FC = () => {
             {journeyStages.map((stage, index) => (
               <div key={stage.id} className="relative">
                 {index < journeyStages.length - 1 && (
-                  <div className="absolute left-8 top-16 w-0.5 h-12 bg-gradient-to-b from-brand-teal to-purple-400"></div>
+                  <p className="text-emerald-700 text-sm">The checkout flow is working perfectly! Conversion rate improved by 15% after optimizing the payment page.</p>
                 )}
                 <div className={`flex items-center justify-between p-6 rounded-xl border-2 transition-all duration-300 hover:shadow-lg hover:scale-102 ${
                   stage.color === 'blue' ? 'bg-blue-50 border-blue-200 hover:border-blue-300' :
@@ -632,7 +632,7 @@ const DemoPage: React.FC = () => {
                   {isTyping ? (
                     <p className="text-slate-700 text-sm">{typedText}<span className="animate-pulse">|</span></p>
                   ) : (
-                    <p className="text-slate-700 text-sm">Just upgraded to Pro plan! 🎉 Ready to scale our customer journey optimization with unlimited maps and AI insights.</p>
+                    <p className="text-gray-700 text-sm">The checkout flow is working perfectly! Conversion rate improved by 15% after optimizing the payment page.</p>
                   )}
                   <p className="text-slate-500 text-xs mt-1">Customer feedback • Just now</p>
                 </div>
@@ -649,7 +649,7 @@ const DemoPage: React.FC = () => {
                 { step: 'Product Demo View', time: '3 days ago', status: 'completed' },
                 { step: 'Trial Signup', time: '3 days ago', status: 'completed' },
                 { step: 'Feature Exploration', time: '2 days ago', status: 'completed' },
-                { step: 'Pro Plan Upgrade', time: 'Just now', status: 'completed' }
+                { step: 'Purchase Completed', time: 'Just now', status: 'completed' }
               ].map((step, index) => (
                 <div key={index} className="flex items-center space-x-3 hover:bg-blue-100 p-2 rounded-lg transition-colors duration-200">
                   <CheckCircle className="w-4 h-4 text-green-500" />
