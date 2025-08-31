@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 
 interface JourneyStep {
@@ -7,9 +6,9 @@ interface JourneyStep {
   name: string
   visitors: number
   conversions: number
-  conversionRate: number
   color: string
   icon: string
+  trend: 'up' | 'down' | 'stable'
 }
 
 interface CustomerEvent {
@@ -24,10 +23,30 @@ interface CustomerEvent {
 const DemoPage: React.FC = () => {
   const [currentView, setCurrentView] = useState<'dashboard' | 'create-journey' | 'journey-detail'>('dashboard')
   const [journeySteps, setJourneySteps] = useState<JourneyStep[]>([
-    { id: '1', name: 'Landing Page', visitors: 1000, conversions: 850, conversionRate: 85, color: 'blue', icon: '🌐' },
-    { id: '2', name: 'Product Demo', visitors: 850, conversions: 680, conversionRate: 80, color: 'teal', icon: '🎥' },
-    { id: '3', name: 'Trial Signup', visitors: 680, conversions: 340, conversionRate: 50, color: 'purple', icon: '📝' },
-    { id: '4', name: 'Paid Customer', visitors: 340, conversions: 238, conversionRate: 70, color: 'green', icon: '💳' }
+    {
+      name: 'Landing Page',
+      visitors: 8247,
+      conversions: 6432,
+      trend: 'up' as const
+    },
+    {
+      name: 'Product Demo',
+      visitors: 6432,
+      conversions: 3421,
+      trend: 'stable' as const
+    },
+    {
+      name: 'Free Trial',
+      visitors: 3421,
+      conversions: 2289,
+      trend: 'up' as const
+    },
+    {
+      name: 'Paid Customer',
+      visitors: 2289,
+      conversions: 2289,
+      trend: 'stable' as const
+    }
   ])
   const [realtimeEvents, setRealtimeEvents] = useState<CustomerEvent[]>([])
   const [showWebhookModal, setShowWebhookModal] = useState(false)
@@ -56,27 +75,40 @@ const DemoPage: React.FC = () => {
     const interval = setInterval(() => {
       const template = eventTemplates[Math.floor(Math.random() * eventTemplates.length)]
       const newEvent: CustomerEvent = {
-        id: Math.random().toString(36).substr(2, 9),
-        customerId: `cust_${Math.random().toString(36).substr(2, 6)}`,
-        event: template.event,
-        stage: template.stage,
-        timestamp: new Date().toISOString(),
+        stage: templates[Math.floor(Math.random() * templates.length)].stage,
+        event: templates[Math.floor(Math.random() * templates.length)].event,
+        timestamp: new Date().toLocaleTimeString(),
+        id: Math.random().toString(36).substring(2, 11),
+        customerId: `cust_${Math.random().toString(36).substring(2, 8)}`,
+        value: Math.floor(Math.random() * 500) + 50,
         metadata: { source: 'webhook', icon: template.icon }
       }
 
       setRealtimeEvents(prev => [newEvent, ...prev.slice(0, 9)])
 
       // Update journey metrics
-      setJourneySteps(prev => prev.map(step => {
-        if (step.name === template.stage) {
-          return {
-            ...step,
-            visitors: step.visitors + 1,
-            conversions: template.event === 'payment_success' ? step.conversions + 1 : step.conversions
+      setJourneySteps(prevSteps => {
+        const newSteps = [...prevSteps];
+        const stepIndex = newSteps.findIndex(step => step.name === template.stage);
+
+        if (stepIndex !== -1) {
+          // Always increment visitors for the current stage
+          newSteps[stepIndex] = {
+            ...newSteps[stepIndex],
+            visitors: newSteps[stepIndex].visitors + 1,
+          };
+
+          // Increment the PREVIOUS step's conversion count
+          if (stepIndex > 0) {
+            const prevStep = newSteps[stepIndex - 1];
+            newSteps[stepIndex - 1] = {
+              ...prevStep,
+              conversions: prevStep.conversions + 1,
+            };
           }
         }
-        return step
-      }))
+        return newSteps;
+      });
     }, 3000)
 
     return () => clearInterval(interval)
@@ -566,7 +598,7 @@ const DemoPage: React.FC = () => {
                             </div>
                             <div className="text-right">
                               <div className="text-4xl font-bold text-brand-navy mb-2">
-                                {Math.round((step.conversions / step.visitors) * 100)}%
+                                {step.visitors > 0 ? Math.round((step.conversions / step.visitors) * 100) : 0}%
                               </div>
                               <div className="text-gray-500">conversion rate</div>
                             </div>
