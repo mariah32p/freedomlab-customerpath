@@ -7,6 +7,7 @@ import SignupPage from './pages/SignupPage'
 import SigninPage from './pages/SigninPage'
 import GetStartedPage from './pages/GetStartedPage'
 import DashboardPage from './pages/DashboardPage'
+import DemoPage from './pages/DemoPage'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/signin" element={<SigninPage />} />
           <Route path="/get-started" element={<GetStartedPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/demo" element={<DemoPage />} />
         </Routes>
       </RouteGuard>
     </Router>
