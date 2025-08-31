@@ -830,5 +830,3 @@ const DemoPage = () => {
 };
 
 export default DemoPage;
-
-export default DemoPage
