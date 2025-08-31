@@ -153,7 +153,6 @@ const DemoPage: React.FC = () => {
       avatar: "RJ"
     }
   ]
-  ]
 
   useEffect(() => {
     const interval = setInterval(() => {
