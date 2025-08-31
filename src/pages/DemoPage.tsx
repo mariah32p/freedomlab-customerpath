@@ -1,5 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Users, Target, CheckCircle, Clock, TrendingUp, Settings, Plus, Eye, MessageSquare, Star, Trophy, Bell, BarChart3, Zap, Filter } from 'lucide-react';
+import { 
+  Users, 
+  Target, 
+  CheckCircle, 
+  Clock, 
+  TrendingUp, 
+  Settings, 
+  Plus, 
+  Eye, 
+  MessageSquare, 
+  Trophy, 
+  Bell,
+  BarChart3,
+  Zap,
+  ArrowRight,
+  Activity,
+  Calendar
+} from "lucide-react";
 
 const DemoPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -9,6 +26,12 @@ const DemoPage: React.FC = () => {
   const [modalContent, setModalContent] = useState<any>(null);
   const [isTyping, setIsTyping] = useState(false);
   const [typedText, setTypedText] = useState('');
+  const [liveMetrics, setLiveMetrics] = useState({
+    totalCustomers: 12847,
+    activeJourneys: 12,
+    conversionRate: 67,
+    revenue: 114000
+  });
 
   // Auto-advance demo steps
   useEffect(() => {
@@ -32,6 +55,20 @@ const DemoPage: React.FC = () => {
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
 
+  // Live metrics simulation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLiveMetrics(prev => ({
+        totalCustomers: prev.totalCustomers + Math.floor(Math.random() * 3),
+        activeJourneys: prev.activeJourneys,
+        conversionRate: Math.max(60, Math.min(75, prev.conversionRate + (Math.random() - 0.5) * 2)),
+        revenue: prev.revenue + Math.floor(Math.random() * 500)
+      }));
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   // Celebration effect
   useEffect(() => {
     if (currentStep === 4) {
@@ -45,7 +82,7 @@ const DemoPage: React.FC = () => {
   useEffect(() => {
     if (!isTyping) return;
     
-    const text = "Just converted to Pro plan! 🎉 Ready to scale our customer journey optimization.";
+    const text = "Just upgraded to Pro plan! 🎉 Ready to scale our customer journey optimization with unlimited maps and AI insights.";
     let index = 0;
     
     const typeInterval = setInterval(() => {
@@ -181,41 +218,41 @@ const DemoPage: React.FC = () => {
     <div className="space-y-8">
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl border border-blue-200 animate-fade-in-up">
+        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl border border-blue-200 animate-fade-in-up hover:scale-105 transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-blue-600 text-sm font-medium">Active Journeys</p>
-              <p className="text-3xl font-bold text-blue-700">12</p>
+              <p className="text-3xl font-bold text-blue-700">{liveMetrics.activeJourneys}</p>
             </div>
             <Target className="w-8 h-8 text-blue-500" />
           </div>
         </div>
         
-        <div className="bg-gradient-to-br from-brand-teal/10 to-brand-teal/20 p-6 rounded-2xl border border-brand-teal/30 animate-fade-in-up animation-delay-200">
+        <div className="bg-gradient-to-br from-brand-teal/10 to-brand-teal/20 p-6 rounded-2xl border border-brand-teal/30 animate-fade-in-up animation-delay-200 hover:scale-105 transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-brand-teal text-sm font-medium">Customers Tracked</p>
-              <p className="text-3xl font-bold text-brand-teal">12,847</p>
+              <p className="text-3xl font-bold text-brand-teal">{liveMetrics.totalCustomers.toLocaleString()}</p>
             </div>
             <Users className="w-8 h-8 text-brand-teal" />
           </div>
         </div>
         
-        <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-2xl border border-purple-200 animate-fade-in-up animation-delay-300">
+        <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-2xl border border-purple-200 animate-fade-in-up animation-delay-300 hover:scale-105 transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-purple-600 text-sm font-medium">Avg Conversion</p>
-              <p className="text-3xl font-bold text-purple-700">67%</p>
+              <p className="text-3xl font-bold text-purple-700">{Math.round(liveMetrics.conversionRate)}%</p>
             </div>
             <TrendingUp className="w-8 h-8 text-purple-500" />
           </div>
         </div>
         
-        <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl border border-green-200 animate-fade-in-up animation-delay-500">
+        <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl border border-green-200 animate-fade-in-up animation-delay-500 hover:scale-105 transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-green-600 text-sm font-medium">Revenue Impact</p>
-              <p className="text-3xl font-bold text-green-700">$114k</p>
+              <p className="text-3xl font-bold text-green-700">${Math.round(liveMetrics.revenue / 1000)}k</p>
             </div>
             <Trophy className="w-8 h-8 text-green-500" />
           </div>
@@ -223,26 +260,32 @@ const DemoPage: React.FC = () => {
       </div>
 
       {/* Active Journeys */}
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden animate-fade-in-up animation-delay-700">
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden animate-fade-in-up animation-delay-700 hover:shadow-xl transition-all duration-300">
         <div className="p-6 border-b border-slate-200">
-          <h3 className="text-xl font-semibold text-brand-navy">Active Customer Journeys</h3>
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-semibold text-brand-navy">Active Customer Journeys</h3>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-sm text-slate-600">Live tracking</span>
+            </div>
+          </div>
         </div>
         <div className="divide-y divide-slate-100">
           {mockJourneys.map((journey, index) => (
-            <div key={journey.id} className="p-6 hover:bg-slate-50 transition-colors duration-200">
+            <div key={journey.id} className="p-6 hover:bg-slate-50 transition-colors duration-200 group">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200 ${
                     journey.type === 'conversion' ? 'bg-blue-100' :
                     journey.type === 'retention' ? 'bg-brand-teal/10' :
                     'bg-purple-100'
                   }`}>
                     {journey.type === 'conversion' ? (
-                      <Target className={`w-6 h-6 text-blue-600`} />
+                      <Target className="w-6 h-6 text-blue-600" />
                     ) : journey.type === 'retention' ? (
-                      <Users className={`w-6 h-6 text-brand-teal`} />
+                      <Users className="w-6 h-6 text-brand-teal" />
                     ) : (
-                      <TrendingUp className={`w-6 h-6 text-purple-600`} />
+                      <TrendingUp className="w-6 h-6 text-purple-600" />
                     )}
                   </div>
                   <div>
@@ -266,6 +309,7 @@ const DemoPage: React.FC = () => {
                   }`}>
                     {journey.status}
                   </div>
+                  <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-brand-teal transition-colors duration-200" />
                 </div>
               </div>
             </div>
@@ -278,37 +322,40 @@ const DemoPage: React.FC = () => {
   const renderJourneyAnalytics = () => (
     <div className="space-y-8">
       {/* Journey Header */}
-      <div className="bg-gradient-to-r from-brand-navy to-brand-purple rounded-2xl p-8 text-white animate-fade-in-up">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-3xl font-bold mb-2">E-commerce Checkout Journey</h2>
-            <p className="text-blue-100 text-lg">Real-time funnel analysis • Updated 3 minutes ago</p>
-            <div className="flex items-center space-x-4 mt-3">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-sm">Live tracking</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Users className="w-4 h-4 text-blue-200" />
-                <span className="text-sm">8,247 customers this week</span>
+      <div className="bg-gradient-to-r from-brand-navy to-brand-purple rounded-2xl p-8 text-white animate-fade-in-up relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
+        <div className="relative">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-3xl font-bold mb-2">E-commerce Checkout Journey</h2>
+              <p className="text-blue-100 text-lg">Real-time funnel analysis • Updated 3 minutes ago</p>
+              <div className="flex items-center space-x-4 mt-3">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <span className="text-sm">Live tracking</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Users className="w-4 h-4 text-blue-200" />
+                  <span className="text-sm">8,247 customers this week</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="text-right">
-            <div className="text-4xl font-bold text-brand-teal">67%</div>
-            <div className="text-blue-100">Overall Conversion</div>
+            <div className="text-right">
+              <div className="text-4xl font-bold text-brand-teal">67%</div>
+              <div className="text-blue-100">Overall Conversion</div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Journey Funnel */}
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden animate-fade-in-up animation-delay-300">
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden animate-fade-in-up animation-delay-300 hover:shadow-xl transition-all duration-300">
         <div className="p-6 border-b border-slate-200">
           <div className="flex items-center justify-between">
-            <h3 className="text-xl font-semibold text-brand-navy">Conversion Funnel</h3>
+            <h3 className="text-xl font-semibold text-brand-navy">Customer Journey Funnel</h3>
             <div className="flex space-x-2">
-              <button className="px-3 py-1 bg-brand-teal text-white rounded-lg text-sm font-medium">Export</button>
-              <button className="px-3 py-1 border border-slate-300 text-slate-600 rounded-lg text-sm font-medium">Share</button>
+              <button className="px-3 py-1 bg-brand-teal text-white rounded-lg text-sm font-medium hover:bg-brand-teal/90 transition-colors">Export</button>
+              <button className="px-3 py-1 border border-slate-300 text-slate-600 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors">Share</button>
             </div>
           </div>
         </div>
@@ -317,16 +364,16 @@ const DemoPage: React.FC = () => {
             {journeyStages.map((stage, index) => (
               <div key={stage.id} className="relative">
                 {index < journeyStages.length - 1 && (
-                  <div className="absolute left-8 top-16 w-0.5 h-12 bg-slate-200"></div>
+                  <div className="absolute left-8 top-16 w-0.5 h-12 bg-gradient-to-b from-brand-teal to-purple-400"></div>
                 )}
-                <div className={`flex items-center justify-between p-6 rounded-xl border-2 transition-all duration-300 hover:shadow-lg ${
-                  stage.color === 'blue' ? 'bg-blue-50 border-blue-200' :
-                  stage.color === 'teal' ? 'bg-brand-teal/10 border-brand-teal/30' :
-                  stage.color === 'purple' ? 'bg-purple-50 border-purple-200' :
-                  'bg-green-50 border-green-200'
+                <div className={`flex items-center justify-between p-6 rounded-xl border-2 transition-all duration-300 hover:shadow-lg hover:scale-102 ${
+                  stage.color === 'blue' ? 'bg-blue-50 border-blue-200 hover:border-blue-300' :
+                  stage.color === 'teal' ? 'bg-brand-teal/10 border-brand-teal/30 hover:border-brand-teal/50' :
+                  stage.color === 'purple' ? 'bg-purple-50 border-purple-200 hover:border-purple-300' :
+                  'bg-green-50 border-green-200 hover:border-green-300'
                 }`}>
                   <div className="flex items-center space-x-4">
-                    <div className={`w-16 h-16 rounded-xl flex items-center justify-center shadow-lg ${
+                    <div className={`w-16 h-16 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-300 hover:scale-110 ${
                       stage.color === 'blue' ? 'bg-blue-500' :
                       stage.color === 'teal' ? 'bg-brand-teal' :
                       stage.color === 'purple' ? 'bg-purple-500' :
@@ -344,7 +391,7 @@ const DemoPage: React.FC = () => {
                   </div>
                   <div className="text-right">
                     <div className="text-4xl font-bold text-brand-navy mb-2">
-                      {stage.visitors > 0 ? Math.round((stage.conversions / stage.visitors) * 100) : 0}%
+                      {stage.conversionRate}%
                     </div>
                     <div className="text-slate-500 text-sm">conversion rate</div>
                     <div className="text-slate-600 text-sm mt-1">
@@ -356,18 +403,18 @@ const DemoPage: React.FC = () => {
             ))}
           </div>
           
-          {/* Insights */}
-          <div className="mt-8 bg-gradient-to-r from-brand-teal/10 to-blue-50 rounded-xl p-6 border border-brand-teal/20">
+          {/* AI Insights */}
+          <div className="mt-8 bg-gradient-to-r from-brand-teal/10 to-blue-50 rounded-xl p-6 border border-brand-teal/20 hover:shadow-lg transition-all duration-300">
             <h4 className="font-bold text-brand-navy mb-4 flex items-center">
               <Zap className="w-5 h-5 mr-2 text-brand-teal" />
               AI-Powered Insights
             </h4>
             <div className="grid md:grid-cols-2 gap-4 text-sm">
-              <div className="bg-white/70 p-4 rounded-lg">
+              <div className="bg-white/70 p-4 rounded-lg hover:bg-white transition-colors duration-200">
                 <p className="font-semibold text-brand-navy mb-1">🎯 Optimization Opportunity</p>
                 <p className="text-slate-600">Improve product demo conversion by estimated 15% with interactive elements</p>
               </div>
-              <div className="bg-white/70 p-4 rounded-lg">
+              <div className="bg-white/70 p-4 rounded-lg hover:bg-white transition-colors duration-200">
                 <p className="font-semibold text-brand-navy mb-1">📈 Growth Lever</p>
                 <p className="text-slate-600">Landing page performs best - consider increasing ad spend by 25%</p>
               </div>
@@ -381,10 +428,10 @@ const DemoPage: React.FC = () => {
   const renderJourneyBuilder = () => (
     <div className="space-y-8">
       {/* Builder Header */}
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up">
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up hover:shadow-xl transition-all duration-300">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-2xl font-semibold text-brand-navy">Visual Journey Builder</h3>
-          <button className="bg-brand-teal text-white px-4 py-2 rounded-lg font-medium hover:bg-brand-teal/90 transition-colors duration-200">
+          <button className="bg-brand-teal text-white px-4 py-2 rounded-lg font-medium hover:bg-brand-teal/90 transition-all duration-200 transform hover:scale-105">
             Save Journey
           </button>
         </div>
@@ -395,13 +442,13 @@ const DemoPage: React.FC = () => {
             <input 
               type="text" 
               value="Mobile App Onboarding"
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-teal focus:border-brand-teal"
+              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-teal focus:border-brand-teal transition-all duration-200"
               readOnly
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-2">Journey Type</label>
-            <select className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-teal focus:border-brand-teal">
+            <select className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-teal focus:border-brand-teal transition-all duration-200">
               <option>User Onboarding</option>
               <option>Purchase Funnel</option>
               <option>Retention Flow</option>
@@ -411,19 +458,19 @@ const DemoPage: React.FC = () => {
       </div>
 
       {/* Journey Builder Canvas */}
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-300">
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-300 hover:shadow-xl transition-all duration-300">
         <h4 className="text-lg font-semibold text-brand-navy mb-6">Build Your Customer Touchpoints</h4>
         
         <div className="space-y-4">
           {[
-            { title: 'App Download', description: 'User downloads mobile app from store', status: 'building', icon: '📱' },
-            { title: 'Account Creation', description: 'User creates account with email/social', status: 'planned', icon: '👤' },
-            { title: 'Profile Setup', description: 'Complete profile and preferences', status: 'planned', icon: '⚙️' },
-            { title: 'First Action', description: 'User completes primary app action', status: 'planned', icon: '🎯' },
-            { title: 'Feature Discovery', description: 'User explores key features', status: 'planned', icon: '🔍' }
+            { title: 'App Download', description: 'Customer downloads mobile app from store', status: 'building', icon: '📱', metrics: '2,847 downloads' },
+            { title: 'Account Creation', description: 'Customer creates account with email/social', status: 'planned', icon: '👤', metrics: '1,923 signups' },
+            { title: 'Profile Setup', description: 'Complete profile and preferences', status: 'planned', icon: '⚙️', metrics: '1,456 completed' },
+            { title: 'First Purchase', description: 'Customer completes first transaction', status: 'planned', icon: '🛒', metrics: '892 conversions' },
+            { title: 'Feature Discovery', description: 'Customer explores key app features', status: 'planned', icon: '🔍', metrics: '1,234 engaged' }
           ].map((touchpoint, index) => (
-            <div key={index} className={`p-4 rounded-xl border-2 border-dashed transition-all duration-300 hover:shadow-md ${
-              touchpoint.status === 'building' ? 'border-brand-teal bg-brand-teal/5' : 'border-slate-200 bg-slate-50'
+            <div key={index} className={`p-4 rounded-xl border-2 border-dashed transition-all duration-300 hover:shadow-md hover:scale-102 ${
+              touchpoint.status === 'building' ? 'border-brand-teal bg-brand-teal/5 shadow-lg' : 'border-slate-200 bg-slate-50 hover:border-brand-teal/50'
             }`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
@@ -431,6 +478,7 @@ const DemoPage: React.FC = () => {
                   <div>
                     <span className="font-medium text-brand-navy">{touchpoint.title}</span>
                     <p className="text-slate-600 text-sm">{touchpoint.description}</p>
+                    <p className="text-brand-teal text-xs font-medium">{touchpoint.metrics}</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -446,9 +494,9 @@ const DemoPage: React.FC = () => {
             </div>
           ))}
           
-          <button className="w-full p-4 border-2 border-dashed border-slate-300 rounded-xl text-slate-500 hover:border-brand-teal hover:text-brand-teal hover:bg-brand-teal/5 transition-all duration-200 flex items-center justify-center space-x-2">
-            <Plus className="w-5 h-5" />
-            <span>Add Touchpoint</span>
+          <button className="w-full p-4 border-2 border-dashed border-slate-300 rounded-xl text-slate-500 hover:border-brand-teal hover:text-brand-teal hover:bg-brand-teal/5 transition-all duration-200 flex items-center justify-center space-x-2 group">
+            <Plus className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
+            <span>Add Customer Touchpoint</span>
           </button>
         </div>
       </div>
@@ -477,7 +525,7 @@ const DemoPage: React.FC = () => {
       </div>
 
       {/* Live Activity Feed */}
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden animate-fade-in-up animation-delay-300">
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden animate-fade-in-up animation-delay-300 hover:shadow-xl transition-all duration-300">
         <div className="p-6 border-b border-slate-200">
           <div className="flex items-center justify-between">
             <h3 className="text-xl font-semibold text-brand-navy">Customer Activity Stream</h3>
@@ -489,26 +537,26 @@ const DemoPage: React.FC = () => {
         </div>
         <div className="p-6 space-y-4 max-h-96 overflow-y-auto">
           {[
-            { time: '2 sec ago', event: 'New visitor landed on homepage', user: 'Anonymous', journey: 'E-commerce Checkout', stage: 'Landing Page', type: 'visit' },
+            { time: '2 sec ago', event: 'New customer landed on homepage', user: 'Anonymous Visitor', journey: 'E-commerce Checkout', stage: 'Landing Page', type: 'visit' },
             { time: '8 sec ago', event: 'Customer completed trial signup', user: 'sarah.m@techcorp.com', journey: 'SaaS Onboarding', stage: 'Trial Signup', type: 'conversion' },
-            { time: '15 sec ago', event: 'Visitor watched product demo', user: 'Anonymous', journey: 'E-commerce Checkout', stage: 'Product Demo', type: 'engagement' },
+            { time: '15 sec ago', event: 'Customer watched product demo', user: 'Anonymous Visitor', journey: 'E-commerce Checkout', stage: 'Product Demo', type: 'engagement' },
             { time: '23 sec ago', event: 'Customer upgraded to Pro plan', user: 'mike.r@startup.io', journey: 'SaaS Onboarding', stage: 'Paid Conversion', type: 'revenue' },
-            { time: '31 sec ago', event: 'New visitor from Google Ads', user: 'Anonymous', journey: 'Content Marketing', stage: 'Landing Page', type: 'visit' },
+            { time: '31 sec ago', event: 'New customer from Google Ads', user: 'Anonymous Visitor', journey: 'Content Marketing', stage: 'Landing Page', type: 'visit' },
             { time: '45 sec ago', event: 'Customer completed purchase', user: 'emily.j@company.com', journey: 'E-commerce Checkout', stage: 'Paid Conversion', type: 'revenue' },
-            { time: '52 sec ago', event: 'Visitor started trial signup', user: 'Anonymous', journey: 'SaaS Onboarding', stage: 'Trial Signup', type: 'engagement' }
+            { time: '52 sec ago', event: 'Customer started trial signup', user: 'Anonymous Visitor', journey: 'SaaS Onboarding', stage: 'Trial Signup', type: 'engagement' }
           ].map((activity, index) => (
-            <div key={index} className={`flex items-start space-x-4 p-4 rounded-xl transition-all duration-200 hover:shadow-md ${
+            <div key={index} className={`flex items-start space-x-4 p-4 rounded-xl transition-all duration-200 hover:shadow-md hover:scale-102 ${
               activity.type === 'revenue' ? 'bg-green-50 border border-green-200' :
               activity.type === 'conversion' ? 'bg-brand-teal/10 border border-brand-teal/30' :
               activity.type === 'engagement' ? 'bg-blue-50 border border-blue-200' :
               'bg-slate-50 border border-slate-200'
             }`}>
               <div className={`w-3 h-3 rounded-full mt-2 ${
-                activity.type === 'revenue' ? 'bg-green-500' :
-                activity.type === 'conversion' ? 'bg-brand-teal' :
+                activity.type === 'revenue' ? 'bg-green-500 animate-pulse' :
+                activity.type === 'conversion' ? 'bg-brand-teal animate-pulse' :
                 activity.type === 'engagement' ? 'bg-blue-500' :
                 'bg-slate-400'
-              } ${activity.type === 'revenue' || activity.type === 'conversion' ? 'animate-pulse' : ''}`}></div>
+              }`}></div>
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-1">
                   <p className="font-medium text-brand-navy">{activity.event}</p>
@@ -555,11 +603,11 @@ const DemoPage: React.FC = () => {
       </div>
 
       {/* Conversion Details */}
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-300">
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-300 hover:shadow-xl transition-all duration-300">
         <h3 className="text-xl font-semibold text-brand-navy mb-6">Conversion Event Details</h3>
         
         <div className="space-y-6">
-          <div className="bg-green-50 rounded-xl p-6 border border-green-200">
+          <div className="bg-green-50 rounded-xl p-6 border border-green-200 hover:shadow-lg transition-all duration-300">
             <div className="flex items-center space-x-3 mb-4">
               <CheckCircle className="w-6 h-6 text-green-500" />
               <h4 className="font-semibold text-green-800">Pro Plan Upgrade - SUCCESS! ✅</h4>
@@ -577,14 +625,14 @@ const DemoPage: React.FC = () => {
               </div>
             </div>
             
-            <div className="bg-white rounded-lg p-4 border border-green-200 mt-4">
+            <div className="bg-white rounded-lg p-4 border border-green-200 mt-4 hover:shadow-md transition-all duration-200">
               <div className="flex items-start space-x-3">
                 <MessageSquare className="w-5 h-5 text-green-500 mt-0.5" />
                 <div className="flex-1">
                   {isTyping ? (
                     <p className="text-slate-700 text-sm">{typedText}<span className="animate-pulse">|</span></p>
                   ) : (
-                    <p className="text-slate-700 text-sm">Just converted to Pro plan! 🎉 Ready to scale our customer journey optimization.</p>
+                    <p className="text-slate-700 text-sm">Just upgraded to Pro plan! 🎉 Ready to scale our customer journey optimization with unlimited maps and AI insights.</p>
                   )}
                   <p className="text-slate-500 text-xs mt-1">Customer feedback • Just now</p>
                 </div>
@@ -593,7 +641,7 @@ const DemoPage: React.FC = () => {
           </div>
 
           {/* Journey Path Taken */}
-          <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
+          <div className="bg-blue-50 rounded-xl p-6 border border-blue-200 hover:shadow-lg transition-all duration-300">
             <h4 className="font-semibold text-blue-800 mb-4">🛤️ Customer Journey Path</h4>
             <div className="space-y-3">
               {[
@@ -603,7 +651,7 @@ const DemoPage: React.FC = () => {
                 { step: 'Feature Exploration', time: '2 days ago', status: 'completed' },
                 { step: 'Pro Plan Upgrade', time: 'Just now', status: 'completed' }
               ].map((step, index) => (
-                <div key={index} className="flex items-center space-x-3">
+                <div key={index} className="flex items-center space-x-3 hover:bg-blue-100 p-2 rounded-lg transition-colors duration-200">
                   <CheckCircle className="w-4 h-4 text-green-500" />
                   <span className="text-blue-700 text-sm flex-1">{step.step}</span>
                   <span className="text-blue-600 text-xs">{step.time}</span>
@@ -613,7 +661,7 @@ const DemoPage: React.FC = () => {
           </div>
 
           {/* Impact Analysis */}
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200 hover:shadow-lg transition-all duration-300">
             <h4 className="font-semibold text-purple-800 mb-3">📊 Conversion Impact</h4>
             <div className="grid md:grid-cols-3 gap-4 text-sm">
               <div className="text-center">
@@ -638,12 +686,12 @@ const DemoPage: React.FC = () => {
   const renderGrowthInsights = () => (
     <div className="space-y-8">
       {/* Insights Header */}
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up">
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up hover:shadow-xl transition-all duration-300">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-2xl font-semibold text-brand-navy">Growth Insights & Optimization</h3>
           <div className="flex space-x-2">
-            <button className="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm font-medium">Last 30 days</button>
-            <button className="px-4 py-2 bg-brand-teal text-white rounded-lg text-sm font-medium">This quarter</button>
+            <button className="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm font-medium hover:bg-slate-200 transition-colors">Last 30 days</button>
+            <button className="px-4 py-2 bg-brand-teal text-white rounded-lg text-sm font-medium hover:bg-brand-teal/90 transition-colors">This quarter</button>
           </div>
         </div>
         
@@ -667,8 +715,8 @@ const DemoPage: React.FC = () => {
       </div>
 
       {/* Top Performing Journeys */}
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-300">
-        <h3 className="text-xl font-semibold text-brand-navy mb-6">Top Performing Journeys</h3>
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-300 hover:shadow-xl transition-all duration-300">
+        <h3 className="text-xl font-semibold text-brand-navy mb-6">Top Performing Customer Journeys</h3>
         
         <div className="space-y-4">
           {[
@@ -676,7 +724,7 @@ const DemoPage: React.FC = () => {
             { name: 'SaaS Onboarding', conversion: 62, revenue: 28400, improvement: '+8%', rank: 2 },
             { name: 'Content Marketing', conversion: 45, revenue: 15600, improvement: '+15%', rank: 3 }
           ].map((journey) => (
-            <div key={journey.name} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors duration-200">
+            <div key={journey.name} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-slate-100 hover:scale-102 transition-all duration-200">
               <div className="flex items-center space-x-4">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm ${
                   journey.rank === 1 ? 'bg-yellow-500' :
@@ -707,11 +755,11 @@ const DemoPage: React.FC = () => {
       </div>
 
       {/* Optimization Opportunities */}
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-500">
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-500 hover:shadow-xl transition-all duration-300">
         <h3 className="text-xl font-semibold text-brand-navy mb-6">AI-Powered Optimization Opportunities</h3>
         
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-gradient-to-br from-brand-teal/10 to-brand-teal/20 rounded-xl p-6 border border-brand-teal/30">
+          <div className="bg-gradient-to-br from-brand-teal/10 to-brand-teal/20 rounded-xl p-6 border border-brand-teal/30 hover:shadow-lg transition-all duration-300">
             <h4 className="font-semibold text-brand-teal mb-3">🎯 High Impact Opportunity</h4>
             <p className="text-brand-navy font-medium mb-2">Optimize Product Demo Stage</p>
             <p className="text-slate-600 text-sm mb-4">
@@ -719,11 +767,11 @@ const DemoPage: React.FC = () => {
             </p>
             <div className="flex items-center justify-between">
               <span className="text-brand-teal font-semibold text-sm">Potential Revenue: +$8.4k/month</span>
-              <button className="bg-brand-teal text-white px-3 py-1 rounded-lg text-xs font-medium">Apply</button>
+              <button className="bg-brand-teal text-white px-3 py-1 rounded-lg text-xs font-medium hover:bg-brand-teal/90 transition-colors">Apply</button>
             </div>
           </div>
           
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
+          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200 hover:shadow-lg transition-all duration-300">
             <h4 className="font-semibold text-purple-800 mb-3">📈 Growth Lever</h4>
             <p className="text-brand-navy font-medium mb-2">Scale High-Converting Traffic</p>
             <p className="text-slate-600 text-sm mb-4">
@@ -731,13 +779,13 @@ const DemoPage: React.FC = () => {
             </p>
             <div className="flex items-center justify-between">
               <span className="text-purple-600 font-semibold text-sm">Potential Revenue: +$12.1k/month</span>
-              <button className="bg-purple-500 text-white px-3 py-1 rounded-lg text-xs font-medium">Review</button>
+              <button className="bg-purple-500 text-white px-3 py-1 rounded-lg text-xs font-medium hover:bg-purple-600 transition-colors">Review</button>
             </div>
           </div>
         </div>
 
         {/* Quick Wins */}
-        <div className="mt-6 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl p-6 border border-amber-200">
+        <div className="mt-6 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl p-6 border border-amber-200 hover:shadow-lg transition-all duration-300">
           <h4 className="font-semibold text-amber-800 mb-4">⚡ Quick Wins (1-2 weeks)</h4>
           <div className="space-y-3">
             {[
@@ -745,12 +793,12 @@ const DemoPage: React.FC = () => {
               { task: 'Optimize trial signup form (reduce fields)', impact: '+8% signups', effort: 'Low' },
               { task: 'Add social proof to checkout page', impact: '+12% completion', effort: 'Medium' }
             ].map((win, index) => (
-              <div key={index} className="flex items-center justify-between bg-white rounded-lg p-3 border border-amber-200">
+              <div key={index} className="flex items-center justify-between bg-white rounded-lg p-3 border border-amber-200 hover:shadow-md transition-all duration-200">
                 <div className="flex-1">
                   <p className="font-medium text-brand-navy text-sm">{win.task}</p>
                   <p className="text-amber-700 text-xs">{win.impact} • {win.effort} effort</p>
                 </div>
-                <button className="bg-amber-500 text-white px-3 py-1 rounded text-xs font-medium">Start</button>
+                <button className="bg-amber-500 text-white px-3 py-1 rounded text-xs font-medium hover:bg-amber-600 transition-colors">Start</button>
               </div>
             ))}
           </div>
@@ -881,7 +929,7 @@ const DemoPage: React.FC = () => {
                   {isTyping ? (
                     <p className="text-green-700 text-sm">{typedText}<span className="animate-pulse">|</span></p>
                   ) : (
-                    <p className="text-green-700 text-sm">Just converted to Pro plan! 🎉 Ready to scale our customer journey optimization.</p>
+                    <p className="text-green-700 text-sm">Just upgraded to Pro plan! 🎉 Ready to scale our customer journey optimization with unlimited maps and AI insights.</p>
                   )}
                 </div>
               )}
