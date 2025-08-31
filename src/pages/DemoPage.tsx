@@ -454,7 +454,7 @@ const DemoPage = () => {
               <div className="w-7 h-7 bg-teal-500 rounded-lg flex items-center justify-center">
                 <Target className="w-4 h-4 text-white" />
               </div>
-              <span className="text-lg font-bold text-gray-900">CustomerPath</span>
+              <span className="text-xl font-bold text-gray-900">CustomerPath</span>
             </Link>
 
             <nav className="flex items-center space-x-1">
@@ -462,7 +462,7 @@ const DemoPage = () => {
                 <button
                   key={step.name}
                   onClick={() => setCurrentStep(index)}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-base font-medium transition-colors ${
                     currentStep === index
                       ? 'bg-gray-100 text-gray-900'
                       : 'text-gray-600 hover:text-gray-900'
@@ -473,10 +473,6 @@ const DemoPage = () => {
                 </button>
               ))}
             </nav>
-
-            <Link to="/signup" className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-lg text-sm font-medium">
-              Start Trial
-            </Link>
           </div>
         </div>
       </header>
