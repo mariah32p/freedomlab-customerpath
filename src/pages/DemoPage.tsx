@@ -166,61 +166,6 @@ const DemoPage = () => {
         />
       </div>
 
-      {/* Featured Journey */}
-      <motion.div 
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden"
-      >
-        <div className="p-6 border-b border-gray-100">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-xl font-bold text-gray-900">Featured Journey</h3>
-              <p className="text-gray-600 text-sm">Your highest converting customer path</p>
-            </div>
-            <div className="flex items-center space-x-2 bg-emerald-50 px-3 py-2 rounded-lg">
-              <div className="w-2 h-2 bg-emerald-500 rounded-full" />
-              <span className="text-emerald-700 font-semibold text-sm">78% Conversion</span>
-            </div>
-          </div>
-        </div>
-        <div className="p-6">
-          <div className="flex items-center justify-between">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-3">
-                <MousePointerClick className="w-8 h-8 text-white" />
-              </div>
-              <p className="font-semibold text-gray-900">Landing</p>
-              <p className="text-2xl font-bold text-gray-900">8,247</p>
-            </div>
-            <ArrowRight className="w-6 h-6 text-gray-300" />
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center mb-3">
-                <Calendar className="w-8 h-8 text-white" />
-              </div>
-              <p className="font-semibold text-gray-900">Demo</p>
-              <p className="text-2xl font-bold text-gray-900">6,432</p>
-            </div>
-            <ArrowRight className="w-6 h-6 text-gray-300" />
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-3">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <p className="font-semibold text-gray-900">Trial</p>
-              <p className="text-2xl font-bold text-gray-900">3,987</p>
-            </div>
-            <ArrowRight className="w-6 h-6 text-gray-300" />
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center mb-3">
-                <DollarSign className="w-8 h-8 text-white" />
-              </div>
-              <p className="font-semibold text-gray-900">Paid</p>
-              <p className="text-2xl font-bold text-emerald-600">$47.2k</p>
-            </div>
-          </div>
-        </div>
-      </motion.div>
     </div>
   );
 
