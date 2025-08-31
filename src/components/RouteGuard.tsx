@@ -30,7 +30,7 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
     }
 
     // Skip route guard for public pages
-    const publicPaths = ['/', '/pricing', '/signup', '/signin']
+    const publicPaths = ['/', '/pricing', '/signup', '/signin', '/demo']
     if (publicPaths.includes(location.pathname)) {
       console.log('Public path, skipping guard')
       return
