@@ -27,6 +27,11 @@ export const useAuth = (): AuthState => {
           email: userData.user?.email || '',
           plan: 'basic',
           subscription_status: 'not_started',
+          trial_ends_at: null,
+          current_period_end: null,
+          customer_id: null,
+          subscription_id: null,
+          payment_issue_since: null,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
         }
