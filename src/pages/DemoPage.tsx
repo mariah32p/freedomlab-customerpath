@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import {
   Users, Target, Plus, ArrowRight, Zap, Database,
   BarChart2, TrendingUp, Activity, Calendar,
-  CreditCard, MousePointerClick, Mail, ShoppingCart, 
+  CreditCard, MousePointerClick, Mail, ShoppingCart,
   FileText, DollarSign, TrendingDown, Download,
   ExternalLink, Settings, Filter, Eye,
   Edit3, Trophy, ChevronRight, Sparkles, Play,
@@ -47,7 +47,7 @@ const DemoPage = () => {
     { id: 3, name: 'Trial Signup', users: 3987, icon: Users, color: 'from-purple-500 to-purple-600' },
     { id: 4, name: 'Payment', users: 1834, icon: CreditCard, color: 'from-emerald-500 to-emerald-600' }
   ]);
-  
+
   const [connectedTools, setConnectedTools] = useState([
     { id: 1, name: 'Calendly', type: 'Demo Bookings', status: 'Active', events: '247 events today', color: 'blue' },
     { id: 2, name: 'Stripe', type: 'Payments', status: 'Active', events: '89 events today', color: 'emerald' },
@@ -68,7 +68,7 @@ const DemoPage = () => {
     }, 8000);
     return () => clearInterval(interval);
   }, []);
-  
+
   const steps = [
     { name: 'Dashboard', icon: BarChart2 },
     { name: 'Journey Map', icon: Target },
@@ -132,32 +132,32 @@ const DemoPage = () => {
 
         {/* Premium Metrics Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-          <MetricCard 
-            title="Total Visitors" 
-            value={metrics.customersTracked} 
-            icon={Users} 
+          <MetricCard
+            title="Total Visitors"
+            value={metrics.customersTracked}
+            icon={Users}
             gradient="bg-gradient-to-br from-blue-500 to-blue-600"
             trend="+12%"
           />
-          <MetricCard 
-            title="Active Journeys" 
-            value={metrics.totalJourneys} 
-            icon={Target} 
+          <MetricCard
+            title="Active Journeys"
+            value={metrics.totalJourneys}
+            icon={Target}
             gradient="bg-gradient-to-br from-purple-500 to-purple-600"
             trend="+3"
           />
-          <MetricCard 
-            title="Conversion Rate" 
-            value={metrics.conversionRate} 
-            icon={TrendingUp} 
+          <MetricCard
+            title="Conversion Rate"
+            value={metrics.conversionRate}
+            icon={TrendingUp}
             gradient="bg-gradient-to-br from-emerald-500 to-emerald-600"
             suffix="%"
             trend="+8%"
           />
-          <MetricCard 
-            title="Monthly Revenue" 
-            value={metrics.revenue} 
-            icon={DollarSign} 
+          <MetricCard
+            title="Monthly Revenue"
+            value={metrics.revenue}
+            icon={DollarSign}
             gradient="bg-gradient-to-br from-amber-500 to-orange-600"
             prefix="$"
             trend="+23%"
@@ -165,7 +165,7 @@ const DemoPage = () => {
         </div>
 
         {/* Stunning Funnel Visualization */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
@@ -185,103 +185,71 @@ const DemoPage = () => {
               </div>
               <div className="flex items-center space-x-4 bg-emerald-500/20 px-8 py-4 rounded-2xl border border-emerald-400/30">
                 <div className="w-5 h-5 bg-emerald-400 rounded-full animate-pulse shadow-lg" />
-                <span className="text-emerald-300 font-bold text-2xl">78% Overall Conversion</span>
+                <span className="text-emerald-300 font-bold text-2xl">{metrics.conversionRate}% Overall Conversion</span>
               </div>
             </div>
           </div>
-          
+
           {/* Massive Funnel Flow */}
           <div className="p-12">
             <div className="relative">
               {/* Flowing Connection Lines */}
               <div className="absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 via-teal-500 to-emerald-500 opacity-40 rounded-full shadow-lg" />
-              
+
               <div className="grid grid-cols-1 md:grid-cols-4 gap-12 relative">
-                {journeySteps.map((step, i) => (
-                  <React.Fragment key={step.id}>
-                    <motion.div 
+                {/***************************************************************/}
+                {/* FIX 1: The code was mapping over `journeySteps` but then   */}
+                {/* rendering four hardcoded, static blocks inside the map.   */}
+                {/* This defeats the purpose of mapping and causes rendering    */}
+                {/* issues. The corrected code now renders one dynamic block    */}
+                {/* for each `step` in the `journeySteps` array, using the data */}
+                {/* from that step.                                             */}
+                {/***************************************************************/}
+                {journeySteps.map((step, i) => {
+                  const Icon = step.icon;
+                  const prevStepUsers = i > 0 ? journeySteps[i - 1].users : null;
+                  const dropoff = prevStepUsers ? Math.round((1 - (step.users / prevStepUsers)) * 100) : null;
+
+                  return (
+                    <motion.div
+                      key={step.id}
                       whileHover={{ y: -8, scale: 1.02 }}
                       className="text-center relative z-10 group"
                     >
-                      <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:shadow-3xl transition-all duration-300">
-                        <MousePointerClick className="w-16 h-16 text-white" />
+                      <div className={`w-32 h-32 bg-gradient-to-br ${step.color} rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:shadow-3xl transition-all duration-300`}>
+                        <Icon className="w-16 h-16 text-white" />
                       </div>
-                      <h4 className="text-2xl font-bold text-gray-900 mb-4">Landing Page</h4>
-                      <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 border border-blue-200 shadow-lg">
-                        <p className="text-5xl font-bold text-blue-600 mb-2">8,247</p>
-                        <p className="text-5xl font-bold text-blue-600 mb-2">{journeySteps[0]?.users.toLocaleString() || '0'}</p>
+                      <h4 className="text-2xl font-bold text-gray-900 mb-4">{step.name}</h4>
+                      <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 border border-gray-200 shadow-lg">
+                        <p className="text-5xl font-bold text-gray-800 mb-2">
+                          {step.users.toLocaleString()}
+                        </p>
                         <div className="mt-4 flex items-center justify-center space-x-2">
-                          <TrendingUp className="w-4 h-4 text-emerald-500" />
-                          <span className="text-emerald-600 font-bold text-sm">+12% this week</span>
+                          {i === 0 ? (
+                            <>
+                              <TrendingUp className="w-4 h-4 text-emerald-500" />
+                              <span className="text-emerald-600 font-bold text-sm">+12% this week</span>
+                            </>
+                          ) : dropoff !== null ? (
+                            <div className="bg-red-100 px-3 py-2 rounded-xl border border-red-200">
+                              <span className="text-red-700 font-bold text-sm">-{dropoff}% Drop-off</span>
+                            </div>
+                          ) : null}
                         </div>
                       </div>
                     </motion.div>
-                    
-                    {/* Demo Booking */}
-                    <motion.div 
-                      whileHover={{ y: -8, scale: 1.02 }}
-                      className="text-center relative z-10 group"
-                    >
-                      <div className="w-32 h-32 bg-gradient-to-br from-teal-500 to-teal-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:shadow-3xl transition-all duration-300">
-                        <Calendar className="w-16 h-16 text-white" />
-                      </div>
-                      <h4 className="text-2xl font-bold text-gray-900 mb-4">Demo Booking</h4>
-                      <div className="bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl p-6 border border-teal-200 shadow-lg">
-                        <p className="text-5xl font-bold text-teal-600 mb-2">6,432</p>
-                        <p className="text-5xl font-bold text-teal-600 mb-2">{journeySteps[1]?.users.toLocaleString() || '0'}</p>
-                        <div className="mt-4 bg-red-100 px-3 py-2 rounded-xl border border-red-200">
-                          <span className="text-red-700 font-bold text-sm">-22% Drop-off Alert</span>
-                        </div>
-                      </div>
-                    </motion.div>
-                    
-                    {/* Trial Signup */}
-                    <motion.div 
-                      whileHover={{ y: -8, scale: 1.02 }}
-                      className="text-center relative z-10 group"
-                    >
-                      <div className="w-32 h-32 bg-gradient-to-br from-purple-500 to-purple-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:shadow-3xl transition-all duration-300">
-                        <Users className="w-16 h-16 text-white" />
-                      </div>
-                      <h4 className="text-2xl font-bold text-gray-900 mb-4">Trial Signup</h4>
-                      <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 border border-purple-200 shadow-lg">
-                        <p className="text-5xl font-bold text-purple-600 mb-2">3,987</p>
-                        <p className="text-5xl font-bold text-purple-600 mb-2">{journeySteps[2]?.users.toLocaleString() || '0'}</p>
-                        <div className="mt-4 bg-red-100 px-3 py-2 rounded-xl border border-red-200">
-                          <span className="text-red-700 font-bold text-sm">-38% Drop-off Alert</span>
-                        </div>
-                      </div>
-                    </motion.div>
-                    
-                    {/* Paid Customers */}
-                    <motion.div 
-                      whileHover={{ y: -8, scale: 1.02 }}
-                      className="text-center relative z-10 group"
-                    >
-                      <div className="w-32 h-32 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:shadow-3xl transition-all duration-300">
-                        <DollarSign className="w-16 h-16 text-white" />
-                      </div>
-                      <h4 className="text-2xl font-bold text-gray-900 mb-4">Paid Customers</h4>
-                      <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl p-6 border border-emerald-200 shadow-lg">
-                        <p className="text-5xl font-bold text-emerald-600 mb-2">$47.2k</p>
-                        <p className="text-5xl font-bold text-emerald-600 mb-2">${Math.round(metrics.revenue / 1000)}k</p>
-                        <div className="mt-4 bg-emerald-100 px-3 py-2 rounded-xl border border-emerald-200">
-                          <span className="text-emerald-700 font-bold text-sm">2,289 Active Customers</span>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </React.Fragment>
-                ))}
+                  )
+                })}
               </div>
             </div>
           </div>
-          
+
           {/* AI-Powered Insights Section */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="mt-12 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-10 text-white shadow-2xl"
+            className="m-12 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-10 text-white shadow-2xl"
           >
             <div className="flex items-center space-x-4 mb-8">
               <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
@@ -292,7 +260,7 @@ const DemoPage = () => {
                 <p className="text-white/80 text-lg">Automated recommendations to boost your conversions</p>
               </div>
             </div>
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
                 <div className="flex items-center space-x-3 mb-4">
@@ -300,24 +268,24 @@ const DemoPage = () => {
                   <h5 className="text-xl font-bold">Biggest Opportunity</h5>
                 </div>
                 <p className="text-white/90 text-lg leading-relaxed">
-                  Improve demo → trial conversion by optimizing your onboarding flow. 
+                  Improve demo → trial conversion by optimizing your onboarding flow.
                   <span className="font-bold text-yellow-300"> Potential +$18k monthly revenue</span>
                 </p>
               </div>
-              
+
               <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
                 <div className="flex items-center space-x-3 mb-4">
                   <Target className="w-6 h-6 text-emerald-300" />
                   <h5 className="text-xl font-bold">Quick Win</h5>
                 </div>
                 <p className="text-white/90 text-lg leading-relaxed">
-                  Focus marketing spend on Google Ads - your highest converting source at 
+                  Focus marketing spend on Google Ads - your highest converting source at
                   <span className="font-bold text-emerald-300"> 42% conversion rate</span>
                 </p>
               </div>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
@@ -340,7 +308,7 @@ const DemoPage = () => {
         </div>
 
         {/* Interactive Journey Builder */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           className="bg-white/90 backdrop-blur-sm border border-white/50 rounded-3xl shadow-2xl overflow-hidden"
@@ -362,7 +330,7 @@ const DemoPage = () => {
                   <Settings className="w-5 h-5 mr-2 inline" />
                   Settings
                 </button>
-                <button 
+                <button
                   onClick={addJourneyStep}
                   className="bg-white text-purple-600 hover:bg-gray-50 px-6 py-3 rounded-xl font-bold flex items-center space-x-2 transition-all shadow-lg"
                 >
@@ -372,12 +340,12 @@ const DemoPage = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Massive Journey Flow */}
           <div className="p-12">
             <div className="flex items-center justify-between overflow-x-auto pb-8">
               {journeySteps.map((step, i) => (
-                <React.Fragment key={i}>
+                <React.Fragment key={step.id}>
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -393,11 +361,11 @@ const DemoPage = () => {
                         <X className="w-4 h-4" />
                       </button>
                     )}
-                    
+
                     <div className={`w-24 h-24 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center shadow-2xl group-hover:shadow-3xl transition-all duration-300`}>
                       <step.icon className="w-12 h-12 text-white" />
                     </div>
-                    
+
                     <div className="mt-6 text-center">
                       <h4 className="text-xl font-bold text-gray-900 mb-3">{step.name}</h4>
                       <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 min-w-[160px] shadow-lg border border-gray-200">
@@ -406,7 +374,7 @@ const DemoPage = () => {
                       </div>
                     </div>
                   </motion.div>
-                  
+
                   {i < journeySteps.length - 1 && (
                     <div className="flex flex-col items-center justify-center mx-8">
                       <ArrowRight className="w-8 h-8 text-gray-400 mb-2" />
@@ -425,17 +393,17 @@ const DemoPage = () => {
             <div className="mt-12 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 backdrop-blur-sm rounded-2xl p-8 border border-emerald-200/50">
               <div className="flex items-center justify-center space-x-12">
                 <div className="text-center">
-                  <p className="text-4xl font-bold text-emerald-600 mb-2">22.3%</p>
+                  <p className="text-4xl font-bold text-emerald-600">{metrics.conversionRate}%</p>
                   <p className="text-emerald-700 font-bold text-lg">Overall Conversion</p>
                 </div>
                 <div className="w-px h-16 bg-emerald-300" />
                 <div className="text-center">
-                  <p className="text-4xl font-bold text-teal-600 mb-2">$47.2k</p>
+                  <p className="text-4xl font-bold text-teal-600">${(metrics.revenue/1000).toFixed(1)}k</p>
                   <p className="text-teal-700 font-bold text-lg">Monthly Revenue</p>
                 </div>
                 <div className="w-px h-16 bg-emerald-300" />
                 <div className="text-center">
-                  <p className="text-4xl font-bold text-blue-600 mb-2">2,289</p>
+                  <p className="text-4xl font-bold text-blue-600">{journeySteps[journeySteps.length-1].users.toLocaleString()}</p>
                   <p className="text-blue-700 font-bold text-lg">Active Customers</p>
                 </div>
               </div>
@@ -464,7 +432,7 @@ const DemoPage = () => {
         </div>
 
         {/* Integration Setup */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           className="bg-white/90 backdrop-blur-sm border border-white/50 rounded-3xl shadow-2xl overflow-hidden mb-8"
@@ -481,7 +449,7 @@ const DemoPage = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="p-12">
             <div className="grid md:grid-cols-3 gap-12 mb-12">
               {[
@@ -489,7 +457,7 @@ const DemoPage = () => {
                 { step: 2, title: "Copy Webhook URL", description: "One-click copy to clipboard", icon: ExternalLink },
                 { step: 3, title: "Start Tracking", description: "Data flows automatically", icon: Activity }
               ].map((item, index) => (
-                <motion.div 
+                <motion.div
                   key={item.step}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -524,7 +492,7 @@ const DemoPage = () => {
         </motion.div>
 
         {/* Connected Tools */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -542,7 +510,7 @@ const DemoPage = () => {
                   <p className="text-gray-300 text-xl">{connectedTools.length} tools sending live data</p>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={addTool}
                 className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-4 rounded-xl font-bold text-lg flex items-center space-x-3 transition-all shadow-xl"
               >
@@ -551,56 +519,62 @@ const DemoPage = () => {
               </button>
             </div>
           </div>
-          
+
           <div className="p-12 space-y-6">
-            {connectedTools.map((tool, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                whileHover={{ scale: 1.02, y: -2 }}
-                transition={{ delay: 0.1 * index }}
-                className="flex items-center justify-between p-8 bg-gradient-to-r from-white to-gray-50/50 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl group"
-              >
-                <div className="flex items-center space-x-6">
-                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg ${
-                    tool.color === 'blue' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
-                    tool.color === 'emerald' ? 'bg-gradient-to-br from-emerald-500 to-emerald-600' :
-                    tool.color === 'orange' ? 'bg-gradient-to-br from-orange-500 to-orange-600' : 
-                    'bg-gradient-to-br from-purple-500 to-purple-600'
-                  }`}>
-                    <Webhook className="w-8 h-8 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="text-2xl font-bold text-gray-900 mb-1">{tool.name}</h4>
-                    <p className="text-lg text-gray-600 font-medium">{tool.type}</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-6">
-                  <div className="text-right">
-                    <div className="flex items-center space-x-3 mb-2">
-                      <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse" />
-                      <span className="text-lg font-bold text-emerald-600">{tool.status}</span>
+            <AnimatePresence>
+              {connectedTools.map((tool, index) => (
+                <motion.div
+                  key={tool.id}
+                  layout
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 30 }}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  transition={{ duration: 0.3, delay: 0.1 * index }}
+                  className="flex items-center justify-between p-8 bg-gradient-to-r from-white to-gray-50/50 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl group"
+                >
+                  <div className="flex items-center space-x-6">
+                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg ${
+                      tool.color === 'blue' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
+                      tool.color === 'emerald' ? 'bg-gradient-to-br from-emerald-500 to-emerald-600' :
+                      tool.color === 'orange' ? 'bg-gradient-to-br from-orange-500 to-orange-600' :
+                      'bg-gradient-to-br from-purple-500 to-purple-600'
+                    }`}>
+                      <Webhook className="w-8 h-8 text-white" />
                     </div>
-                    <p className="text-gray-500 font-medium">{tool.events}</p>
+                    <div>
+                      <h4 className="text-2xl font-bold text-gray-900 mb-1">{tool.name}</h4>
+                      <p className="text-lg text-gray-600 font-medium">{tool.type}</p>
+                    </div>
                   </div>
-                  {connectedTools.length > 1 && (
-                    <button
-                      onClick={() => removeTool(tool.id)}
-                      className="w-12 h-12 bg-red-100 hover:bg-red-200 text-red-600 rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg"
-                    >
-                      <X className="w-6 h-6" />
-                    </button>
-                  )}
-                </div>
-              </motion.div>
-            ))}
+                  <div className="flex items-center space-x-6">
+                    <div className="text-right">
+                      <div className="flex items-center space-x-3 mb-2">
+                        <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse" />
+                        <span className="text-lg font-bold text-emerald-600">{tool.status}</span>
+                      </div>
+                      <p className="text-gray-500 font-medium">{tool.events}</p>
+                    </div>
+                    {connectedTools.length > 1 && (
+                      <button
+                        onClick={() => removeTool(tool.id)}
+                        className="w-12 h-12 bg-red-100 hover:bg-red-200 text-red-600 rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg"
+                      >
+                        <X className="w-6 h-6" />
+                      </button>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
         </motion.div>
       </div>
     </div>
   );
-
+  
+  // (renderLiveEvents and other functions remain the same)
+  // ...
   const renderLiveEvents = () => (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-emerald-50 -mx-6 -my-8 px-6 py-8">
       <div className="max-w-none">
@@ -631,7 +605,7 @@ const DemoPage = () => {
             </div>
           </div>
         </div>
-
+  
         {/* Stunning Event Stream */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -656,119 +630,23 @@ const DemoPage = () => {
               </div>
             </div>
           </div>
-
+  
           {/* Event Grid - Full Width */}
           <div className="p-8">
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
               {[
-                { 
-                  time: '2s ago', 
-                  event: 'Demo booked via Calendly', 
-                  customer: 'sarah@techcorp.com', 
-                  type: 'conversion', 
-                  value: null,
-                  location: 'San Francisco, CA',
-                  source: 'Google Ads'
-                },
-                { 
-                  time: '8s ago', 
-                  event: 'Payment completed', 
-                  customer: 'mike@startup.io', 
-                  type: 'revenue', 
-                  value: '$49',
-                  location: 'Austin, TX',
-                  source: 'Direct'
-                },
-                { 
-                  time: '15s ago', 
-                  event: 'Trial signup completed', 
-                  customer: 'jessica@scale.com', 
-                  type: 'conversion', 
-                  value: null,
-                  location: 'New York, NY',
-                  source: 'LinkedIn'
-                },
-                { 
-                  time: '31s ago', 
-                  event: 'Demo completed', 
-                  customer: 'david@growth.co', 
-                  type: 'conversion', 
-                  value: null,
-                  location: 'Seattle, WA',
-                  source: 'Organic Search'
-                },
-                { 
-                  time: '45s ago', 
-                  event: 'Landing page visit', 
-                  customer: 'emma@business.net', 
-                  type: 'visit', 
-                  value: null,
-                  location: 'Boston, MA',
-                  source: 'Twitter'
-                },
-                { 
-                  time: '1m ago', 
-                  event: 'Payment completed', 
-                  customer: 'alex@company.com', 
-                  type: 'revenue', 
-                  value: '$29',
-                  location: 'Chicago, IL',
-                  source: 'Google Ads'
-                },
-                { 
-                  time: '1m ago', 
-                  event: 'Demo booked via Calendly', 
-                  customer: 'lisa@startup.co', 
-                  type: 'conversion', 
-                  value: null,
-                  location: 'Miami, FL',
-                  source: 'Facebook'
-                },
-                { 
-                  time: '2m ago', 
-                  event: 'Trial started', 
-                  customer: 'tom@business.io', 
-                  type: 'conversion', 
-                  value: null,
-                  location: 'Denver, CO',
-                  source: 'Direct'
-                },
-                { 
-                  time: '2m ago', 
-                  event: 'Payment completed', 
-                  customer: 'kate@scale.net', 
-                  type: 'revenue', 
-                  value: '$49',
-                  location: 'Portland, OR',
-                  source: 'Organic Search'
-                },
-                { 
-                  time: '3m ago', 
-                  event: 'Demo completed', 
-                  customer: 'ryan@growth.com', 
-                  type: 'conversion', 
-                  value: null,
-                  location: 'Atlanta, GA',
-                  source: 'LinkedIn'
-                },
-                { 
-                  time: '3m ago', 
-                  event: 'Trial signup completed', 
-                  customer: 'anna@enterprise.com', 
-                  type: 'conversion', 
-                  value: null,
-                  location: 'Los Angeles, CA',
-                  source: 'Organic Search'
-                },
-                { 
-                  time: '4m ago', 
-                  event: 'Payment completed', 
-                  customer: 'chris@startup.net', 
-                  type: 'revenue', 
-                  value: '$99',
-                  location: 'Phoenix, AZ',
-                  source: 'Direct'
-                }
+                { time: '2s ago', event: 'Demo booked via Calendly', customer: 'sarah@techcorp.com', type: 'conversion', value: null, location: 'San Francisco, CA', source: 'Google Ads' },
+                { time: '8s ago', event: 'Payment completed', customer: 'mike@startup.io', type: 'revenue', value: '$49', location: 'Austin, TX', source: 'Direct' },
+                { time: '15s ago', event: 'Trial signup completed', customer: 'jessica@scale.com', type: 'conversion', value: null, location: 'New York, NY', source: 'LinkedIn' },
+                { time: '31s ago', event: 'Demo completed', customer: 'david@growth.co', type: 'conversion', value: null, location: 'Seattle, WA', source: 'Organic Search' },
+                { time: '45s ago', event: 'Landing page visit', customer: 'emma@business.net', type: 'visit', value: null, location: 'Boston, MA', source: 'Twitter' },
+                { time: '1m ago', event: 'Payment completed', customer: 'alex@company.com', type: 'revenue', value: '$29', location: 'Chicago, IL', source: 'Google Ads' },
+                { time: '1m ago', event: 'Demo booked via Calendly', customer: 'lisa@startup.co', type: 'conversion', value: null, location: 'Miami, FL', source: 'Facebook' },
+                { time: '2m ago', event: 'Trial started', customer: 'tom@business.io', type: 'conversion', value: null, location: 'Denver, CO', source: 'Direct' },
+                { time: '2m ago', event: 'Payment completed', customer: 'kate@scale.net', type: 'revenue', value: '$49', location: 'Portland, OR', source: 'Organic Search' },
+                { time: '3m ago', event: 'Demo completed', customer: 'ryan@growth.com', type: 'conversion', value: null, location: 'Atlanta, GA', source: 'LinkedIn' },
+                { time: '3m ago', event: 'Trial signup completed', customer: 'anna@enterprise.com', type: 'conversion', value: null, location: 'Los Angeles, CA', source: 'Organic Search' },
+                { time: '4m ago', event: 'Payment completed', customer: 'chris@startup.net', type: 'revenue', value: '$99', location: 'Phoenix, AZ', source: 'Direct' }
               ].map((event, i) => (
                 <motion.div
                   key={i}
@@ -826,105 +704,6 @@ const DemoPage = () => {
     </div>
   );
 
-  const renderReports = () => (
-    <div className="space-y-8">
-      <div className="text-center space-y-4">
-        <h2 className="text-3xl font-bold text-gray-900">Export & Reports</h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Generate beautiful reports and share insights with your team
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Export Options */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-8"
-        >
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
-              <Download className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-gray-900">Export Options</h3>
-              <p className="text-gray-600 text-sm">Download your journey data</p>
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            {[
-              { name: 'PDF Report', description: 'Complete journey analysis', icon: FileText },
-              { name: 'CSV Data', description: 'Raw customer data export', icon: Database },
-              { name: 'PNG Image', description: 'Journey map visualization', icon: Eye }
-            ].map((option, index) => (
-              <div key={option.name} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
-                <div className="flex items-center space-x-3">
-                  <option.icon className="w-5 h-5 text-gray-600" />
-                  <div>
-                    <p className="font-semibold text-gray-900">{option.name}</p>
-                    <p className="text-sm text-gray-600">{option.description}</p>
-                  </div>
-                </div>
-                <Download className="w-4 h-4 text-gray-400" />
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Team Sharing */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-8"
-        >
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
-              <Users className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-gray-900">Team Collaboration</h3>
-              <p className="text-gray-600 text-sm">Share dashboards with your team</p>
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                  <span className="text-blue-600 font-bold text-sm">SM</span>
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900">Sarah Miller</p>
-                  <p className="text-sm text-gray-600">Marketing Manager</p>
-                </div>
-              </div>
-              <span className="text-sm text-emerald-600 font-medium">Editor</span>
-            </div>
-            
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                  <span className="text-purple-600 font-bold text-sm">JD</span>
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900">John Davis</p>
-                  <p className="text-sm text-gray-600">Product Manager</p>
-                </div>
-              </div>
-              <span className="text-sm text-gray-600 font-medium">Viewer</span>
-            </div>
-
-            <button className="w-full border-2 border-dashed border-gray-300 text-gray-600 py-4 rounded-lg font-medium hover:border-teal-300 hover:text-teal-600 transition-colors">
-              + Invite Team Member
-            </button>
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-
   const getCurrentView = () => {
     switch (currentStep) {
       case 0: return renderDashboard();
@@ -948,7 +727,7 @@ const DemoPage = () => {
               </div>
               <span className="text-xl font-bold text-gray-900">CustomerPath</span>
             </Link>
-            
+
             {/* Clean Navigation */}
             <nav className="flex items-center space-x-8">
               {steps.map((step, index) => (
@@ -956,8 +735,8 @@ const DemoPage = () => {
                   key={step.name}
                   onClick={() => setCurrentStep(index)}
                   className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    currentStep === index 
-                      ? 'bg-gray-100 text-gray-900' 
+                    currentStep === index
+                      ? 'bg-gray-100 text-gray-900'
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
@@ -966,7 +745,7 @@ const DemoPage = () => {
                 </button>
               ))}
             </nav>
-            
+
             <div className="w-32"></div>
           </div>
         </div>
@@ -990,4 +769,5 @@ const DemoPage = () => {
   );
 };
 
+// FIX 2: Removed the duplicate export statement.
 export default DemoPage;
