@@ -2,39 +2,36 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CountUp from 'react-countup';
 import {
-  Users, Target, CheckCircle, Settings, Plus, ArrowRight, Zap, Webhook, Database,
-  Lightbulb, Bell, BarChart2, TrendingUp, Trophy, Activity, Calendar,
-  Filter, Download, CreditCard, MousePointerClick,
-  Globe, Mail, ShoppingCart, FileText, DollarSign,
-  TrendingDown, Eye, Edit3, ExternalLink, Play, Pause
+  Users, Target, Plus, ArrowRight, Zap, Database,
+  BarChart2, TrendingUp, Activity, Calendar,
+  CreditCard, MousePointerClick, Mail, ShoppingCart, 
+  FileText, DollarSign, TrendingDown, Lightbulb,
+  ExternalLink, Settings, Filter, Download
 } from "lucide-react";
 
-const StatCard = ({ title, value, Icon, color, prefix = '', suffix = '' }) => (
+const StatCard = ({ title, value, icon: Icon, color, prefix = '', suffix = '' }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
-    className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
+    className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300"
   >
     <div className="flex items-center justify-between">
-      <p className="text-sm font-medium text-gray-500">{title}</p>
-      <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-        color === 'blue' ? 'bg-blue-50' :
-        color === 'teal' ? 'bg-teal-50' :
-        color === 'purple' ? 'bg-purple-50' :
-        color === 'green' ? 'bg-green-50' : 'bg-gray-50'
+      <div>
+        <p className="text-sm font-medium text-gray-500 mb-1">{title}</p>
+        <p className="text-3xl font-bold text-gray-900">
+          {prefix}<CountUp end={value} duration={2} separator="," />{suffix}
+        </p>
+      </div>
+      <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+        color === 'blue' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
+        color === 'teal' ? 'bg-gradient-to-br from-teal-500 to-teal-600' :
+        color === 'purple' ? 'bg-gradient-to-br from-purple-500 to-purple-600' :
+        color === 'emerald' ? 'bg-gradient-to-br from-emerald-500 to-emerald-600' : 'bg-gray-500'
       }`}>
-        {Icon && <Icon className={`w-5 h-5 ${
-          color === 'blue' ? 'text-blue-600' :
-          color === 'teal' ? 'text-teal-600' :
-          color === 'purple' ? 'text-purple-600' :
-          color === 'green' ? 'text-green-600' : 'text-gray-600'
-        }`} />}
+        {Icon && <Icon className="w-6 h-6 text-white" />}
       </div>
     </div>
-    <p className="text-3xl font-bold mt-3 text-gray-900">
-      {prefix}<CountUp end={value} duration={2} separator="," />{suffix}
-    </p>
   </motion.div>
 );
 
@@ -830,38 +827,92 @@ const DemoPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-teal-50/30">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-teal-500 to-blue-600 rounded-lg flex items-center justify-center">
-              <Target className="w-5 h-5 text-white" />
+      <div className="bg-white/80 backdrop-blur-md border-b border-white/20 sticky top-0 z-30 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+              <Target className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-xl font-bold text-gray-900">CustomerPath</h1>
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">CustomerPath</h1>
+              <p className="text-sm text-gray-500 -mt-1">Interactive Demo</p>
+            </div>
           </div>
           
           {/* Navigation */}
-          <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
+          <div className="flex items-center space-x-2">
             {steps.map((step, index) => (
               <button
                 key={step.name}
                 onClick={() => setCurrentStep(index)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                className={`flex items-center space-x-3 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
                   currentStep === index 
-                    ? 'bg-white text-gray-900 shadow-sm' 
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                    ? 'bg-gradient-to-r from-teal-500 to-blue-600 text-white shadow-lg transform scale-105' 
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-white/60 hover:shadow-md'
                 }`}
               >
-                {React.createElement(step.icon, { className: 'w-4 h-4' })}
+                {React.createElement(step.icon, { className: 'w-5 h-5' })}
                 <span>{step.name}</span>
               </button>
             ))}
           </div>
           
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2 text-sm text-emerald-600 font-medium">
+          <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-3 bg-emerald-50 px-4 py-2 rounded-full border border-emerald-200">
               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+              <span className="text-sm font-semibold text-emerald-700">
+                Live Demo
+              </span>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-500 to-blue-600 flex items-center justify-center shadow-lg">
+              <span className="text-white font-bold text-sm">SC</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-6 py-12">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentStep}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
+            {getCurrentView()}
+          </motion.div>
+        </AnimatePresence>
+      </main>
+    </div>
+  );
+
+  // Enhanced render functions
+  const renderCreateJourney = () => (
+    <div className="space-y-8">
+      <div className="text-center mb-12">
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-4"
+        >
+          Customer Journey Dashboard
+        </motion.h2>
+        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          Create, manage, and optimize your customer journey maps
+        </p>
+      </div>
+
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+        <StatCard title="Active Journeys" value={liveMetrics.totalJourneys} icon={Target} color="blue" />
+        <StatCard title="Customers Tracked" value={liveMetrics.customersTracked} icon={Users} color="teal" />
+        <StatCard title="Avg. Conversion" value={Math.round(liveMetrics.conversionRate)} suffix="%" icon={TrendingUp} color="purple" />
+        <StatCard title="Revenue Impact" value={Math.round(liveMetrics.revenue / 1000)} prefix="$" suffix="k" icon={DollarSign} color="emerald" />
+      </div>
               <span>Live Demo</span>
             </div>
             <div className="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center">
