@@ -40,17 +40,9 @@ const DemoPage: React.FC = () => {
     const interval = setInterval(() => {
       setCurrentStep(prev => {
         const next = (prev + 1) % 5;
-        // Show modal for certain steps
-        if (next === 1) {
-          setTimeout(() => showTouchpointModal(), 2000);
-        } else if (next === 2) {
-          setTimeout(() => showWebhookModal(), 2500);
-        } else if (next === 4) {
-          setTimeout(() => showOptimizationModal(), 2000);
-        }
         return next;
       });
-    }, 7000);
+    }, 8000);
     
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
@@ -68,36 +60,6 @@ const DemoPage: React.FC = () => {
     
     return () => clearInterval(interval);
   }, []);
-
-  const showTouchpointModal = () => {
-    setModalContent({
-      type: 'touchpoint',
-      title: 'Mapping Customer Touchpoints',
-      content: 'Let me show you how to map every interaction point in your customer journey. Each touchpoint reveals valuable insights about customer behavior.'
-    });
-    setShowModal(true);
-    setTimeout(() => setShowModal(false), 4000);
-  };
-
-  const showWebhookModal = () => {
-    setModalContent({
-      type: 'webhook',
-      title: 'Connecting Real Tools',
-      content: 'Here\'s how CustomerPath connects to your existing tools like Calendly, Airtable, and Stripe to track real customer interactions automatically.'
-    });
-    setShowModal(true);
-    setTimeout(() => setShowModal(false), 4500);
-  };
-
-  const showOptimizationModal = () => {
-    setModalContent({
-      type: 'optimization',
-      title: 'Conversion Optimization Insights',
-      content: 'CustomerPath has identified where customers are dropping off and provides specific recommendations to improve your conversion rates.'
-    });
-    setShowModal(true);
-    setTimeout(() => setShowModal(false), 6000);
-  };
 
   const steps = [
     'Create Journey',
@@ -316,7 +278,7 @@ const DemoPage: React.FC = () => {
       </div>
 
       {/* Touchpoint Mapping */}
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden animate-fade-in-up animation-delay-300 hover:shadow-xl transition-all duration-300">
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden animate-fade-in-up animation-delay-300">
         <div className="p-6 border-b border-slate-200">
           <div className="flex items-center justify-between">
             <h3 className="text-xl font-semibold text-brand-navy">Customer Touchpoint Map</h3>
@@ -327,47 +289,167 @@ const DemoPage: React.FC = () => {
           </div>
         </div>
         <div className="p-6">
+          {/* Touchpoint Builder Toolbar */}
+          <div className="bg-gray-50 rounded-xl p-4 mb-6 border border-gray-200">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="font-semibold text-brand-navy">Touchpoint Builder</h4>
+              <button className="bg-brand-teal text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center space-x-2">
+                <Plus className="w-4 h-4" />
+                <span>Add Touchpoint</span>
+              </button>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <button className="bg-blue-100 text-blue-700 px-3 py-2 rounded-lg text-sm font-medium hover:bg-blue-200 transition-colors">
+                📱 Landing Page
+              </button>
+              <button className="bg-purple-100 text-purple-700 px-3 py-2 rounded-lg text-sm font-medium hover:bg-purple-200 transition-colors">
+                📅 Demo Booking
+              </button>
+              <button className="bg-green-100 text-green-700 px-3 py-2 rounded-lg text-sm font-medium hover:bg-green-200 transition-colors">
+                ✍️ Trial Signup
+              </button>
+              <button className="bg-orange-100 text-orange-700 px-3 py-2 rounded-lg text-sm font-medium hover:bg-orange-200 transition-colors">
+                💳 Payment
+              </button>
+            </div>
+          </div>
+
           <div className="space-y-6">
             {touchpoints.map((touchpoint, index) => (
               <div key={touchpoint.id} className="relative">
                 {index < touchpoints.length - 1 && (
-                  <div className="absolute left-8 top-16 w-0.5 h-12 bg-gradient-to-b from-brand-teal to-purple-400"></div>
+                  <div className="absolute left-12 top-20 w-0.5 h-16 bg-gradient-to-b from-brand-teal to-purple-400"></div>
                 )}
-                <div className={`flex items-center justify-between p-6 rounded-xl border-2 transition-all duration-300 hover:shadow-lg hover:scale-102 ${
+                <div className={`p-6 rounded-xl border-2 transition-all duration-300 hover:shadow-lg ${
                   index === 0 ? 'bg-blue-50 border-blue-200 hover:border-blue-300' :
                   index === 1 ? 'bg-brand-teal/10 border-brand-teal/30 hover:border-brand-teal/50' :
                   index === 2 ? 'bg-purple-50 border-purple-200 hover:border-purple-300' :
                   'bg-green-50 border-green-200 hover:border-green-300'
                 }`}>
-                  <div className="flex items-center space-x-4">
-                    <div className={`w-16 h-16 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-300 hover:scale-110 ${
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-4">
+                      <div className={`w-16 h-16 rounded-xl flex items-center justify-center shadow-lg ${
+                        index === 0 ? 'bg-blue-500' :
+                        index === 1 ? 'bg-brand-teal' :
+                        index === 2 ? 'bg-purple-500' :
+                        'bg-green-500'
+                      }`}>
+                        <span className="text-white text-2xl font-bold">{index + 1}</span>
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-bold text-brand-navy mb-1">{touchpoint.name}</h4>
+                        <p className="text-slate-600 text-sm">{touchpoint.description}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-3xl font-bold text-brand-navy mb-1">
+                        {touchpoint.conversionRate}%
+                      </div>
+                      <div className="text-slate-500 text-sm">conversion rate</div>
+                    </div>
+                  </div>
+                  
+                  {/* Detailed Metrics */}
+                  <div className="grid grid-cols-3 gap-4 mb-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-brand-navy">{touchpoint.visitors.toLocaleString()}</div>
+                      <div className="text-xs text-slate-500">Total Visitors</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-green-600">{touchpoint.conversions.toLocaleString()}</div>
+                      <div className="text-xs text-slate-500">Conversions</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-purple-600">{(touchpoint.visitors - touchpoint.conversions).toLocaleString()}</div>
+                      <div className="text-xs text-slate-500">Drop-offs</div>
+                    </div>
+                  </div>
+                  
+                  {/* Tool Connection Status */}
+                  <div className="flex items-center justify-between bg-white/70 rounded-lg p-3 border border-slate-200">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                      <span className="text-sm font-medium text-slate-700">Connected to {touchpoint.tool}</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <span className="text-xs text-slate-500">Last sync: 2 min ago</span>
+                      <button className="text-brand-teal hover:text-brand-teal/80 text-sm font-medium">
+                        Configure
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Journey Flow Visualization */}
+          <div className="mt-8 bg-gray-50 rounded-xl p-6 border border-gray-200">
+            <h4 className="font-semibold text-brand-navy mb-4">Journey Flow Visualization</h4>
+            <div className="flex items-center justify-between">
+              {touchpoints.map((touchpoint, index) => (
+                <React.Fragment key={touchpoint.id}>
+                  <div className="text-center">
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 ${
                       index === 0 ? 'bg-blue-500' :
                       index === 1 ? 'bg-brand-teal' :
                       index === 2 ? 'bg-purple-500' :
                       'bg-green-500'
                     }`}>
-                      <span className="text-white text-xl font-bold">{index + 1}</span>
+                      <span className="text-white text-sm font-bold">{index + 1}</span>
                     </div>
-                    <div>
-                      <h4 className="text-xl font-bold text-brand-navy mb-1">{touchpoint.name}</h4>
-                      <p className="text-slate-600 text-sm mb-2">{touchpoint.description}</p>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-full">
-                          Connected to {touchpoint.tool}
-                        </span>
-                        <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                      </div>
-                    </div>
+                    <div className="text-xs text-slate-600 font-medium">{touchpoint.name}</div>
+                    <div className="text-lg font-bold text-brand-navy">{touchpoint.conversionRate}%</div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-3xl font-bold text-brand-navy mb-1">
-                      {touchpoint.conversionRate}%
+                  {index < touchpoints.length - 1 && (
+                    <div className="flex-1 flex items-center justify-center">
+                      <ArrowRight className="w-6 h-6 text-slate-400" />
                     </div>
-                    <div className="text-slate-500 text-sm">conversion rate</div>
-                    <div className="text-slate-600 text-sm mt-1">
-                      {touchpoint.conversions.toLocaleString()} converted
-                    </div>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Touchpoint Performance Analysis */}
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-500">
+        <h3 className="text-xl font-semibold text-brand-navy mb-6">Touchpoint Performance Analysis</h3>
+        
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="space-y-4">
+            <h4 className="font-semibold text-slate-700">Best Performing Touchpoints</h4>
+            {touchpoints
+              .sort((a, b) => b.conversionRate - a.conversionRate)
+              .slice(0, 2)
+              .map((touchpoint, index) => (
+                <div key={touchpoint.id} className="bg-green-50 rounded-lg p-4 border border-green-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-medium text-green-800">{touchpoint.name}</span>
+                    <span className="text-green-600 font-bold">{touchpoint.conversionRate}%</span>
                   </div>
+                  <p className="text-green-700 text-sm">
+                    {index === 0 ? 'Highest conversion rate - great value proposition' : 'Strong performance - customers ready to buy'}
+                  </p>
+                </div>
+              ))}
+          </div>
+          
+          <div className="space-y-4">
+            <h4 className="font-semibold text-slate-700">Needs Optimization</h4>
+            {touchpoints
+              .sort((a, b) => a.conversionRate - b.conversionRate)
+              .slice(0, 2)
+              .map((touchpoint, index) => (
+                <div key={touchpoint.id} className="bg-orange-50 rounded-lg p-4 border border-orange-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-medium text-orange-800">{touchpoint.name}</span>
+                    <span className="text-orange-600 font-bold">{touchpoint.conversionRate}%</span>
+                  </div>
+                  <p className="text-orange-700 text-sm">
+                    {index === 0 ? 'Biggest opportunity - simplify this step' : 'Consider adding social proof here'}
+                  </p>
                 </div>
               </div>
             ))}
@@ -380,111 +462,223 @@ const DemoPage: React.FC = () => {
   const renderConnectTools = () => (
     <div className="space-y-8">
       {/* Tools Integration Header */}
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up hover:shadow-xl transition-all duration-300">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-2xl font-semibold text-brand-navy">Connect Your Tools</h3>
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-sm text-slate-600">Real-time sync</span>
+      <div className="bg-gradient-to-r from-brand-teal to-blue-600 rounded-2xl p-8 text-white animate-fade-in-up relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
+        <div className="relative">
+          <h2 className="text-3xl font-bold mb-2">Connect Your Tools</h2>
+          <p className="text-brand-teal/20 text-lg mb-4">Automatically track customer interactions across all your platforms</p>
+          <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span>4 tools connected</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Activity className="w-4 h-4 text-blue-200" />
+              <span>Real-time sync active</span>
+            </div>
           </div>
         </div>
-        
-        <p className="text-slate-600 mb-6">
-          Connect CustomerPath to your existing tools to automatically track customer interactions and conversions.
-        </p>
       </div>
-
-      {/* Tool Connections */}
-      <div className="grid md:grid-cols-2 gap-6">
-        {/* Connected Tools */}
-        <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-300 hover:shadow-xl transition-all duration-300">
-          <h4 className="text-lg font-semibold text-brand-navy mb-6">Connected Tools</h4>
-          
-          <div className="space-y-4">
-            {[
-              { name: 'Calendly', type: 'Scheduling', status: 'connected', events: '247 bookings', icon: Calendar, color: 'blue' },
-              { name: 'Airtable', type: 'CRM', status: 'connected', events: '1,834 records', icon: Database, color: 'orange' },
-              { name: 'Stripe', type: 'Payments', status: 'connected', events: '892 transactions', icon: Trophy, color: 'purple' },
-              { name: 'Google Analytics', type: 'Web Analytics', status: 'connected', events: '12.8k sessions', icon: BarChart3, color: 'green' }
-            ].map((tool, index) => (
-              <div key={tool.name} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors duration-200">
+      
+      {/* Integration Status Overview */}
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-200">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-xl font-semibold text-brand-navy">Integration Status</h3>
+          <button className="bg-brand-teal text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center space-x-2">
+            <Plus className="w-4 h-4" />
+            <span>Add Integration</span>
+          </button>
+        </div>
+        
+        <div className="grid md:grid-cols-2 gap-4">
+          {[
+            { name: 'Google Analytics', status: 'connected', events: '12.8k sessions', lastSync: '30 sec ago', color: 'blue' },
+            { name: 'Calendly', status: 'connected', events: '247 bookings', lastSync: '1 min ago', color: 'green' },
+            { name: 'Airtable', status: 'connected', events: '1,834 records', lastSync: '2 min ago', color: 'orange' },
+            { name: 'Stripe', status: 'connected', events: '892 payments', lastSync: '45 sec ago', color: 'purple' }
+          ].map((tool) => (
+            <div key={tool.name} className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:bg-gray-100 transition-colors">
+              <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center space-x-3">
                   <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                     tool.color === 'blue' ? 'bg-blue-100' :
+                    tool.color === 'green' ? 'bg-green-100' :
                     tool.color === 'orange' ? 'bg-orange-100' :
-                    tool.color === 'purple' ? 'bg-purple-100' :
-                    'bg-green-100'
+                    'bg-purple-100'
                   }`}>
-                    <tool.icon className={`w-5 h-5 ${
+                    <Database className={`w-5 h-5 ${
                       tool.color === 'blue' ? 'text-blue-600' :
+                      tool.color === 'green' ? 'text-green-600' :
                       tool.color === 'orange' ? 'text-orange-600' :
-                      tool.color === 'purple' ? 'text-purple-600' :
-                      'text-green-600'
+                      'text-purple-600'
                     }`} />
                   </div>
                   <div>
                     <div className="font-semibold text-brand-navy">{tool.name}</div>
-                    <div className="text-sm text-slate-600">{tool.type}</div>
+                    <div className="text-sm text-slate-600">{tool.events}</div>
                   </div>
                 </div>
                 <div className="text-right">
                   <div className="flex items-center space-x-2 mb-1">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    <span className="text-xs text-green-600 font-medium">Connected</span>
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-xs text-green-600 font-medium">Live</span>
                   </div>
-                  <div className="text-xs text-slate-500">{tool.events}</div>
+                  <div className="text-xs text-slate-500">{tool.lastSync}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Tool Connections */}
+      <div className="grid md:grid-cols-1 gap-8">
+        {/* Connected Tools */}
+        <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-400">
+          <h3 className="text-xl font-semibold text-brand-navy mb-6">Webhook Configuration & Data Flow</h3>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              {
+                name: 'Calendly',
+                description: 'Demo bookings and meeting scheduling',
+                webhook: 'https://app.customerpath.com/webhooks/calendly',
+                events: ['invitee.created', 'invitee.canceled', 'meeting.started'],
+                lastEvent: 'Demo booked by john@company.com',
+                eventTime: '2 min ago',
+                color: 'blue'
+              },
+              {
+                name: 'Airtable',
+                description: 'Lead data and form submissions',
+                webhook: 'https://app.customerpath.com/webhooks/airtable',
+                events: ['record.created', 'record.updated', 'form.submitted'],
+                lastEvent: 'New lead: sarah@startup.io',
+                eventTime: '5 min ago',
+                color: 'orange'
+              },
+              {
+                name: 'Stripe',
+                description: 'Payment processing and subscriptions',
+                webhook: 'https://app.customerpath.com/webhooks/stripe',
+                events: ['checkout.completed', 'subscription.created', 'payment.failed'],
+                lastEvent: 'Payment completed: $49/month',
+                eventTime: '1 min ago',
+                color: 'purple'
+              },
+              {
+                name: 'Google Analytics',
+                description: 'Website traffic and user behavior',
+                webhook: 'https://app.customerpath.com/webhooks/ga4',
+                events: ['page.view', 'conversion.goal', 'user.engagement'],
+                lastEvent: 'Goal conversion: trial_signup',
+                eventTime: '30 sec ago',
+                color: 'green'
+              }
+            ].map((tool) => (
+              <div key={tool.name} className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-300">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center space-x-3">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                      tool.color === 'blue' ? 'bg-blue-100' :
+                      tool.color === 'orange' ? 'bg-orange-100' :
+                      tool.color === 'purple' ? 'bg-purple-100' :
+                      'bg-green-100'
+                    }`}>
+                      <Database className={`w-6 h-6 ${
+                        tool.color === 'blue' ? 'text-blue-600' :
+                        tool.color === 'orange' ? 'text-orange-600' :
+                        tool.color === 'purple' ? 'text-purple-600' :
+                        'text-green-600'
+                      }`} />
+                    </div>
+                    <div>
+                      <div className="font-bold text-brand-navy">{tool.name}</div>
+                      <div className="text-sm text-slate-600">{tool.description}</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-xs text-green-600 font-medium">Active</span>
+                  </div>
+                </div>
+                
+                <div className="mb-4">
+                  <div className="text-xs text-slate-500 mb-2">Webhook URL:</div>
+                  <div className="bg-white rounded-lg p-3 border border-gray-200">
+                    <code className="text-xs text-slate-600 font-mono">{tool.webhook}</code>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <div className="text-xs text-slate-500 mb-2">Tracked Events:</div>
+                  <div className="flex flex-wrap gap-1">
+                    {tool.events.map((event) => (
+                      <span key={event} className="bg-white text-slate-600 px-2 py-1 rounded text-xs font-medium border border-gray-200">
+                        {event}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-lg p-3 border border-gray-200">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <div className={`w-2 h-2 rounded-full animate-pulse ${
+                        tool.color === 'blue' ? 'bg-blue-400' :
+                        tool.color === 'orange' ? 'bg-orange-400' :
+                        tool.color === 'purple' ? 'bg-purple-400' :
+                        'bg-green-400'
+                      }`}></div>
+                      <span className="text-sm font-medium text-slate-700">Latest Event:</span>
+                    </div>
+                    <span className="text-xs text-slate-500">{tool.eventTime}</span>
+                  </div>
+                  <p className="text-sm text-slate-600 mt-1">{tool.lastEvent}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Webhook Configuration */}
-        <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-500 hover:shadow-xl transition-all duration-300">
-          <h4 className="text-lg font-semibold text-brand-navy mb-6">Webhook Configuration</h4>
-          
-          <div className="space-y-4">
-            <div className="bg-gradient-to-r from-brand-teal/10 to-blue-50 rounded-xl p-4 border border-brand-teal/20">
-              <div className="flex items-center space-x-3 mb-3">
-                <Webhook className="w-5 h-5 text-brand-teal" />
-                <span className="font-semibold text-brand-navy">Calendly Webhook</span>
-                <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">Active</span>
+      {/* Real-time Event Stream */}
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-600">
+        <h3 className="text-xl font-semibold text-brand-navy mb-6">Live Event Stream</h3>
+        
+        <div className="space-y-3 max-h-80 overflow-y-auto">
+          {[
+            { tool: 'Calendly', event: 'Demo booked by john@company.com', time: '2 min ago', type: 'booking', color: 'blue' },
+            { tool: 'Stripe', event: 'Payment completed: $49/month subscription', time: '3 min ago', type: 'payment', color: 'green' },
+            { tool: 'Airtable', event: 'New lead record created: sarah@startup.io', time: '5 min ago', type: 'lead', color: 'orange' },
+            { tool: 'Google Analytics', event: 'Goal conversion: trial_signup', time: '7 min ago', type: 'conversion', color: 'purple' },
+            { tool: 'Calendly', event: 'Demo completed by mike@techcorp.com', time: '12 min ago', type: 'completion', color: 'blue' },
+            { tool: 'Stripe', event: 'Trial started: emily@design.co', time: '15 min ago', type: 'trial', color: 'green' },
+            { tool: 'Airtable', event: 'Lead status updated: qualified → demo_scheduled', time: '18 min ago', type: 'update', color: 'orange' },
+            { tool: 'Google Analytics', event: 'High-intent page view: /pricing', time: '22 min ago', type: 'engagement', color: 'purple' }
+          ].map((event, index) => (
+            <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200">
+              <div className="flex items-center space-x-4">
+                <div className={`w-3 h-3 rounded-full animate-pulse ${
+                  event.color === 'blue' ? 'bg-blue-400' :
+                  event.color === 'green' ? 'bg-green-400' :
+                  event.color === 'orange' ? 'bg-orange-400' :
+                  'bg-purple-400'
+                }`}></div>
+                <div className="flex items-center space-x-2">
+                  <span className={`text-xs font-medium px-2 py-1 rounded-full ${
+                    event.color === 'blue' ? 'bg-blue-100 text-blue-700' :
+                    event.color === 'green' ? 'bg-green-100 text-green-700' :
+                    event.color === 'orange' ? 'bg-orange-100 text-orange-700' :
+                    'bg-purple-100 text-purple-700'
+                  }`}>
+                    {event.tool}
+                  </span>
+                  <span className="text-sm text-slate-700">{event.event}</span>
+                </div>
               </div>
-              <p className="text-sm text-slate-600 mb-2">Tracks demo bookings and attendance</p>
-              <div className="text-xs text-slate-500 font-mono bg-slate-100 p-2 rounded">
-                https://app.customerpath.com/webhooks/calendly
-              </div>
+              <span className="text-xs text-slate-500">{event.time}</span>
             </div>
-
-            <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4 border border-purple-200">
-              <div className="flex items-center space-x-3 mb-3">
-                <Webhook className="w-5 h-5 text-purple-600" />
-                <span className="font-semibold text-brand-navy">Stripe Webhook</span>
-                <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">Active</span>
-              </div>
-              <p className="text-sm text-slate-600 mb-2">Captures payment events and subscriptions</p>
-              <div className="text-xs text-slate-500 font-mono bg-slate-100 p-2 rounded">
-                https://app.customerpath.com/webhooks/stripe
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-xl p-4 border border-orange-200">
-              <div className="flex items-center space-x-3 mb-3">
-                <Webhook className="w-5 h-5 text-orange-600" />
-                <span className="font-semibold text-brand-navy">Airtable Webhook</span>
-                <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">Active</span>
-              </div>
-              <p className="text-sm text-slate-600 mb-2">Syncs lead data and form submissions</p>
-              <div className="text-xs text-slate-500 font-mono bg-slate-100 p-2 rounded">
-                https://app.customerpath.com/webhooks/airtable
-              </div>
-            </div>
-          </div>
-
-          <button className="w-full mt-6 bg-slate-100 hover:bg-slate-200 text-slate-600 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center space-x-2">
-            <Plus className="w-4 h-4" />
-            <span>Add New Integration</span>
-          </button>
+          ))}
         </div>
       </div>
     </div>
@@ -775,7 +969,6 @@ const DemoPage: React.FC = () => {
                   {step}
                 </button>
               ))}
-            </div>
             
             <div className="text-sm text-slate-500">
               {new Date().toLocaleDateString('en-US', { 
@@ -797,48 +990,6 @@ const DemoPage: React.FC = () => {
       </main>
 
       {/* Modal Overlay */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full transform animate-scale-in">
-            <div className="p-6">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-r from-brand-teal to-blue-600 rounded-full flex items-center justify-center">
-                  {modalContent?.type === 'optimization' ? (
-                    <Zap className="w-5 h-5 text-white" />
-                  ) : modalContent?.type === 'webhook' ? (
-                    <Webhook className="w-5 h-5 text-white" />
-                  ) : (
-                    <Eye className="w-5 h-5 text-white" />
-                  )}
-                </div>
-                <h3 className="text-xl font-semibold text-brand-navy">{modalContent?.title}</h3>
-              </div>
-              <p className="text-slate-600 mb-6">{modalContent?.content}</p>
-              
-              {modalContent?.type === 'optimization' && (
-                <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Zap className="w-5 h-5 text-green-600" />
-                    <span className="font-medium text-green-800">Optimization Detected</span>
-                  </div>
-                  <p className="text-green-700 text-sm">
-                    Demo booking conversion can be improved by 15% with calendar preview integration.
-                  </p>
-                </div>
-              )}
-              
-              <div className="flex justify-end">
-                <button 
-                  onClick={() => setShowModal(false)}
-                  className="opacity-0 pointer-events-none"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
