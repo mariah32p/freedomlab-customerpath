@@ -441,7 +441,7 @@ const DemoPage = () => {
   );
 
   const renderLiveEvents = () => (
-    <div className="space-y-8">
+    <div className="space-y-8 -mx-6">
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center space-x-2">
           <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse" />
@@ -454,9 +454,9 @@ const DemoPage = () => {
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden"
+        className="bg-white border-t border-b border-gray-100 shadow-sm overflow-hidden"
       >
-        <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+        <div className="px-6 py-6 border-b border-gray-100 flex items-center justify-between max-w-7xl mx-auto">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center">
               <Activity className="w-5 h-5 text-white" />
@@ -472,20 +472,25 @@ const DemoPage = () => {
           </div>
         </div>
 
-        <div className="p-6 space-y-3 max-h-80 overflow-y-auto">
+        <div className="px-6 py-6 space-y-3 max-h-96 overflow-y-auto max-w-7xl mx-auto">
           {[
             { time: '2s ago', event: 'Demo booked via Calendly', customer: 'sarah@techcorp.com', type: 'conversion', value: null },
             { time: '8s ago', event: 'Payment completed', customer: 'mike@startup.io', type: 'revenue', value: '$49' },
             { time: '15s ago', event: 'Form submitted', customer: 'jessica@scale.com', type: 'conversion', value: null },
             { time: '31s ago', event: 'Trial signup completed', customer: 'david@growth.co', type: 'conversion', value: null },
-            { time: '45s ago', event: 'Landing page visit', customer: 'emma@business.net', type: 'visit', value: null }
+            { time: '45s ago', event: 'Landing page visit', customer: 'emma@business.net', type: 'visit', value: null },
+            { time: '1m ago', event: 'Demo completed', customer: 'alex@company.com', type: 'conversion', value: null },
+            { time: '1m ago', event: 'Payment completed', customer: 'lisa@startup.co', type: 'revenue', value: '$29' },
+            { time: '2m ago', event: 'Trial started', customer: 'tom@business.io', type: 'conversion', value: null },
+            { time: '2m ago', event: 'Demo booked via Calendly', customer: 'kate@scale.net', type: 'conversion', value: null },
+            { time: '3m ago', event: 'Payment completed', customer: 'ryan@growth.com', type: 'revenue', value: '$49' }
           ].map((event, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+              className="flex items-center justify-between p-5 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
             >
               <div className="flex items-center space-x-3">
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
@@ -498,15 +503,15 @@ const DemoPage = () => {
                    <Eye className="w-4 h-4 text-white" />}
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900">{event.event}</p>
-                  <p className="text-sm text-gray-600">{event.customer}</p>
+                  <p className="font-semibold text-gray-900 text-lg">{event.event}</p>
+                  <p className="text-gray-600">{event.customer}</p>
                 </div>
               </div>
               <div className="text-right">
                 {event.value && (
-                  <p className="font-bold text-emerald-600">{event.value}</p>
+                  <p className="font-bold text-emerald-600 text-lg">{event.value}</p>
                 )}
-                <p className="text-xs text-gray-500">{event.time}</p>
+                <p className="text-sm text-gray-500 font-medium">{event.time}</p>
               </div>
             </motion.div>
           ))}
@@ -516,15 +521,15 @@ const DemoPage = () => {
   );
 
   const renderReports = () => (
-    <div className="space-y-8">
+    <div className="space-y-8 -mx-6">
       <div className="text-center space-y-4">
-        <h2 className="text-3xl font-bold text-gray-900">Export & Reports</h2>
+        <h2 className="text-3xl font-bold text-gray-900 px-6">Export & Reports</h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           Generate beautiful reports and share insights with your team
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-6">
         {/* Export Options */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
