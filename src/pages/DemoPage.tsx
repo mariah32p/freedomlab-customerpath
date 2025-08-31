@@ -23,6 +23,8 @@ const DemoPage: React.FC = () => {
   const [selectedJourney, setSelectedJourney] = useState(0)
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null)
   const [showAddStepModal, setShowAddStepModal] = useState(false)
+  const [showWebhookModal, setShowWebhookModal] = useState(false)
+  const [copiedWebhook, setCopiedWebhook] = useState(false)
   const [newStepName, setNewStepName] = useState('')
   const [newStepColor, setNewStepColor] = useState('bg-blue-500')
   const [newStepPosition, setNewStepPosition] = useState(0)
@@ -64,6 +66,39 @@ const DemoPage: React.FC = () => {
     "Individual Tracking",
     "Export & Share"
   ]
+
+  const webhookUrl = "https://app.customerpath.com/api/webhooks/journey-events"
+  
+  const sampleWebhookPayload = `{
+  "customer_id": "cust_abc123",
+  "event": "page_viewed",
+  "stage": "product_demo",
+  "timestamp": "2025-01-20T21:15:00Z",
+  "metadata": {
+    "page": "/pricing",
+    "source": "google_ads",
+    "campaign": "winter_sale"
+  }
+}`
+
+  const zapierIntegrations = [
+    { name: "Shopify", icon: "🛍️", events: ["Order Created", "Cart Abandoned", "Product Viewed"] },
+    { name: "HubSpot", icon: "🎯", events: ["Contact Created", "Deal Stage Changed", "Email Opened"] },
+    { name: "Stripe", icon: "💳", events: ["Payment Succeeded", "Trial Started", "Subscription Canceled"] },
+    { name: "Mailchimp", icon: "📧", events: ["Email Sent", "Link Clicked", "Unsubscribed"] },
+    { name: "Google Analytics", icon: "📊", events: ["Goal Completed", "Event Tracked", "Page View"] },
+    { name: "Intercom", icon: "💬", events: ["Message Sent", "Conversation Started", "User Replied"] }
+  ]
+
+  const copyWebhookUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(webhookUrl)
+      setCopiedWebhook(true)
+      setTimeout(() => setCopiedWebhook(false), 2000)
+    } catch (err) {
+      console.error('Failed to copy webhook URL:', err)
+    }
+  }
 
   const customers: Customer[] = [
     {
@@ -373,6 +408,15 @@ const DemoPage: React.FC = () => {
                   <div className="flex items-center space-x-3">
                     <button className="border border-gray-300 text-gray-600 px-4 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors">
                       <span onClick={() => setShowAddStepModal(true)}>+ Add Stage</span>
+                    </button>
+                    <button 
+                      onClick={() => setShowWebhookModal(true)}
+                      className="border-2 border-brand-teal text-brand-teal hover:bg-brand-teal hover:text-white px-4 py-2 rounded-lg font-semibold transition-all flex items-center"
+                    >
+                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                      </svg>
+                      Connect Webhooks
                     </button>
                     <button className="bg-brand-teal text-white px-4 py-2 rounded-lg font-medium hover:bg-brand-teal/90 transition-colors">
                       Save Changes
@@ -1022,6 +1066,126 @@ const DemoPage: React.FC = () => {
                   className="px-6 py-3 border border-gray-300 text-gray-600 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
                 >
                   Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Webhook Integration Modal */}
+      {showWebhookModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-8">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-8">
+                <div>
+                  <h2 className="text-2xl font-bold text-brand-navy mb-2">Connect Your Tools</h2>
+                  <p className="text-gray-600">Send customer events from any platform using webhooks</p>
+                </div>
+                <button 
+                  onClick={() => setShowWebhookModal(false)}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <div className="grid lg:grid-cols-2 gap-8">
+                {/* Left Column - Webhook URL */}
+                <div>
+                  <h3 className="text-lg font-bold text-brand-navy mb-4">Your Webhook URL</h3>
+                  <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 mb-6">
+                    <div className="flex items-center justify-between">
+                      <code className="text-sm text-gray-700 font-mono break-all">{webhookUrl}</code>
+                      <button 
+                        onClick={copyWebhookUrl}
+                        className={`ml-3 px-3 py-1 rounded-lg text-sm font-medium transition-all ${
+                          copiedWebhook 
+                            ? 'bg-green-100 text-green-700' 
+                            : 'bg-brand-teal text-white hover:bg-brand-teal/90'
+                        }`}
+                      >
+                        {copiedWebhook ? 'Copied!' : 'Copy'}
+                      </button>
+                    </div>
+                  </div>
+
+                  <h4 className="font-semibold text-brand-navy mb-3">Sample Payload</h4>
+                  <div className="bg-gray-900 rounded-lg p-4 text-sm">
+                    <pre className="text-green-400 font-mono whitespace-pre-wrap">{sampleWebhookPayload}</pre>
+                  </div>
+
+                  <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    <div className="flex items-start">
+                      <svg className="w-5 h-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <div>
+                        <p className="font-semibold text-blue-800 mb-1">Pro Tip</p>
+                        <p className="text-blue-700 text-sm">Use this URL in Zapier, Make.com, or any webhook-enabled platform to send customer events in real-time.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column - Popular Integrations */}
+                <div>
+                  <h3 className="text-lg font-bold text-brand-navy mb-4">Popular Integrations</h3>
+                  <div className="space-y-3">
+                    {zapierIntegrations.map((integration, index) => (
+                      <div key={index} className="bg-white border border-gray-200 rounded-lg p-4 hover:border-brand-teal/30 hover:bg-gray-50 transition-all cursor-pointer">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center">
+                            <span className="text-2xl mr-3">{integration.icon}</span>
+                            <span className="font-semibold text-brand-navy">{integration.name}</span>
+                          </div>
+                          <button className="text-brand-teal hover:text-brand-teal/80 text-sm font-medium">
+                            Connect →
+                          </button>
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                          {integration.events.map((event, eventIndex) => (
+                            <span key={eventIndex} className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
+                              {event}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-6 p-4 bg-brand-teal/10 rounded-lg border border-brand-teal/20">
+                    <h4 className="font-semibold text-brand-navy mb-2 flex items-center">
+                      <svg className="w-4 h-4 mr-2 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7" />
+                      </svg>
+                      Quick Setup with Zapier
+                    </h4>
+                    <ol className="text-sm text-gray-700 space-y-1">
+                      <li>1. Choose your trigger app (Shopify, HubSpot, etc.)</li>
+                      <li>2. Select the event (new order, email opened, etc.)</li>
+                      <li>3. Add CustomerPath webhook as the action</li>
+                      <li>4. Paste the webhook URL above</li>
+                      <li>5. Map your data to our event format</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="mt-8 pt-6 border-t border-gray-200 flex items-center justify-between">
+                <div className="text-sm text-gray-600">
+                  Need help setting up? <a href="#" className="text-brand-teal hover:text-brand-teal/80 font-medium">View integration docs →</a>
+                </div>
+                <button 
+                  onClick={() => setShowWebhookModal(false)}
+                  className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-2 rounded-lg font-semibold transition-all"
+                >
+                  Done
                 </button>
               </div>
             </div>
