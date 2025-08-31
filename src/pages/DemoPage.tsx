@@ -451,8 +451,7 @@ const DemoPage: React.FC = () => {
                     {index === 0 ? 'Biggest opportunity - simplify this step' : 'Consider adding social proof here'}
                   </p>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>
@@ -641,44 +640,45 @@ const DemoPage: React.FC = () => {
           </div>
         </div>
 
-      {/* Real-time Event Stream */}
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-600">
-        <h3 className="text-xl font-semibold text-brand-navy mb-6">Live Event Stream</h3>
-        
-        <div className="space-y-3 max-h-80 overflow-y-auto">
-          {[
-            { tool: 'Calendly', event: 'Demo booked by john@company.com', time: '2 min ago', type: 'booking', color: 'blue' },
-            { tool: 'Stripe', event: 'Payment completed: $49/month subscription', time: '3 min ago', type: 'payment', color: 'green' },
-            { tool: 'Airtable', event: 'New lead record created: sarah@startup.io', time: '5 min ago', type: 'lead', color: 'orange' },
-            { tool: 'Google Analytics', event: 'Goal conversion: trial_signup', time: '7 min ago', type: 'conversion', color: 'purple' },
-            { tool: 'Calendly', event: 'Demo completed by mike@techcorp.com', time: '12 min ago', type: 'completion', color: 'blue' },
-            { tool: 'Stripe', event: 'Trial started: emily@design.co', time: '15 min ago', type: 'trial', color: 'green' },
-            { tool: 'Airtable', event: 'Lead status updated: qualified → demo_scheduled', time: '18 min ago', type: 'update', color: 'orange' },
-            { tool: 'Google Analytics', event: 'High-intent page view: /pricing', time: '22 min ago', type: 'engagement', color: 'purple' }
-          ].map((event, index) => (
-            <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200">
-              <div className="flex items-center space-x-4">
-                <div className={`w-3 h-3 rounded-full animate-pulse ${
-                  event.color === 'blue' ? 'bg-blue-400' :
-                  event.color === 'green' ? 'bg-green-400' :
-                  event.color === 'orange' ? 'bg-orange-400' :
-                  'bg-purple-400'
-                }`}></div>
-                <div className="flex items-center space-x-2">
-                  <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                    event.color === 'blue' ? 'bg-blue-100 text-blue-700' :
-                    event.color === 'green' ? 'bg-green-100 text-green-700' :
-                    event.color === 'orange' ? 'bg-orange-100 text-orange-700' :
-                    'bg-purple-100 text-purple-700'
-                  }`}>
-                    {event.tool}
-                  </span>
-                  <span className="text-sm text-slate-700">{event.event}</span>
+        {/* Real-time Event Stream */}
+        <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 animate-fade-in-up animation-delay-600">
+          <h3 className="text-xl font-semibold text-brand-navy mb-6">Live Event Stream</h3>
+          
+          <div className="space-y-3 max-h-80 overflow-y-auto">
+            {[
+              { tool: 'Calendly', event: 'Demo booked by john@company.com', time: '2 min ago', type: 'booking', color: 'blue' },
+              { tool: 'Stripe', event: 'Payment completed: $49/month subscription', time: '3 min ago', type: 'payment', color: 'green' },
+              { tool: 'Airtable', event: 'New lead record created: sarah@startup.io', time: '5 min ago', type: 'lead', color: 'orange' },
+              { tool: 'Google Analytics', event: 'Goal conversion: trial_signup', time: '7 min ago', type: 'conversion', color: 'purple' },
+              { tool: 'Calendly', event: 'Demo completed by mike@techcorp.com', time: '12 min ago', type: 'completion', color: 'blue' },
+              { tool: 'Stripe', event: 'Trial started: emily@design.co', time: '15 min ago', type: 'trial', color: 'green' },
+              { tool: 'Airtable', event: 'Lead status updated: qualified → demo_scheduled', time: '18 min ago', type: 'update', color: 'orange' },
+              { tool: 'Google Analytics', event: 'High-intent page view: /pricing', time: '22 min ago', type: 'engagement', color: 'purple' }
+            ].map((event, index) => (
+              <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200">
+                <div className="flex items-center space-x-4">
+                  <div className={`w-3 h-3 rounded-full animate-pulse ${
+                    event.color === 'blue' ? 'bg-blue-400' :
+                    event.color === 'green' ? 'bg-green-400' :
+                    event.color === 'orange' ? 'bg-orange-400' :
+                    'bg-purple-400'
+                  }`}></div>
+                  <div className="flex items-center space-x-2">
+                    <span className={`text-xs font-medium px-2 py-1 rounded-full ${
+                      event.color === 'blue' ? 'bg-blue-100 text-blue-700' :
+                      event.color === 'green' ? 'bg-green-100 text-green-700' :
+                      event.color === 'orange' ? 'bg-orange-100 text-orange-700' :
+                      'bg-purple-100 text-purple-700'
+                    }`}>
+                      {event.tool}
+                    </span>
+                    <span className="text-sm text-slate-700">{event.event}</span>
+                  </div>
                 </div>
+                <span className="text-xs text-slate-500">{event.time}</span>
               </div>
-              <span className="text-xs text-slate-500">{event.time}</span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -969,6 +969,7 @@ const DemoPage: React.FC = () => {
                   {step}
                 </button>
               ))}
+            </div>
             
             <div className="text-sm text-slate-500">
               {new Date().toLocaleDateString('en-US', { 
