@@ -19,6 +19,39 @@ interface Stage {
 }
 
 const DemoPage: React.FC = () => {
+  const [currentStep, setCurrentStep] = useState(0)
+  const [selectedJourney, setSelectedJourney] = useState(0)
+  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null)
+
+  const journeys = [
+    {
+      name: "E-commerce Customer Journey",
+      description: "Track customers from first visit to purchase and beyond",
+      customers: 2103,
+      stages: [
+        { id: 1, name: "Landing Page", color: "bg-blue-500", customers: 2103, conversionRate: 68 },
+        { id: 2, name: "Product View", color: "bg-purple-500", customers: 1430, conversionRate: 42 },
+        { id: 3, name: "Add to Cart", color: "bg-orange-500", customers: 601, conversionRate: 71 },
+        { id: 4, name: "Checkout", color: "bg-red-500", customers: 427, conversionRate: 89 },
+        { id: 5, name: "Purchase", color: "bg-green-500", customers: 380, conversionRate: 94 },
+        { id: 6, name: "Active User", color: "bg-brand-teal", customers: 357, conversionRate: 0 }
+      ]
+    },
+    {
+      name: "SaaS Onboarding Flow",
+      description: "Guide new users through trial to paid subscription",
+      customers: 1847,
+      stages: [
+        { id: 1, name: "Sign Up", color: "bg-indigo-500", customers: 1847, conversionRate: 73 },
+        { id: 2, name: "Email Verified", color: "bg-blue-500", customers: 1348, conversionRate: 56 },
+        { id: 3, name: "First Login", color: "bg-purple-500", customers: 755, conversionRate: 84 },
+        { id: 4, name: "Feature Used", color: "bg-pink-500", customers: 634, conversionRate: 67 },
+        { id: 5, name: "Trial Extended", color: "bg-orange-500", customers: 425, conversionRate: 78 },
+        { id: 6, name: "Paid Plan", color: "bg-green-500", customers: 331, conversionRate: 0 }
+      ]
+    }
+  ]
+
   const customers: Customer[] = [
     {
       id: "1",
@@ -27,10 +60,7 @@ const DemoPage: React.FC = () => {
       currentStage: 3,
       joinedAt: "2025-01-15",
       notes: "Completed purchase yesterday. Very engaged with onboarding materials. Asked about team collaboration features and API access. High potential for upsell to enterprise plan.",
-      avatar: "SC",
-      source: "Google Ads",
-      value: "$2,400",
-      lastActivity: "2 hours ago"
+      avatar: "SC"
     },
     {
       id: "2", 
@@ -39,10 +69,7 @@ const DemoPage: React.FC = () => {
       currentStage: 6,
       joinedAt: "2025-01-12",
       notes: "Extremely active user. Uses advanced features daily. Created 12 journey maps in first week. Excellent case study candidate. Referred 3 new customers.",
-      avatar: "MR",
-      source: "Referral",
-      value: "$4,800",
-      lastActivity: "15 minutes ago"
+      avatar: "MR"
     },
     {
       id: "3",
@@ -51,10 +78,7 @@ const DemoPage: React.FC = () => {
       currentStage: 2,
       joinedAt: "2025-01-18",
       notes: "Marketing agency owner. Interested in white-label options. Currently in trial phase, testing with 3 client projects. Needs bulk import functionality.",
-      avatar: "JL",
-      source: "LinkedIn",
-      value: "$1,200",
-      lastActivity: "1 day ago"
+      avatar: "JL"
     },
     {
       id: "4",
@@ -63,10 +87,7 @@ const DemoPage: React.FC = () => {
       currentStage: 5,
       joinedAt: "2025-01-10",
       notes: "E-commerce store owner. Purchased Pro plan after 5-day trial. Currently setting up product funnel tracking. Needs help with advanced segmentation features.",
-      avatar: "DP",
-      source: "Content Marketing",
-      value: "$3,600",
-      lastActivity: "3 hours ago"
+      avatar: "DP"
     },
     {
       id: "5",
@@ -75,10 +96,7 @@ const DemoPage: React.FC = () => {
       currentStage: 1,
       joinedAt: "2025-01-20",
       notes: "Business consultant. New lead from LinkedIn campaign. Watched demo video twice. Scheduled onboarding call for tomorrow. Interested in client reporting features.",
-      avatar: "EW",
-      source: "Demo Video",
-      value: "$0",
-      lastActivity: "30 minutes ago"
+      avatar: "EW"
     },
     {
       id: "6",
@@ -87,10 +105,7 @@ const DemoPage: React.FC = () => {
       currentStage: 2,
       joinedAt: "2025-01-14",
       notes: "Growth marketing specialist. Currently in trial. Built 2 journey maps for different product lines. Asking about API integrations with existing tools.",
-      avatar: "AT",
-      source: "Product Hunt",
-      value: "$600",
-      lastActivity: "6 hours ago"
+      avatar: "AT"
     },
     {
       id: "7",
@@ -99,10 +114,7 @@ const DemoPage: React.FC = () => {
       currentStage: 5,
       joinedAt: "2025-01-08",
       notes: "Retail chain marketing director. Pro customer since week 1. Managing 5 different customer journeys across store locations. Very satisfied with results.",
-      avatar: "MG",
-      source: "Direct",
-      value: "$7,200",
-      lastActivity: "4 hours ago"
+      avatar: "MG"
     },
     {
       id: "8",
@@ -111,10 +123,7 @@ const DemoPage: React.FC = () => {
       currentStage: 1,
       joinedAt: "2025-01-19",
       notes: "AI startup founder. Watched product demo, very interested in advanced analytics. Currently evaluating against competitors. Price-sensitive but sees value.",
-      avatar: "JK",
-      source: "Webinar",
-      value: "$0",
-      lastActivity: "12 hours ago"
+      avatar: "JK"
     },
     {
       id: "9",
@@ -123,15 +132,19 @@ const DemoPage: React.FC = () => {
       currentStage: 4,
       joinedAt: "2025-01-16",
       notes: "Fintech startup CMO. Very data-driven approach. Loves the analytics features. Currently in trial but showing strong engagement signals.",
-      avatar: "LZ",
-      source: "Twitter",
-      value: "$1,800",
-      lastActivity: "1 hour ago"
+      avatar: "LZ"
     },
     {
       id: "10",
       name: "Robert Johnson",
       email: "rob@consulting.pro",
+      currentStage: 2,
+      joinedAt: "2025-01-17",
+      notes: "Business consultant. Evaluating multiple tools. Needs integration with CRM system.",
+      avatar: "RJ"
+    }
+  ]
+
   const demoSteps = [
     "Journey Overview",
     "Visual Builder",
