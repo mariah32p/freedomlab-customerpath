@@ -21,25 +21,47 @@ import {
   Briefcase
 } from "lucide-react";
 
-// Helper component for the funnel chart
-const FunnelStep = ({ value, maxValue, label, stepNumber, color, dropOff, isLast = false }) => {
-  const widthPercentage = (value / maxValue) * 100;
+// Helper component for the centered funnel chart
+const FunnelStep = ({ value, maxValue, label, dropOff, color, isFirst = false, isLast = false, nextValue }) => {
+  const percentageOfMax = (value / maxValue) * 100;
+  const nextPercentageOfMax = isLast ? 0 : (nextValue / maxValue) * 100;
+
+  // Calculate the polygon points for the trapezoid shape
+  // Points are: top-left, top-right, bottom-right, bottom-left
+  // The 'x' coordinates are percentages relative to the parent div's width.
+  // We want the current step to be wider than the next, creating the funnel shape.
+  const points = `
+    ${(100 - percentageOfMax) / 2}% 0%,
+    ${100 - (100 - percentageOfMax) / 2}% 0%,
+    ${100 - (100 - nextPercentageOfMax) / 2}% 100%,
+    ${(100 - nextPercentageOfMax) / 2}% 100%
+  `;
+
   return (
-    <div className="flex items-center w-full space-x-4">
-      <div className="text-center w-24">
+    <div className="flex items-center w-full my-1 relative">
+      <div className="text-right w-32 pr-4 flex-shrink-0">
         <div className="font-bold text-2xl text-brand-navy">{value.toLocaleString()}</div>
         <div className="text-xs text-slate-500">Users</div>
       </div>
-      <div className="flex-1">
-        <div className="relative h-12 flex items-center justify-center" style={{ width: `${widthPercentage}%` }}>
-          <div className={`absolute inset-0 ${color} opacity-80`} style={{ clipPath: 'polygon(0 0, 100% 0, 92% 100%, 8% 100%)' }}></div>
-          <span className="relative text-white font-semibold text-sm z-10">{label}</span>
+      <div className="flex-1 min-w-0">
+        <div className="relative h-14 flex items-center justify-center">
+          <div
+            className={`absolute inset-0 ${color} opacity-90`}
+            style={{ clipPath: isLast ? `polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)` : `polygon(${points})` }} // Simple rectangle for the last step
+          ></div>
+          <span className="relative text-white font-semibold text-base z-10">{label}</span>
         </div>
       </div>
       {!isLast && (
-        <div className="text-center w-24">
+        <div className="text-left w-32 pl-4 flex-shrink-0">
           <div className="font-bold text-lg text-red-500">-{dropOff}%</div>
           <div className="text-xs text-slate-500">Drop-off</div>
+        </div>
+      )}
+       {isLast && (
+        <div className="text-left w-32 pl-4 flex-shrink-0">
+          <div className="font-bold text-lg text-green-600">+{(value / maxValue * 100).toFixed(1)}%</div>
+          <div className="text-xs text-slate-500">Conversion</div>
         </div>
       )}
     </div>
@@ -62,7 +84,7 @@ const CustomerPathDemo: React.FC = () => {
     if (!isAutoPlaying) return;
     const interval = setInterval(() => {
       setCurrentStep(prev => (prev + 1) % 4);
-    }, 8000);
+    }, 8000); // Changed to 8 seconds for better readability
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
 
@@ -308,11 +330,11 @@ const CustomerPathDemo: React.FC = () => {
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 animate-fade-in-up">
             <h3 className="text-2xl font-semibold text-brand-navy mb-2">Journey Conversion Funnel</h3>
             <p className="text-slate-500 mb-8">Tracking users from initial visit to final conversion.</p>
-            <div className="space-y-2">
-                <FunnelStep value={8247} maxValue={8247} label="Landing Page" stepNumber={1} color="bg-blue-500" dropOff={22} />
-                <FunnelStep value={6432} maxValue={8247} label="Demo Booking" stepNumber={2} color="bg-brand-teal" dropOff={38} />
-                <FunnelStep value={3987} maxValue={8247} label="Trial Signup" stepNumber={3} color="bg-purple-500" dropOff={20} />
-                <FunnelStep value={1834} maxValue={8247} label="Payment" stepNumber={4} color="bg-green-500" isLast />
+            <div className="max-w-2xl mx-auto space-y-0"> {/* Centered funnel */}
+                <FunnelStep value={8247} maxValue={8247} label="Landing Page" color="bg-blue-500" dropOff={22} nextValue={6432} isFirst />
+                <FunnelStep value={6432} maxValue={8247} label="Demo Booking" color="bg-brand-teal" dropOff={38} nextValue={3987} />
+                <FunnelStep value={3987} maxValue={8247} label="Trial Signup" color="bg-purple-500" dropOff={20} nextValue={1834} />
+                <FunnelStep value={1834} maxValue={8247} label="Payment" color="bg-green-500" isLast />
             </div>
         </div>
 
