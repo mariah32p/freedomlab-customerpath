@@ -14,11 +14,6 @@
 .animation-delay-1000 { animation-delay: 1000ms; }
 
 /* Smooth transitions for all interactive elements */
-* {
-  transition-property: transform, opacity, box-shadow, background-color, border-color;
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
 
 /* Enhanced hover effects */
 .hover-lift:hover {
