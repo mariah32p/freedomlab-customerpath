@@ -461,116 +461,157 @@ const DemoPage = () => {
   );
 
   const renderConnectTools = () => (
-    <div className="space-y-8">
-      <div className="text-center space-y-4">
-        <h2 className="text-3xl font-bold text-gray-900">Connect Your Tools</h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Use webhooks to send data from your existing tools
-        </p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 -mx-6 -my-8 px-6 py-8">
+      <div className="max-w-none">
+        {/* Stunning Header */}
+        <div className="text-center space-y-6 mb-12">
+          <div className="flex items-center justify-center space-x-4">
+            <Webhook className="w-8 h-8 text-teal-600 animate-pulse" />
+            <h2 className="text-5xl font-bold bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent">
+              Connect Your Tools
+            </h2>
+            <Webhook className="w-8 h-8 text-teal-600 animate-pulse" />
+          </div>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Seamlessly integrate with 5,000+ tools using webhooks and APIs
+          </p>
+        </div>
 
-      {/* Integration Setup */}
-      <motion.div 
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-xl border border-gray-100 shadow-sm p-8"
-      >
-        <h3 className="text-xl font-bold text-gray-900 mb-6">3-Step Integration</h3>
-        
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
-          {[
-            { step: 1, title: "Choose Your Tool", description: "Select from 5,000+ apps" },
-            { step: 2, title: "Copy Webhook URL", description: "Paste into your tool's settings" },
-            { step: 3, title: "Start Tracking", description: "Data flows automatically" }
-          ].map((item, index) => (
-            <div key={item.step} className="text-center">
-              <div className="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold text-lg">{item.step}</span>
+        {/* Integration Setup */}
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white/90 backdrop-blur-sm border border-white/50 rounded-3xl shadow-2xl overflow-hidden mb-8"
+        >
+          {/* Premium Header */}
+          <div className="bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 px-10 py-10 text-white">
+            <div className="flex items-center space-x-6">
+              <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-3xl flex items-center justify-center shadow-2xl">
+                <Zap className="w-10 h-10 text-white" />
               </div>
-              <h4 className="font-bold text-gray-900 mb-2">{item.title}</h4>
-              <p className="text-gray-600 text-sm">{item.description}</p>
+              <div>
+                <h3 className="text-4xl font-bold mb-3">3-Step Integration</h3>
+                <p className="text-white/80 text-xl">Connect any tool in under 5 minutes</p>
+              </div>
             </div>
-          ))}
-        </div>
-
-        {/* Webhook URL */}
-        <div className="bg-gray-50 rounded-lg p-4 mb-6">
-          <p className="text-sm text-gray-600 mb-2">Your Webhook URL:</p>
-          <div className="bg-white border border-gray-200 rounded-lg p-3 font-mono text-sm text-gray-800">
-            https://api.customerpath.com/webhook/abc123xyz
           </div>
-        </div>
-      </motion.div>
-
-      {/* Connected Tools */}
-      <motion.div 
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden"
-      >
-        <div className="p-6 border-b border-gray-100">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-xl font-bold text-gray-900">Connected Tools</h3>
-              <p className="text-gray-600 text-sm">Tools sending data to CustomerPath</p>
+          
+          <div className="p-12">
+            <div className="grid md:grid-cols-3 gap-12 mb-12">
+              {[
+                { step: 1, title: "Choose Your Tool", description: "Select from 5,000+ integrations", icon: Database },
+                { step: 2, title: "Copy Webhook URL", description: "One-click copy to clipboard", icon: ExternalLink },
+                { step: 3, title: "Start Tracking", description: "Data flows automatically", icon: Activity }
+              ].map((item, index) => (
+                <motion.div 
+                  key={item.step}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 * index }}
+                  className="text-center group"
+                >
+                  <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:shadow-2xl transition-all duration-300">
+                    <span className="text-white font-bold text-2xl">{item.step}</span>
+                  </div>
+                  <div className="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <item.icon className="w-8 h-8 text-gray-600" />
+                  </div>
+                  <h4 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h4>
+                  <p className="text-gray-600 text-lg">{item.description}</p>
+                </motion.div>
+              ))}
             </div>
-            <button 
-              onClick={addTool}
-              className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2 transition-all"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Add Tool</span>
-            </button>
+
+            {/* Webhook URL */}
+            <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl p-8 border border-gray-200 shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <p className="text-lg font-bold text-gray-900">Your Webhook URL:</p>
+                <button className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-lg font-semibold transition-all">
+                  Copy URL
+                </button>
+              </div>
+              <div className="bg-white border border-gray-300 rounded-xl p-6 font-mono text-lg text-gray-800 shadow-inner">
+                https://api.customerpath.com/webhook/abc123xyz789
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="p-6 space-y-4">
-          {connectedTools.map((tool, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 * index }}
-              className="flex items-center justify-between p-4 bg-gray-50 rounded-xl group"
-            >
-              <div className="flex items-center space-x-3">
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                  tool.color === 'blue' ? 'bg-blue-100' :
-                  tool.color === 'emerald' ? 'bg-emerald-100' :
-                  tool.color === 'orange' ? 'bg-orange-100' : 'bg-purple-100'
-                }`}>
-                  <Webhook className={`w-5 h-5 ${
-                    tool.color === 'blue' ? 'text-blue-600' :
-                    tool.color === 'emerald' ? 'text-emerald-600' :
-                    tool.color === 'orange' ? 'text-orange-600' : 'text-purple-600'
-                  }`} />
+        </motion.div>
+
+        {/* Connected Tools */}
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="bg-white/90 backdrop-blur-sm border border-white/50 rounded-3xl shadow-2xl overflow-hidden"
+        >
+          {/* Premium Header */}
+          <div className="bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 px-10 py-10 text-white">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-3xl flex items-center justify-center shadow-2xl">
+                  <Webhook className="w-10 h-10 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">{tool.name}</h4>
-                  <p className="text-sm text-gray-600">{tool.type}</p>
+                  <h3 className="text-4xl font-bold mb-3">Connected Tools</h3>
+                  <p className="text-gray-300 text-xl">{connectedTools.length} tools sending live data</p>
                 </div>
               </div>
-              <div className="flex items-center space-x-4">
-                <div className="text-right">
-                  <div className="flex items-center space-x-2 mb-1">
-                    <div className="w-2 h-2 bg-emerald-500 rounded-full" />
-                    <span className="text-sm font-medium text-emerald-600">{tool.status}</span>
+              <button 
+                onClick={addTool}
+                className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-4 rounded-xl font-bold text-lg flex items-center space-x-3 transition-all shadow-xl"
+              >
+                <Plus className="w-6 h-6" />
+                <span>Add Integration</span>
+              </button>
+            </div>
+          </div>
+          
+          <div className="p-12 space-y-6">
+            {connectedTools.map((tool, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                whileHover={{ scale: 1.02, y: -2 }}
+                transition={{ delay: 0.1 * index }}
+                className="flex items-center justify-between p-8 bg-gradient-to-r from-white to-gray-50/50 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl group"
+              >
+                <div className="flex items-center space-x-6">
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg ${
+                    tool.color === 'blue' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
+                    tool.color === 'emerald' ? 'bg-gradient-to-br from-emerald-500 to-emerald-600' :
+                    tool.color === 'orange' ? 'bg-gradient-to-br from-orange-500 to-orange-600' : 
+                    'bg-gradient-to-br from-purple-500 to-purple-600'
+                  }`}>
+                    <Webhook className="w-8 h-8 text-white" />
                   </div>
-                  <p className="text-xs text-gray-500">{tool.events}</p>
+                  <div>
+                    <h4 className="text-2xl font-bold text-gray-900 mb-1">{tool.name}</h4>
+                    <p className="text-lg text-gray-600 font-medium">{tool.type}</p>
+                  </div>
                 </div>
-                {connectedTools.length > 1 && (
-                  <button
-                    onClick={() => removeTool(index)}
-                    className="w-8 h-8 bg-red-100 text-red-600 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
+                <div className="flex items-center space-x-6">
+                  <div className="text-right">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse" />
+                      <span className="text-lg font-bold text-emerald-600">{tool.status}</span>
+                    </div>
+                    <p className="text-gray-500 font-medium">{tool.events}</p>
+                  </div>
+                  {connectedTools.length > 1 && (
+                    <button
+                      onClick={() => removeTool(index)}
+                      className="w-12 h-12 bg-red-100 hover:bg-red-200 text-red-600 rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg"
+                    >
+                      <X className="w-6 h-6" />
+                    </button>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 
