@@ -39,13 +39,16 @@ export const useAuth = (): AuthState => {
         if (!insertError) {
           setProfile(basicProfile)
         }
+        setIsLoading(false)
         return
       }
 
       console.log('Profile loaded:', profileData)
       setProfile(profileData)
+      setIsLoading(false)
     } catch (error) {
       console.error('Error in loadProfile:', error)
+      setIsLoading(false)
     }
   }
 
@@ -100,6 +103,7 @@ export const useAuth = (): AuthState => {
         } else {
           setUser(null)
           setProfile(null)
+          setIsLoading(false)
         }
       }
     )
