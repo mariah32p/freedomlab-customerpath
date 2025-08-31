@@ -19,7 +19,7 @@ const colors = {
   border: '#E2E8F0',
 };
 
-const StatCard = ({ title, value, icon, color, prefix = '', suffix = '' }) => (
+const StatCard = ({ title, value, Icon, color, prefix = '', suffix = '' }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -29,7 +29,7 @@ const StatCard = ({ title, value, icon, color, prefix = '', suffix = '' }) => (
     <div className="flex items-center justify-between">
       <p className="text-sm font-semibold text-gray-600">{title}</p>
       <div className={`w-8 h-8 rounded-lg flex items-center justify-center bg-${color}-100`}>
-        {React.createElement(icon, { className: `w-5 h-5 text-${color}-600`})}
+        {Icon && <Icon className={`w-5 h-5 text-${color}-600`} />}
       </div>
     </div>
     <p className="text-4xl font-bold mt-3 text-gray-900">
@@ -233,10 +233,10 @@ const DemoPage = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title="Active Journeys" value={liveMetrics.totalJourneys} icon={Target} color="blue" />
-        <StatCard title="Customers Tracked" value={liveMetrics.customersTracked} icon={Users} color="teal" />
-        <StatCard title="Avg. Conversion" value={Math.round(liveMetrics.conversionRate)} suffix="%" icon={TrendingUp} color="purple" />
-        <StatCard title="Revenue Impact" value={Math.round(liveMetrics.revenue / 1000)} prefix="$" suffix="k" icon={Trophy} color="green" />
+        <StatCard title="Active Journeys" value={liveMetrics.totalJourneys} Icon={Target} color="blue" />
+        <StatCard title="Customers Tracked" value={liveMetrics.customersTracked} Icon={Users} color="teal" />
+        <StatCard title="Avg. Conversion" value={Math.round(liveMetrics.conversionRate)} suffix="%" Icon={TrendingUp} color="purple" />
+        <StatCard title="Revenue Impact" value={Math.round(liveMetrics.revenue / 1000)} prefix="$" suffix="k" Icon={Trophy} color="green" />
       </div>
 
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
