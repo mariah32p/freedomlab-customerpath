@@ -125,8 +125,6 @@ const DemoPage: React.FC = () => {
       red: 'bg-red-500 border-red-200'
     }
 
-    return (
-    }
     return colorMap[color] || 'bg-gray-500 border-gray-200'
   }
 
