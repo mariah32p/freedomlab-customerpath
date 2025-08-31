@@ -22,6 +22,10 @@ const DemoPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0)
   const [selectedJourney, setSelectedJourney] = useState(0)
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null)
+  const [showAddStepModal, setShowAddStepModal] = useState(false)
+  const [newStepName, setNewStepName] = useState('')
+  const [newStepColor, setNewStepColor] = useState('bg-blue-500')
+  const [newStepPosition, setNewStepPosition] = useState(0)
 
   const journeys = [
     {
@@ -166,6 +170,20 @@ const DemoPage: React.FC = () => {
     return () => clearInterval(interval)
   }, [demoSteps.length])
 
+  // Auto-open Add Step modal during Visual Builder step
+  useEffect(() => {
+    if (currentStep === 1) {
+      const timer = setTimeout(() => {
+        setShowAddStepModal(true)
+        setNewStepName('Email Nurture')
+        setNewStepColor('bg-indigo-500')
+        setNewStepPosition(2) // After "Product View"
+      }, 2000)
+      return () => clearTimeout(timer)
+    } else {
+      setShowAddStepModal(false)
+    }
+  }, [currentStep])
   // Auto-select different customers as we cycle through steps
   useEffect(() => {
     if (currentStep === 4) { // Individual Tracking step
@@ -175,6 +193,25 @@ const DemoPage: React.FC = () => {
   }, [currentStep])
 
   const currentJourney = journeys[selectedJourney]
+
+  const colorOptions = [
+    { name: 'Blue', value: 'bg-blue-500' },
+    { name: 'Purple', value: 'bg-purple-500' },
+    { name: 'Indigo', value: 'bg-indigo-500' },
+    { name: 'Pink', value: 'bg-pink-500' },
+    { name: 'Orange', value: 'bg-orange-500' },
+    { name: 'Teal', value: 'bg-teal-500' },
+    { name: 'Red', value: 'bg-red-500' },
+    { name: 'Green', value: 'bg-green-500' }
+  ]
+
+  const handleAddStep = () => {
+    // In a real app, this would update the journey
+    setShowAddStepModal(false)
+    setNewStepName('')
+    setNewStepColor('bg-blue-500')
+    setNewStepPosition(0)
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 font-montserrat">
@@ -335,7 +372,7 @@ const DemoPage: React.FC = () => {
                   </div>
                   <div className="flex items-center space-x-3">
                     <button className="border border-gray-300 text-gray-600 px-4 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors">
-                      + Add Stage
+                      <span onClick={() => setShowAddStepModal(true)}>+ Add Stage</span>
                     </button>
                     <button className="bg-brand-teal text-white px-4 py-2 rounded-lg font-medium hover:bg-brand-teal/90 transition-colors">
                       Save Changes
@@ -883,6 +920,114 @@ const DemoPage: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Add Step Modal */}
+      {showAddStepModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 animate-fade-in-up">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold text-brand-navy">Add New Stage</h3>
+              <button 
+                onClick={() => setShowAddStepModal(false)}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              {/* Stage Name */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Stage Name
+                </label>
+                <input
+                  type="text"
+                  value={newStepName}
+                  onChange={(e) => setNewStepName(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-transparent"
+                  placeholder="e.g., Email Nurture, Demo Call, Onboarding"
+                />
+              </div>
+
+              {/* Position */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Insert After
+                </label>
+                <select
+                  value={newStepPosition}
+                  onChange={(e) => setNewStepPosition(Number(e.target.value))}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-transparent"
+                >
+                  <option value={0}>Beginning</option>
+                  {currentJourney.stages.map((stage, index) => (
+                    <option key={stage.id} value={index + 1}>
+                      After {stage.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Color Selection */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Stage Color
+                </label>
+                <div className="grid grid-cols-4 gap-3">
+                  {colorOptions.map((color) => (
+                    <button
+                      key={color.value}
+                      onClick={() => setNewStepColor(color.value)}
+                      className={`w-12 h-12 rounded-lg ${color.value} border-2 transition-all ${
+                        newStepColor === color.value 
+                          ? 'border-brand-navy scale-110' 
+                          : 'border-gray-300 hover:border-gray-400'
+                      }`}
+                      title={color.name}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Preview */}
+              <div className="bg-gray-50 rounded-lg p-4">
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Preview
+                </label>
+                <div className="flex items-center space-x-3">
+                  <div className={`w-4 h-4 rounded-full ${newStepColor}`}></div>
+                  <span className="font-semibold text-brand-navy">
+                    {newStepName || 'New Stage'}
+                  </span>
+                  <span className="text-sm text-gray-500">
+                    • Position {newStepPosition + 1}
+                  </span>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex items-center space-x-4 pt-4">
+                <button
+                  onClick={handleAddStep}
+                  disabled={!newStepName.trim()}
+                  className="flex-1 bg-brand-teal hover:bg-brand-teal/90 disabled:bg-gray-300 text-white py-3 rounded-lg font-semibold transition-all disabled:cursor-not-allowed"
+                >
+                  Add Stage
+                </button>
+                <button
+                  onClick={() => setShowAddStepModal(false)}
+                  className="px-6 py-3 border border-gray-300 text-gray-600 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
