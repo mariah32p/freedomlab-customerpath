@@ -117,15 +117,11 @@ const DemoPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 -mx-6 -my-8 px-6 py-8">
       <div className="max-w-none">
         {/* Stunning Header */}
-        <div className="text-center space-y-6 mb-12">
-          <div className="flex items-center justify-center space-x-4">
-            <div className="w-6 h-6 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full animate-pulse shadow-xl" />
-            <h2 className="text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-900 bg-clip-text text-transparent">
-              Customer Journey Analytics
-            </h2>
-            <div className="w-6 h-6 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full animate-pulse shadow-xl" />
-          </div>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            Customer Journey Analytics
+          </h2>
+          <p className="text-xl text-gray-600">
             Real-time insights into your highest-converting customer funnel
           </p>
         </div>
@@ -243,48 +239,6 @@ const DemoPage = () => {
               </div>
             </div>
           </div>
-
-          {/* AI-Powered Insights Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="m-12 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-10 text-white shadow-2xl"
-          >
-            <div className="flex items-center space-x-4 mb-8">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
-                <Sparkles className="w-8 h-8 text-white" />
-              </div>
-              <div>
-                <h4 className="text-3xl font-bold mb-2">AI-Powered Insights</h4>
-                <p className="text-white/80 text-lg">Automated recommendations to boost your conversions</p>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
-                <div className="flex items-center space-x-3 mb-4">
-                  <Trophy className="w-6 h-6 text-yellow-300" />
-                  <h5 className="text-xl font-bold">Biggest Opportunity</h5>
-                </div>
-                <p className="text-white/90 text-lg leading-relaxed">
-                  Improve demo → trial conversion by optimizing your onboarding flow.
-                  <span className="font-bold text-yellow-300"> Potential +$18k monthly revenue</span>
-                </p>
-              </div>
-
-              <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
-                <div className="flex items-center space-x-3 mb-4">
-                  <Target className="w-6 h-6 text-emerald-300" />
-                  <h5 className="text-xl font-bold">Quick Win</h5>
-                </div>
-                <p className="text-white/90 text-lg leading-relaxed">
-                  Focus marketing spend on Google Ads - your highest converting source at
-                  <span className="font-bold text-emerald-300"> 42% conversion rate</span>
-                </p>
-              </div>
-            </div>
-          </motion.div>
         </motion.div>
       </div>
     </div>
