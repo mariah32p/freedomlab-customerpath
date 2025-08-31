@@ -461,11 +461,12 @@ const DemoPage = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
-              <Activity className="w-5 h-5 text-white" />
-            </div>
+                <Activity className="w-5 h-5 text-white" />
+              </div>
+              <div>
                 <h3 className="text-2xl font-bold text-gray-900">Live Events Stream</h3>
                 <p className="text-gray-600">Customer actions happening right now across all touchpoints</p>
-              <p className="text-gray-600 text-sm">Customer actions happening right now</p>
+              </div>
             </div>
             <div className="flex items-center space-x-6">
               <div className="text-right">
@@ -476,7 +477,7 @@ const DemoPage = () => {
                 <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse" />
                 <span className="text-emerald-700 font-bold">LIVE</span>
               </div>
-            <span className="text-emerald-700 font-semibold text-sm">Live</span>
+            </div>
           </div>
         </div>
 
@@ -647,48 +648,6 @@ const DemoPage = () => {
               </div>
             </div>
           </div>
-          {[
-            { time: '2s ago', event: 'Demo booked via Calendly', customer: 'sarah@techcorp.com', type: 'conversion', value: null },
-            { time: '8s ago', event: 'Payment completed', customer: 'mike@startup.io', type: 'revenue', value: '$49' },
-            { time: '15s ago', event: 'Form submitted', customer: 'jessica@scale.com', type: 'conversion', value: null },
-            { time: '31s ago', event: 'Trial signup completed', customer: 'david@growth.co', type: 'conversion', value: null },
-            { time: '45s ago', event: 'Landing page visit', customer: 'emma@business.net', type: 'visit', value: null },
-            { time: '1m ago', event: 'Demo completed', customer: 'alex@company.com', type: 'conversion', value: null },
-            { time: '1m ago', event: 'Payment completed', customer: 'lisa@startup.co', type: 'revenue', value: '$29' },
-            { time: '2m ago', event: 'Trial started', customer: 'tom@business.io', type: 'conversion', value: null },
-            { time: '2m ago', event: 'Demo booked via Calendly', customer: 'kate@scale.net', type: 'conversion', value: null },
-            { time: '3m ago', event: 'Payment completed', customer: 'ryan@growth.com', type: 'revenue', value: '$49' }
-          ].map((event, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="flex items-center justify-between p-5 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
-            >
-              <div className="flex items-center space-x-3">
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                  event.type === 'revenue' ? 'bg-gradient-to-br from-emerald-500 to-emerald-600' :
-                  event.type === 'conversion' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
-                  'bg-gradient-to-br from-gray-400 to-gray-500'
-                }`}>
-                  {event.type === 'revenue' ? <DollarSign className="w-4 h-4 text-white" /> :
-                   event.type === 'conversion' ? <Target className="w-4 h-4 text-white" /> :
-                   <Eye className="w-4 h-4 text-white" />}
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900 text-lg">{event.event}</p>
-                  <p className="text-gray-600">{event.customer}</p>
-                </div>
-              </div>
-              <div className="text-right">
-                {event.value && (
-                  <p className="font-bold text-emerald-600 text-lg">{event.value}</p>
-                )}
-                <p className="text-sm text-gray-500 font-medium">{event.time}</p>
-              </div>
-            </motion.div>
-          ))}
         </div>
       </motion.div>
     </div>
