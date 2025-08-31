@@ -22,33 +22,33 @@ const DemoPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0)
   const [selectedJourney, setSelectedJourney] = useState(0)
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null)
-  const [isPlaying, setIsPlaying] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(true)
 
   const journeys = [
     {
       name: "E-commerce Funnel",
       description: "Main product purchase journey",
-      customers: 1247,
+      customers: 8247,
       stages: [
-        { id: 0, name: "Awareness", color: "bg-blue-500", customers: 1247, conversionRate: 78 },
-        { id: 1, name: "Interest", color: "bg-indigo-500", customers: 973, conversionRate: 65 },
-        { id: 2, name: "Trial", color: "bg-purple-500", customers: 632, conversionRate: 45 },
-        { id: 3, name: "Purchase", color: "bg-green-500", customers: 284, conversionRate: 89 },
-        { id: 4, name: "Onboarding", color: "bg-emerald-500", customers: 253, conversionRate: 92 },
-        { id: 5, name: "Active User", color: "bg-teal-500", customers: 233, conversionRate: 0 }
+        { id: 0, name: "Landing Page", color: "bg-blue-500", customers: 8247, conversionRate: 73 },
+        { id: 1, name: "Product Demo", color: "bg-indigo-500", customers: 6020, conversionRate: 58 },
+        { id: 2, name: "Free Trial", color: "bg-purple-500", customers: 3492, conversionRate: 42 },
+        { id: 3, name: "Purchase", color: "bg-green-500", customers: 1467, conversionRate: 89 },
+        { id: 4, name: "Onboarding", color: "bg-emerald-500", customers: 1306, conversionRate: 94 },
+        { id: 5, name: "Active User", color: "bg-teal-500", customers: 1228, conversionRate: 0 }
       ]
     },
     {
       name: "SaaS Onboarding",
       description: "New user activation flow",
-      customers: 856,
+      customers: 4156,
       stages: [
-        { id: 0, name: "Signup", color: "bg-cyan-500", customers: 856, conversionRate: 82 },
-        { id: 1, name: "Email Verify", color: "bg-blue-500", customers: 702, conversionRate: 91 },
-        { id: 2, name: "Profile Setup", color: "bg-indigo-500", customers: 639, conversionRate: 67 },
-        { id: 3, name: "First Action", color: "bg-purple-500", customers: 428, conversionRate: 78 },
-        { id: 4, name: "Feature Discovery", color: "bg-pink-500", customers: 334, conversionRate: 85 },
-        { id: 5, name: "Power User", color: "bg-green-500", customers: 284, conversionRate: 0 }
+        { id: 0, name: "Account Created", color: "bg-cyan-500", customers: 4156, conversionRate: 87 },
+        { id: 1, name: "Email Verified", color: "bg-blue-500", customers: 3616, conversionRate: 76 },
+        { id: 2, name: "Profile Complete", color: "bg-indigo-500", customers: 2748, conversionRate: 69 },
+        { id: 3, name: "First Project", color: "bg-purple-500", customers: 1896, conversionRate: 82 },
+        { id: 4, name: "Team Invited", color: "bg-pink-500", customers: 1555, conversionRate: 91 },
+        { id: 5, name: "Power User", color: "bg-green-500", customers: 1415, conversionRate: 0 }
       ]
     }
   ]
@@ -58,72 +58,96 @@ const DemoPage: React.FC = () => {
       id: "1",
       name: "Sarah Chen",
       email: "sarah@techcorp.com",
-      currentStage: 2,
+      currentStage: 3,
       joinedAt: "2025-01-15",
-      notes: "Interested in enterprise features. Scheduled demo for next week.",
+      notes: "Completed purchase yesterday. Very engaged with onboarding materials. Asked about team collaboration features and API access. High potential for upsell to enterprise plan.",
       avatar: "SC"
     },
     {
       id: "2", 
       name: "Mike Rodriguez",
       email: "mike@startup.io",
-      currentStage: 4,
+      currentStage: 5,
       joinedAt: "2025-01-12",
-      notes: "Power user, very engaged. Potential case study candidate.",
+      notes: "Extremely active user. Uses advanced features daily. Created 12 journey maps in first week. Excellent case study candidate. Referred 3 new customers.",
       avatar: "MR"
     },
     {
       id: "3",
       name: "Jessica Liu",
       email: "j.liu@agency.com", 
-      currentStage: 1,
+      currentStage: 2,
       joinedAt: "2025-01-18",
-      notes: "Asked about team collaboration features.",
+      notes: "Marketing agency owner. Interested in white-label options. Currently in trial phase, testing with 3 client projects. Needs bulk import functionality.",
       avatar: "JL"
     },
     {
       id: "4",
       name: "David Park",
       email: "david@ecommerce.co",
-      currentStage: 3,
+      currentStage: 4,
       joinedAt: "2025-01-10",
-      notes: "Completed purchase. Needs onboarding support.",
+      notes: "E-commerce store owner. Purchased Pro plan after 5-day trial. Currently setting up product funnel tracking. Needs help with advanced segmentation features.",
       avatar: "DP"
     },
     {
       id: "5",
       name: "Emma Wilson",
       email: "emma@consulting.biz",
-      currentStage: 0,
+      currentStage: 1,
       joinedAt: "2025-01-20",
-      notes: "New lead from LinkedIn campaign.",
+      notes: "Business consultant. New lead from LinkedIn campaign. Watched demo video twice. Scheduled onboarding call for tomorrow. Interested in client reporting features.",
+      avatar: "EW"
+    },
+    {
+      id: "6",
+      name: "Alex Thompson",
+      email: "alex@growth.io",
+      currentStage: 2,
+      joinedAt: "2025-01-14",
+      notes: "Growth marketing specialist. Currently in trial. Built 2 journey maps for different product lines. Asking about API integrations with existing tools.",
+      avatar: "AT"
+    },
+    {
+      id: "7",
+      name: "Maria Garcia",
+      email: "maria@retailplus.com",
+      currentStage: 4,
+      joinedAt: "2025-01-08",
+      notes: "Retail chain marketing director. Pro customer since week 1. Managing 5 different customer journeys across store locations. Very satisfied with results.",
+      avatar: "MG"
+    },
+    {
+      id: "8",
+      name: "James Kim",
+      email: "james@techstartup.ai",
+      currentStage: 1,
+      joinedAt: "2025-01-19",
+      notes: "AI startup founder. Watched product demo, very interested in advanced analytics. Currently evaluating against competitors. Price-sensitive but sees value.",
       avatar: "EW"
     }
   ]
 
   const demoSteps = [
     "Journey Overview",
-    "Visual Builder", 
-    "Customer Tracking",
+    "Funnel Analytics",
+    "Customer Management",
     "Analytics Dashboard",
-    "Customer Details",
-    "Export Options"
+    "Individual Tracking",
+    "Export & Share"
   ]
 
   useEffect(() => {
-    if (isPlaying) {
-      const interval = setInterval(() => {
-        setCurrentStep(prev => {
-          if (prev >= demoSteps.length - 1) {
-            setIsPlaying(false)
-            return 0
-          }
-          return prev + 1
-        })
-      }, 4000)
-      return () => clearInterval(interval)
-    }
-  }, [isPlaying, demoSteps.length])
+    const interval = setInterval(() => {
+      setCurrentStep(prev => {
+        if (prev >= demoSteps.length - 1) {
+          return 0
+        }
+        return prev + 1
+      })
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [demoSteps.length])
 
   const currentJourney = journeys[selectedJourney]
 
