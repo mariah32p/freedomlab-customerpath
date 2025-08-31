@@ -533,13 +533,9 @@ const DemoPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-emerald-50 -mx-6 -my-8 px-6 py-8">
       <div className="max-w-none">
         {/* Hero Header */}
-        <div className="text-center space-y-6 mb-12">
-          <div className="flex items-center justify-center space-x-3">
-            <div className="w-4 h-4 bg-emerald-500 rounded-full animate-pulse shadow-lg" />
-            <h2 className="text-4xl font-bold text-gray-900">Live Customer Activity</h2>
-            <div className="w-4 h-4 bg-emerald-500 rounded-full animate-pulse shadow-lg" />
-          </div>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Live Customer Activity</h2>
+          <p className="text-xl text-gray-600">
             Watch your customers move through their journey in real-time across all touchpoints
           </p>
           <div className="flex items-center justify-center space-x-8 bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 shadow-lg">
