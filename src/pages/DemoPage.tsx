@@ -123,9 +123,7 @@ const DemoPage: React.FC = () => {
       pink: 'bg-pink-500 border-pink-200',
       indigo: 'bg-indigo-500 border-indigo-200',
       red: 'bg-red-500 border-red-200'
-    </div>
-  )
-}
+    }
     return colorMap[color] || 'bg-gray-500 border-gray-200'
   }
 
@@ -441,7 +439,7 @@ const DemoPage: React.FC = () => {
                     </button>
                   </div>
                   <div className="grid md:grid-cols-2 gap-6">
-                    {integrations.map(integration => (
+                    {integrations.map((integration, index) => (
                       <button
                         key={integration.name}
                         onClick={() => connectIntegration(integration.name)}
@@ -597,15 +595,16 @@ const DemoPage: React.FC = () => {
                         <div className="text-gray-600">Overall Conversion</div>
                       </div>
                       <div className="animate-bounce-in" style={{ animationDelay: '2.7s' }}>
+                        <div className="text-3xl font-bold text-brand-navy mb-2">
                           ${(journeySteps[journeySteps.length - 1].conversions * 50).toLocaleString()}
                         </div>
-                        <div className="text-gray-600 text-sm">Revenue Impact</div>
+                        <div className="text-gray-600">Revenue Impact</div>
                       </div>
-                      <div>
-                        <div className="text-2xl font-bold text-brand-navy">
+                      <div className="animate-bounce-in" style={{ animationDelay: '2.9s' }}>
+                        <div className="text-3xl font-bold text-brand-navy mb-2">
                           {journeySteps[0].visitors.toLocaleString()}
                         </div>
-                        <div className="text-gray-600 text-sm">Total Visitors</div>
+                        <div className="text-gray-600">Total Visitors</div>
                       </div>
                     </div>
                   </div>
