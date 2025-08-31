@@ -50,7 +50,7 @@ const DemoPage: React.FC = () => {
         { id: 6, name: "Paid Plan", color: "bg-green-500", customers: 331, conversionRate: 0 }
       ]
     }
-  ]
+  ];
 
   const demoSteps = [
     "Journey Overview",
@@ -419,7 +419,7 @@ const DemoPage: React.FC = () => {
                         <div className="flex items-center space-x-6">
                           <div className="text-center">
                             <div className="text-sm text-gray-600 mb-1">Current Stage</div>
-                            <div className={`px-3 py-1 rounded-full text-xs font-semibold text-white ${currentJourney.stages[customer.currentStage].color}`}>
+                            <div className={`px-3 py-1 rounded-full text-xs font-semibold text-white ${currentJourney.stages[customer.currentStage - 1].color}`}>
                               {currentJourney.stages[customer.currentStage - 1].name}
                             </div>
                           </div>
