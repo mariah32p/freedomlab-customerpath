@@ -178,47 +178,50 @@ const DemoPage = () => {
     </div>
   );
 
-  // JOURNEY MAP - Visual Builder
+  // JOURNEY MAP - Interactive Visual Builder
   const renderJourneyMap = () => (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-900">Journey Builder</h3>
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-xl font-bold text-gray-900">Journey Builder</h3>
           <button
             onClick={addJourneyStep}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center space-x-2"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold text-lg flex items-center space-x-2 transition-all transform hover:scale-105 shadow-lg"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-5 h-5" />
             <span>Add Step</span>
           </button>
         </div>
 
-        <div className="flex items-center justify-between space-x-4">
+        <div className="flex items-center justify-between space-x-6">
           {journeySteps.map((step, i) => (
             <React.Fragment key={step.id}>
-              <div className="text-center relative group flex-1">
+              <div className="text-center relative group flex-1 bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-all duration-300 border-2 border-transparent hover:border-blue-200">
                 {journeySteps.length > 2 && (
                   <button
                     onClick={() => removeJourneyStep(step.id)}
-                    className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+                    className="absolute -top-2 -right-2 w-7 h-7 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all transform hover:scale-110 shadow-lg"
                   >
-                    <X className="w-3 h-3" />
+                    <X className="w-4 h-4" />
                   </button>
                 )}
-                <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-2 mx-auto">
-                  <step.icon className="w-6 h-6 text-white" />
+                <div className="w-20 h-20 bg-purple-500 hover:bg-purple-600 rounded-xl flex items-center justify-center mb-4 mx-auto transition-all transform group-hover:scale-110 shadow-lg">
+                  <step.icon className="w-8 h-8 text-white" />
                 </div>
-                <h4 className="font-medium text-gray-900 text-sm mb-1">{step.name}</h4>
-                <p className="text-lg font-bold text-gray-900">{step.users.toLocaleString()}</p>
-                <button className="mt-2 text-xs text-gray-500 hover:text-gray-700 flex items-center justify-center mx-auto">
+                <h4 className="font-semibold text-gray-900 text-lg mb-2">{step.name}</h4>
+                <p className="text-2xl font-bold text-gray-900 mb-3">{step.users.toLocaleString()}</p>
+                <button 
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center justify-center mx-auto transition-all transform hover:scale-105 shadow-md"
+                  onClick={() => console.log('Edit step:', step.id)}
+                >
                   <Edit3 className="w-3 h-3 mr-1" />
-                  Edit
+                  Edit Step
                 </button>
               </div>
               {i < journeySteps.length - 1 && (
-                <div className="flex flex-col items-center">
-                  <ArrowRight className="w-4 h-4 text-gray-400" />
-                  <span className="text-xs text-red-600 font-medium mt-1">
+                <div className="flex flex-col items-center px-2">
+                  <ArrowRight className="w-5 h-5 text-gray-400" />
+                  <span className="text-sm text-red-600 font-semibold mt-1">
                     -{Math.round((1 - (journeySteps[i + 1].users / step.users)) * 100)}%
                   </span>
                 </div>
@@ -228,19 +231,19 @@ const DemoPage = () => {
         </div>
       </div>
 
-      <div className="bg-gray-50 rounded-lg p-4">
-        <div className="grid grid-cols-3 gap-4 text-center">
+      <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border border-blue-200">
+        <div className="grid grid-cols-3 gap-6 text-center">
           <div>
-            <p className="text-xl font-bold text-gray-900">{metrics.conversionRate}%</p>
-            <p className="text-gray-600 text-sm">Overall Conversion</p>
+            <p className="text-3xl font-bold text-blue-600">{metrics.conversionRate}%</p>
+            <p className="text-gray-700 font-medium text-lg">Overall Conversion</p>
           </div>
           <div>
-            <p className="text-xl font-bold text-gray-900">${metrics.revenue}k</p>
-            <p className="text-gray-600 text-sm">Monthly Revenue</p>
+            <p className="text-3xl font-bold text-green-600">${metrics.revenue}k</p>
+            <p className="text-gray-700 font-medium text-lg">Monthly Revenue</p>
           </div>
           <div>
-            <p className="text-xl font-bold text-gray-900">{journeySteps.length}</p>
-            <p className="text-gray-600 text-sm">Journey Steps</p>
+            <p className="text-3xl font-bold text-purple-600">{journeySteps.length}</p>
+            <p className="text-gray-700 font-medium text-lg">Journey Steps</p>
           </div>
         </div>
       </div>
@@ -252,12 +255,12 @@ const DemoPage = () => {
     <div className="space-y-4">
       <div className="bg-white rounded-lg border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-900">Connected Tools</h3>
+          <h3 className="text-xl font-bold text-gray-900">Connected Tools</h3>
           <button
             onClick={addTool}
-            className="bg-teal-500 hover:bg-teal-600 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center space-x-2"
+            className="bg-teal-500 hover:bg-teal-600 text-white px-6 py-3 rounded-lg font-semibold text-lg flex items-center space-x-2 transition-all transform hover:scale-105 shadow-lg"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-5 h-5" />
             <span>Add Tool</span>
           </button>
         </div>
@@ -273,17 +276,17 @@ const DemoPage = () => {
                   <Webhook className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-medium text-gray-900">{tool.name}</h4>
-                  <p className="text-sm text-gray-600">{tool.type}</p>
+                  <h4 className="font-semibold text-gray-900 text-lg">{tool.name}</h4>
+                  <p className="text-gray-600 text-base">{tool.type}</p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="text-right">
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full" />
-                    <span className="text-sm font-medium text-green-600">{tool.status}</span>
+                    <span className="font-semibold text-green-600 text-base">{tool.status}</span>
                   </div>
-                  <p className="text-xs text-gray-500">{tool.events}</p>
+                  <p className="text-gray-500 text-base">{tool.events}</p>
                 </div>
                 {connectedTools.length > 1 && (
                   <button
@@ -318,10 +321,10 @@ const DemoPage = () => {
     <div className="space-y-4">
       <div className="bg-white rounded-lg border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-900">Live Events</h3>
+          <h3 className="text-xl font-bold text-gray-900">Live Events</h3>
           <div className="flex items-center space-x-2">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-green-600 text-sm font-medium">Live</span>
+            <span className="text-green-600 font-semibold text-base">Live</span>
           </div>
         </div>
 
@@ -339,17 +342,17 @@ const DemoPage = () => {
                    <MousePointerClick className="w-3 h-3 text-white" />}
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900 text-sm">{event.event}</p>
-                  <p className="text-xs text-gray-600">{event.customer}</p>
+                  <p className="font-semibold text-gray-900 text-base">{event.event}</p>
+                  <p className="text-gray-600 text-base">{event.customer}</p>
                 </div>
               </div>
               <div className="flex items-center space-x-2">
                 {event.value && (
-                  <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">
+                  <span className="bg-green-100 text-green-700 px-3 py-1 rounded-lg font-semibold text-base">
                     {event.value}
                   </span>
                 )}
-                <span className="text-xs text-gray-500">{event.time}</span>
+                <span className="text-gray-500 text-base">{event.time}</span>
               </div>
             </div>
           ))}
@@ -414,6 +417,7 @@ const DemoPage = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
+            className="h-[calc(100vh-120px)] overflow-hidden"
           >
             {getCurrentView()}
           </motion.div>
