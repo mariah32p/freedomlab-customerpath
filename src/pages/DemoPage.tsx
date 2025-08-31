@@ -441,8 +441,8 @@ const DemoPage = () => {
   );
 
   const renderLiveEvents = () => (
-    <div className="space-y-8 -mx-6">
-      <div className="text-center space-y-4">
+    <div className="space-y-8">
+      <div className="text-center space-y-4 px-6">
         <div className="flex items-center justify-center space-x-2">
           <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse" />
           <h2 className="text-3xl font-bold text-gray-900">Live Customer Activity</h2>
@@ -450,29 +450,203 @@ const DemoPage = () => {
         <p className="text-lg text-gray-600">Real-time tracking of customer interactions</p>
       </div>
 
-      {/* Live Activity Feed */}
-      <motion.div 
+      {/* Full-Width Live Activity Feed */}
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white border-t border-b border-gray-100 shadow-sm overflow-hidden"
+        className="bg-white border border-gray-100 rounded-2xl shadow-lg overflow-hidden mx-6"
       >
-        <div className="px-6 py-6 border-b border-gray-100 flex items-center justify-between max-w-7xl mx-auto">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-gray-50 to-emerald-50 px-8 py-6 border-b border-gray-100">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
               <Activity className="w-5 h-5 text-white" />
             </div>
-            <div>
-              <h3 className="text-xl font-bold text-gray-900">Live Events Stream</h3>
+                <h3 className="text-2xl font-bold text-gray-900">Live Events Stream</h3>
+                <p className="text-gray-600">Customer actions happening right now across all touchpoints</p>
               <p className="text-gray-600 text-sm">Customer actions happening right now</p>
             </div>
-          </div>
-          <div className="flex items-center space-x-2 bg-emerald-50 px-3 py-2 rounded-lg border border-emerald-200">
-            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+            <div className="flex items-center space-x-6">
+              <div className="text-right">
+                <p className="text-2xl font-bold text-gray-900">247</p>
+                <p className="text-gray-600 text-sm">Events today</p>
+              </div>
+              <div className="flex items-center space-x-2 bg-emerald-100 px-4 py-2 rounded-xl border border-emerald-200">
+                <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse" />
+                <span className="text-emerald-700 font-bold">LIVE</span>
+              </div>
             <span className="text-emerald-700 font-semibold text-sm">Live</span>
           </div>
         </div>
 
-        <div className="px-6 py-6 space-y-3 max-h-96 overflow-y-auto max-w-7xl mx-auto">
+        {/* Events Grid */}
+        <div className="p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {[
+              { 
+                time: '2s ago', 
+                event: 'Demo booked via Calendly', 
+                customer: 'sarah@techcorp.com', 
+                type: 'conversion', 
+                value: null,
+                location: 'San Francisco, CA',
+                source: 'Google Ads'
+              },
+              { 
+                time: '8s ago', 
+                event: 'Payment completed', 
+                customer: 'mike@startup.io', 
+                type: 'revenue', 
+                value: '$49',
+                location: 'Austin, TX',
+                source: 'Direct'
+              },
+              { 
+                time: '15s ago', 
+                event: 'Trial signup completed', 
+                customer: 'jessica@scale.com', 
+                type: 'conversion', 
+                value: null,
+                location: 'New York, NY',
+                source: 'LinkedIn'
+              },
+              { 
+                time: '31s ago', 
+                event: 'Demo completed', 
+                customer: 'david@growth.co', 
+                type: 'conversion', 
+                value: null,
+                location: 'Seattle, WA',
+                source: 'Organic Search'
+              },
+              { 
+                time: '45s ago', 
+                event: 'Landing page visit', 
+                customer: 'emma@business.net', 
+                type: 'visit', 
+                value: null,
+                location: 'Boston, MA',
+                source: 'Twitter'
+              },
+              { 
+                time: '1m ago', 
+                event: 'Payment completed', 
+                customer: 'alex@company.com', 
+                type: 'revenue', 
+                value: '$29',
+                location: 'Chicago, IL',
+                source: 'Google Ads'
+              },
+              { 
+                time: '1m ago', 
+                event: 'Demo booked via Calendly', 
+                customer: 'lisa@startup.co', 
+                type: 'conversion', 
+                value: null,
+                location: 'Miami, FL',
+                source: 'Facebook'
+              },
+              { 
+                time: '2m ago', 
+                event: 'Trial started', 
+                customer: 'tom@business.io', 
+                type: 'conversion', 
+                value: null,
+                location: 'Denver, CO',
+                source: 'Direct'
+              },
+              { 
+                time: '2m ago', 
+                event: 'Payment completed', 
+                customer: 'kate@scale.net', 
+                type: 'revenue', 
+                value: '$49',
+                location: 'Portland, OR',
+                source: 'Organic Search'
+              },
+              { 
+                time: '3m ago', 
+                event: 'Demo completed', 
+                customer: 'ryan@growth.com', 
+                type: 'conversion', 
+                value: null,
+                location: 'Atlanta, GA',
+                source: 'LinkedIn'
+              }
+            ].map((event, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                className="bg-gradient-to-r from-gray-50 to-white p-6 rounded-xl border border-gray-100 hover:shadow-md transition-all duration-300 group"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex items-start space-x-4">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm ${
+                      event.type === 'revenue' ? 'bg-gradient-to-br from-emerald-500 to-emerald-600' :
+                      event.type === 'conversion' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
+                      'bg-gradient-to-br from-gray-400 to-gray-500'
+                    }`}>
+                      {event.type === 'revenue' ? <DollarSign className="w-6 h-6 text-white" /> :
+                       event.type === 'conversion' ? <Target className="w-6 h-6 text-white" /> :
+                       <Eye className="w-6 h-6 text-white" />}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <h4 className="font-bold text-gray-900 text-lg">{event.event}</h4>
+                        {event.value && (
+                          <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm font-bold">
+                            {event.value}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-gray-700 font-medium mb-2">{event.customer}</p>
+                      <div className="flex items-center space-x-4 text-sm text-gray-500">
+                        <div className="flex items-center space-x-1">
+                          <Globe className="w-3 h-3" />
+                          <span>{event.location}</span>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <ExternalLink className="w-3 h-3" />
+                          <span>{event.source}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="flex items-center space-x-1 text-gray-500 text-sm font-medium">
+                      <Clock className="w-3 h-3" />
+                      <span>{event.time}</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Live Stats Bar */}
+          <div className="mt-8 bg-gradient-to-r from-emerald-50 via-blue-50 to-purple-50 rounded-xl p-6 border border-gray-200">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+              <div>
+                <p className="text-2xl font-bold text-emerald-600">$2,847</p>
+                <p className="text-gray-600 font-medium">Revenue Today</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-blue-600">89</p>
+                <p className="text-gray-600 font-medium">New Trials</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-purple-600">156</p>
+                <p className="text-gray-600 font-medium">Demos Booked</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-gray-900">1,247</p>
+                <p className="text-gray-600 font-medium">Visitors Today</p>
+              </div>
+            </div>
+          </div>
           {[
             { time: '2s ago', event: 'Demo booked via Calendly', customer: 'sarah@techcorp.com', type: 'conversion', value: null },
             { time: '8s ago', event: 'Payment completed', customer: 'mike@startup.io', type: 'revenue', value: '$49' },
