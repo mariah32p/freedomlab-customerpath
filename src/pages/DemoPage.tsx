@@ -50,6 +50,7 @@ const DemoPage: React.FC = () => {
         { id: 6, name: "Paid Plan", color: "bg-green-500", customers: 331, conversionRate: 0 }
       ]
     }
+  ]
 
   const demoSteps = [
     "Journey Overview",
