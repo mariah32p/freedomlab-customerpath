@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CountUp } from 'react-countup';
+import CountUp from 'react-countup';
 import {
   Users, Target, CheckCircle, Settings, Plus, ArrowRight, Zap, Webhook, Database, 
   Lightbulb, Briefcase, Bell, BarChart2, TrendingUp, Trophy, Activity, Calendar, 
