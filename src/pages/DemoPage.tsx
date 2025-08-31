@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import Header from '../components/Header'
 
 interface JourneyStep {
   id: string
@@ -22,11 +21,7 @@ interface CustomerEvent {
 }
 
 const DemoPage: React.FC = () => {
-  const [currentStep, setCurrentStep] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [showWebhookModal, setShowWebhookModal] = useState(false)
-  const [showAddStepModal, setShowAddStepModal] = useState(false)
-  const [connectedIntegrations, setConnectedIntegrations] = useState<string[]>([])
+  const [currentView, setCurrentView] = useState<'dashboard' | 'create-journey' | 'journey-detail'>('dashboard')
   const [journeySteps, setJourneySteps] = useState<JourneyStep[]>([
     { id: '1', name: 'Landing Page', visitors: 1000, conversions: 850, conversionRate: 85, color: 'blue', icon: '🌐' },
     { id: '2', name: 'Product Demo', visitors: 850, conversions: 680, conversionRate: 80, color: 'teal', icon: '🎥' },
@@ -34,90 +29,21 @@ const DemoPage: React.FC = () => {
     { id: '4', name: 'Paid Customer', visitors: 340, conversions: 238, conversionRate: 70, color: 'green', icon: '💳' }
   ])
   const [realtimeEvents, setRealtimeEvents] = useState<CustomerEvent[]>([])
-  const [newStepName, setNewStepName] = useState('')
-  const [selectedColor, setSelectedColor] = useState('indigo')
-  const [selectedPosition, setSelectedPosition] = useState(2)
-
-  const demoSteps = [
-    {
-      title: "Import Your Customer Data",
-      description: "Connect your existing tools to start tracking customer journeys",
-      duration: 8000
-    },
-    {
-      title: "Build Your Journey Map",
-      description: "Create visual representations of your customer touchpoints",
-      duration: 10000
-    },
-    {
-      title: "Watch Real-Time Analytics",
-      description: "See live customer behavior and conversion metrics",
-      duration: 12000
-    }
-  ]
+  const [showWebhookModal, setShowWebhookModal] = useState(false)
+  const [connectedIntegrations, setConnectedIntegrations] = useState<string[]>([])
+  const [newJourneyName, setNewJourneyName] = useState('')
+  const [selectedTemplate, setSelectedTemplate] = useState('ecommerce')
 
   const integrations = [
     { name: 'Shopify', icon: '🛍️', color: 'green', events: ['purchase', 'cart_abandon', 'product_view'] },
     { name: 'HubSpot', icon: '🎯', color: 'orange', events: ['contact_created', 'deal_stage_change', 'email_open'] },
     { name: 'Stripe', icon: '💳', color: 'purple', events: ['payment_success', 'subscription_start', 'trial_end'] },
-    { name: 'Mailchimp', icon: '📧', color: 'yellow', events: ['email_sent', 'link_click', 'unsubscribe'] },
-    { name: 'Google Analytics', icon: '📊', color: 'blue', events: ['goal_complete', 'page_view', 'event_track'] },
-    { name: 'Intercom', icon: '💬', color: 'indigo', events: ['message_sent', 'conversation_start', 'user_reply'] }
+    { name: 'Mailchimp', icon: '📧', color: 'yellow', events: ['email_sent', 'link_click', 'unsubscribe'] }
   ]
-
-  const colors = [
-    { name: 'Blue', value: 'blue', bg: 'bg-blue-500' },
-    { name: 'Teal', value: 'teal', bg: 'bg-teal-500' },
-    { name: 'Purple', value: 'purple', bg: 'bg-purple-500' },
-    { name: 'Green', value: 'green', bg: 'bg-green-500' },
-    { name: 'Orange', value: 'orange', bg: 'bg-orange-500' },
-    { name: 'Pink', value: 'pink', bg: 'bg-pink-500' },
-    { name: 'Indigo', value: 'indigo', bg: 'bg-indigo-500' },
-    { name: 'Red', value: 'red', bg: 'bg-red-500' }
-  ]
-
-  // Auto-play demo
-  useEffect(() => {
-    if (!isPlaying) return
-
-    const timer = setTimeout(() => {
-      if (currentStep < demoSteps.length - 1) {
-        setCurrentStep(currentStep + 1)
-      } else {
-        setIsPlaying(false)
-        setCurrentStep(0)
-      }
-    }, demoSteps[currentStep].duration)
-
-    return () => clearTimeout(timer)
-  }, [currentStep, isPlaying])
-
-  // Show modals during specific steps
-  useEffect(() => {
-    if (!isPlaying) return
-
-    if (currentStep === 1) {
-      // Show Add Step modal 3 seconds into journey building
-      const timer1 = setTimeout(() => setShowAddStepModal(true), 3000)
-      // Show Webhook modal 6 seconds into journey building
-      const timer2 = setTimeout(() => {
-        setShowAddStepModal(false)
-        setShowWebhookModal(true)
-      }, 6000)
-      
-      return () => {
-        clearTimeout(timer1)
-        clearTimeout(timer2)
-      }
-    } else {
-      setShowAddStepModal(false)
-      setShowWebhookModal(false)
-    }
-  }, [currentStep, isPlaying])
 
   // Simulate real-time events
   useEffect(() => {
-    if (currentStep !== 2 || !isPlaying) return
+    if (currentView !== 'journey-detail') return
 
     const eventTemplates = [
       { event: 'page_view', stage: 'Landing Page', icon: '👀' },
@@ -150,25 +76,18 @@ const DemoPage: React.FC = () => {
         }
         return step
       }))
-    }, 2000)
+    }, 3000)
 
     return () => clearInterval(interval)
-  }, [currentStep, isPlaying])
-
-  const startDemo = () => {
-    setIsPlaying(true)
-    setCurrentStep(0)
-    setRealtimeEvents([])
-  }
+  }, [currentView])
 
   const connectIntegration = (integrationName: string) => {
     setConnectedIntegrations(prev => [...prev, integrationName])
     
-    // Simulate connecting with a delay
+    // Simulate connecting with realistic delay
     setTimeout(() => {
       const integration = integrations.find(i => i.name === integrationName)
       if (integration) {
-        // Add some sample events for this integration
         const sampleEvents = integration.events.map((event, index) => ({
           id: Math.random().toString(36).substr(2, 9),
           customerId: `cust_${Math.random().toString(36).substr(2, 6)}`,
@@ -180,28 +99,17 @@ const DemoPage: React.FC = () => {
         
         setRealtimeEvents(prev => [...sampleEvents, ...prev.slice(0, 6)])
       }
-    }, 1500)
+    }, 2000)
   }
 
-  const addNewStep = () => {
-    if (!newStepName.trim()) return
-
-    const newStep: JourneyStep = {
-      id: Math.random().toString(36).substr(2, 9),
-      name: newStepName,
-      visitors: Math.floor(Math.random() * 500) + 100,
-      conversions: Math.floor(Math.random() * 300) + 50,
-      conversionRate: Math.floor(Math.random() * 40) + 30,
-      color: selectedColor,
-      icon: '⭐'
-    }
-
-    const newSteps = [...journeySteps]
-    newSteps.splice(selectedPosition, 0, newStep)
-    setJourneySteps(newSteps)
+  const createJourney = () => {
+    if (!newJourneyName.trim()) return
     
-    setShowAddStepModal(false)
-    setNewStepName('')
+    // Simulate journey creation
+    setTimeout(() => {
+      setCurrentView('journey-detail')
+      setShowWebhookModal(false)
+    }, 1000)
   }
 
   const getStepColorClasses = (color: string) => {
@@ -220,488 +128,631 @@ const DemoPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 font-montserrat">
-      <Header />
-      
-      <div className="pt-24 pb-12">
+      {/* App Header */}
+      <header className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6">
-          {/* Demo Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl lg:text-5xl font-bold text-brand-navy mb-6">
-              See CustomerPath in Action
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Experience how easy it is to visualize and optimize your customer journeys
-            </p>
-            
-            {!isPlaying ? (
-              <button
-                onClick={startDemo}
-                className="bg-brand-teal hover:bg-brand-teal/90 text-white px-12 py-5 rounded-xl font-bold text-xl transition-all transform hover:scale-105 shadow-2xl"
-              >
-                🚀 Start Interactive Demo
-              </button>
-            ) : (
-              <div className="flex items-center justify-center space-x-4">
-                <div className="flex items-center bg-brand-teal/10 px-6 py-3 rounded-xl border border-brand-teal/20">
-                  <div className="w-3 h-3 bg-brand-teal rounded-full animate-pulse mr-3"></div>
-                  <span className="text-brand-teal font-semibold">Demo Running</span>
-                </div>
-                <button
-                  onClick={() => setIsPlaying(false)}
-                  className="text-gray-600 hover:text-gray-800 font-medium transition-colors"
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center space-x-8">
+              <div className="text-2xl font-bold text-brand-navy">CustomerPath</div>
+              <nav className="flex items-center space-x-6">
+                <button 
+                  onClick={() => setCurrentView('dashboard')}
+                  className={`font-medium transition-colors ${currentView === 'dashboard' ? 'text-brand-teal' : 'text-gray-600 hover:text-brand-navy'}`}
                 >
-                  Stop Demo
+                  Dashboard
                 </button>
+                <button 
+                  onClick={() => setCurrentView('create-journey')}
+                  className={`font-medium transition-colors ${currentView === 'create-journey' ? 'text-brand-teal' : 'text-gray-600 hover:text-brand-navy'}`}
+                >
+                  Journeys
+                </button>
+                <button className="text-gray-600 hover:text-brand-navy font-medium transition-colors">
+                  Analytics
+                </button>
+                <button className="text-gray-600 hover:text-brand-navy font-medium transition-colors">
+                  Settings
+                </button>
+              </nav>
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center bg-green-50 px-3 py-1 rounded-full">
+                <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                <span className="text-green-700 text-sm font-medium">Pro Trial</span>
               </div>
-            )}
-          </div>
-
-          {/* Demo Progress */}
-          {isPlaying && (
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-4">
-                {demoSteps.map((step, index) => (
-                  <div key={index} className="flex items-center">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all ${
-                      index <= currentStep 
-                        ? 'bg-brand-teal text-white shadow-lg' 
-                        : 'bg-gray-200 text-gray-500'
-                    }`}>
-                      {index + 1}
-                    </div>
-                    {index < demoSteps.length - 1 && (
-                      <div className={`w-24 h-1 mx-4 rounded-full transition-all ${
-                        index < currentStep ? 'bg-brand-teal' : 'bg-gray-200'
-                      }`}></div>
-                    )}
-                  </div>
-                ))}
-              </div>
-              <div className="text-center">
-                <h3 className="text-xl font-bold text-brand-navy mb-2">
-                  {demoSteps[currentStep].title}
-                </h3>
-                <p className="text-gray-600">{demoSteps[currentStep].description}</p>
+              <div className="w-8 h-8 bg-brand-teal rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">JD</span>
               </div>
             </div>
-          )}
-
-          {/* Demo Content */}
-          <div className="bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden">
-            {/* Browser Header */}
-            <div className="bg-gray-50 px-6 py-4 border-b flex items-center">
-              <div className="flex space-x-2 mr-4">
-                <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-              </div>
-              <div className="bg-gray-100 rounded-lg px-4 py-2 text-sm text-gray-600 font-medium flex-1">
-                app.customerpath.com/dashboard
-              </div>
-              <div className="flex items-center ml-4">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
-                <span className="text-green-600 text-sm font-medium">Live</span>
-              </div>
-            </div>
-
-            {/* Dashboard Content */}
-            <div className="p-8">
-              {/* Dashboard Header */}
-              <div className="flex items-center justify-between mb-8">
-                <div>
-                  <h2 className="text-3xl font-bold text-brand-navy mb-2">Customer Journey Dashboard</h2>
-                  <p className="text-gray-600">Real-time insights into your customer experience</p>
-                </div>
-                <div className="flex items-center space-x-4">
-                  {currentStep >= 1 && (
-                    <button
-                      onClick={() => setShowWebhookModal(true)}
-                      className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg flex items-center"
-                    >
-                      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                      </svg>
-                      Connect Data Sources
-                    </button>
-                  )}
-                  <button
-                    onClick={() => setShowAddStepModal(true)}
-                    className="border-2 border-brand-teal text-brand-teal hover:bg-brand-teal hover:text-white px-6 py-3 rounded-xl font-semibold transition-all flex items-center"
-                  >
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                    Add Step
-                  </button>
-                </div>
-              </div>
-
-              <div className="grid lg:grid-cols-3 gap-8">
-                {/* Journey Visualization */}
-                <div className="lg:col-span-2">
-                  <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 border border-gray-200">
-                    <div className="flex items-center justify-between mb-8">
-                      <h3 className="text-xl font-bold text-brand-navy">E-commerce Customer Journey</h3>
-                      <div className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                        <span className="text-green-600 text-sm font-medium">Live Updates</span>
-                      </div>
-                    </div>
-
-                    {/* Journey Steps */}
-                    <div className="space-y-6">
-                      {journeySteps.map((step, index) => (
-                        <div key={step.id} className="relative">
-                          {/* Connection Line */}
-                          {index < journeySteps.length - 1 && (
-                            <div className="absolute left-8 top-20 w-0.5 h-12 bg-gradient-to-b from-gray-300 to-gray-200"></div>
-                          )}
-                          
-                          <div className={`bg-white rounded-xl p-6 border-l-4 shadow-lg hover:shadow-xl transition-all ${getStepColorClasses(step.color)} border-opacity-50`}>
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center">
-                                <div className={`w-16 h-16 ${getStepColorClasses(step.color).split(' ')[0]} rounded-xl flex items-center justify-center text-white text-2xl mr-6 shadow-lg`}>
-                                  {step.icon}
-                                </div>
-                                <div>
-                                  <h4 className="text-xl font-bold text-brand-navy mb-1">{step.name}</h4>
-                                  <p className="text-gray-600">
-                                    {step.visitors.toLocaleString()} visitors → {step.conversions.toLocaleString()} conversions
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="text-right">
-                                <div className="text-3xl font-bold text-brand-navy mb-1">
-                                  {Math.round((step.conversions / step.visitors) * 100)}%
-                                </div>
-                                <div className="text-gray-500 text-sm">conversion rate</div>
-                              </div>
-                            </div>
-                            
-                            {/* Progress Bar */}
-                            <div className="mt-4">
-                              <div className="bg-gray-100 rounded-full h-3 overflow-hidden">
-                                <div 
-                                  className={`h-full ${getStepColorClasses(step.color).split(' ')[0]} transition-all duration-1000`}
-                                  style={{ width: `${(step.conversions / step.visitors) * 100}%` }}
-                                ></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Overall Metrics */}
-                    <div className="mt-8 pt-6 border-t border-gray-200">
-                      <div className="grid grid-cols-3 gap-6 text-center">
-                        <div>
-                          <div className="text-2xl font-bold text-brand-navy">
-                            {Math.round((journeySteps[journeySteps.length - 1].conversions / journeySteps[0].visitors) * 100)}%
-                          </div>
-                          <div className="text-gray-600 text-sm">Overall Conversion</div>
-                        </div>
-                        <div>
-                          <div className="text-2xl font-bold text-brand-navy">
-                            ${(journeySteps[journeySteps.length - 1].conversions * 50).toLocaleString()}
-                          </div>
-                          <div className="text-gray-600 text-sm">Revenue Impact</div>
-                        </div>
-                        <div>
-                          <div className="text-2xl font-bold text-brand-navy">
-                            {journeySteps[0].visitors.toLocaleString()}
-                          </div>
-                          <div className="text-gray-600 text-sm">Total Visitors</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Real-time Activity */}
-                <div className="space-y-6">
-                  {/* Connected Integrations */}
-                  {connectedIntegrations.length > 0 && (
-                    <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg">
-                      <h3 className="text-lg font-bold text-brand-navy mb-4 flex items-center">
-                        <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                        </svg>
-                        Connected Sources
-                      </h3>
-                      <div className="space-y-2">
-                        {connectedIntegrations.map(integration => {
-                          const integrationData = integrations.find(i => i.name === integration)
-                          return (
-                            <div key={integration} className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
-                              <div className="flex items-center">
-                                <span className="text-lg mr-3">{integrationData?.icon}</span>
-                                <span className="font-semibold text-brand-navy">{integration}</span>
-                              </div>
-                              <div className="flex items-center">
-                                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
-                                <span className="text-green-600 text-sm font-medium">Active</span>
-                              </div>
-                            </div>
-                          )
-                        })}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Live Events */}
-                  <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg">
-                    <h3 className="text-lg font-bold text-brand-navy mb-4 flex items-center">
-                      <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse mr-3"></div>
-                      Live Customer Events
-                    </h3>
-                    <div className="space-y-3 max-h-80 overflow-y-auto">
-                      {realtimeEvents.length === 0 ? (
-                        <div className="text-center py-8 text-gray-500">
-                          <svg className="w-12 h-12 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7" />
-                          </svg>
-                          <p>Waiting for customer events...</p>
-                          <p className="text-sm">Connect your data sources to see live activity</p>
-                        </div>
-                      ) : (
-                        realtimeEvents.map(event => (
-                          <div key={event.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100 animate-fade-in-up">
-                            <div className="flex items-center">
-                              <span className="text-lg mr-3">{event.metadata?.icon || '📊'}</span>
-                              <div>
-                                <p className="font-semibold text-brand-navy text-sm">{event.event.replace('_', ' ')}</p>
-                                <p className="text-gray-600 text-xs">{event.stage}</p>
-                              </div>
-                            </div>
-                            <div className="text-right">
-                              <p className="text-gray-500 text-xs">
-                                {new Date(event.timestamp).toLocaleTimeString()}
-                              </p>
-                              <p className="text-gray-400 text-xs">{event.customerId}</p>
-                            </div>
-                          </div>
-                        ))
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* CTA Section */}
-          <div className="text-center mt-16 bg-gradient-to-r from-brand-navy to-brand-purple rounded-3xl p-12 text-white">
-            <h2 className="text-3xl font-bold mb-4">Ready to Optimize Your Customer Journeys?</h2>
-            <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-              Start your 7-day free trial and see exactly where your customers are dropping off
-            </p>
-            <Link 
-              to="/signup"
-              className="bg-brand-teal hover:bg-brand-teal/90 text-white px-12 py-5 rounded-xl font-bold text-xl transition-all transform hover:scale-105 shadow-2xl inline-block"
-            >
-              Start Free Trial
-            </Link>
           </div>
         </div>
+      </header>
 
-        {showAddStepModal && (
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl transform animate-fade-in-up">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-bold text-brand-navy">Add Journey Step</h3>
-                <button
-                  onClick={() => setShowAddStepModal(false)}
-                  className="text-gray-400 hover:text-gray-600 transition-colors"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
+      {/* Dashboard View */}
+      {currentView === 'dashboard' && (
+        <div className="p-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h1 className="text-3xl font-bold text-brand-navy mb-2">Dashboard</h1>
+                <p className="text-gray-600">Overview of your customer journeys</p>
+              </div>
+              <button 
+                onClick={() => setCurrentView('create-journey')}
+                className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg flex items-center"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                Create Journey
+              </button>
+            </div>
+
+            {/* Stats Grid */}
+            <div className="grid md:grid-cols-4 gap-6 mb-8">
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Active Journeys</p>
+                    <p className="text-2xl font-bold text-brand-navy">3</p>
+                  </div>
+                  <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
+                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </div>
+                </div>
               </div>
 
-              <div className="space-y-6">
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Customers Tracked</p>
+                    <p className="text-2xl font-bold text-brand-navy">8,247</p>
+                  </div>
+                  <div className="w-12 h-12 bg-brand-teal/10 rounded-xl flex items-center justify-center">
+                    <svg className="w-6 h-6 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Avg Conversion</p>
+                    <p className="text-2xl font-bold text-brand-navy">27.8%</p>
+                  </div>
+                  <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center">
+                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Revenue Impact</p>
+                    <p className="text-2xl font-bold text-brand-navy">$114k</p>
+                  </div>
+                  <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center">
+                    <svg className="w-6 h-6 text-brand-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Journey List */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-brand-navy">Your Customer Journeys</h2>
+                <button 
+                  onClick={() => setCurrentView('create-journey')}
+                  className="text-brand-teal hover:text-brand-teal/80 font-medium text-sm transition-colors"
+                >
+                  View All →
+                </button>
+              </div>
+              
+              <div className="space-y-4">
+                <div 
+                  onClick={() => setCurrentView('journey-detail')}
+                  className="flex items-center justify-between p-6 bg-gradient-to-r from-blue-50 to-teal-50 rounded-xl border border-blue-100 hover:shadow-lg transition-all cursor-pointer group"
+                >
+                  <div className="flex items-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-teal-500 rounded-xl flex items-center justify-center mr-4 shadow-lg group-hover:scale-110 transition-transform">
+                      <span className="text-white text-lg">🛍️</span>
+                    </div>
+                    <div>
+                      <p className="font-bold text-brand-navy text-lg">E-commerce Checkout Flow</p>
+                      <p className="text-gray-600">4 steps • 8,247 customers tracked</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-bold text-brand-navy text-xl">27.8%</p>
+                    <p className="text-gray-600 text-sm">conversion rate</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between p-6 bg-gray-50 rounded-xl border border-gray-100">
+                  <div className="flex items-center">
+                    <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mr-4">
+                      <span className="text-purple-600 text-lg">📧</span>
+                    </div>
+                    <div>
+                      <p className="font-bold text-brand-navy">Email Nurture Campaign</p>
+                      <p className="text-gray-600">6 steps • 3,421 customers tracked</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-bold text-brand-navy">18.5%</p>
+                    <p className="text-gray-600 text-sm">conversion rate</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between p-6 bg-gray-50 rounded-xl border border-gray-100">
+                  <div className="flex items-center">
+                    <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mr-4">
+                      <span className="text-orange-600 text-lg">🎯</span>
+                    </div>
+                    <div>
+                      <p className="font-bold text-brand-navy">Lead Generation Funnel</p>
+                      <p className="text-gray-600">5 steps • 12,089 customers tracked</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-bold text-brand-navy">31.2%</p>
+                    <p className="text-gray-600 text-sm">conversion rate</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Create Journey View */}
+      {currentView === 'create-journey' && (
+        <div className="p-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="mb-8">
+              <button 
+                onClick={() => setCurrentView('dashboard')}
+                className="flex items-center text-gray-600 hover:text-brand-navy mb-4 transition-colors"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to Dashboard
+              </button>
+              <h1 className="text-3xl font-bold text-brand-navy mb-2">Create New Journey</h1>
+              <p className="text-gray-600">Set up a new customer journey to track and optimize</p>
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+              <div className="space-y-8">
+                {/* Journey Name */}
                 <div>
-                  <label className="block text-sm font-semibold text-brand-navy mb-2">Step Name</label>
+                  <label className="block text-lg font-bold text-brand-navy mb-3">Journey Name</label>
                   <input
                     type="text"
-                    value={newStepName}
-                    onChange={(e) => setNewStepName(e.target.value)}
-                    placeholder="e.g., Email Nurture Campaign"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-transparent"
+                    value={newJourneyName}
+                    onChange={(e) => setNewJourneyName(e.target.value)}
+                    placeholder="e.g., SaaS Trial to Paid Conversion"
+                    className="w-full px-6 py-4 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-transparent"
                   />
                 </div>
 
+                {/* Template Selection */}
                 <div>
-                  <label className="block text-sm font-semibold text-brand-navy mb-2">Insert Position</label>
-                  <select
-                    value={selectedPosition}
-                    onChange={(e) => setSelectedPosition(Number(e.target.value))}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-transparent"
-                  >
-                    {journeySteps.map((step, index) => (
-                      <option key={index} value={index + 1}>
-                        After "{step.name}"
-                      </option>
-                    ))}
-                  </select>
+                  <label className="block text-lg font-bold text-brand-navy mb-4">Choose Template</label>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <button
+                      onClick={() => setSelectedTemplate('ecommerce')}
+                      className={`p-6 rounded-xl border-2 transition-all text-left ${
+                        selectedTemplate === 'ecommerce' 
+                          ? 'border-brand-teal bg-brand-teal/5 shadow-lg' 
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <div className="text-3xl mb-3">🛍️</div>
+                      <h3 className="font-bold text-brand-navy mb-2">E-commerce</h3>
+                      <p className="text-gray-600 text-sm">Product discovery to purchase</p>
+                    </button>
+
+                    <button
+                      onClick={() => setSelectedTemplate('saas')}
+                      className={`p-6 rounded-xl border-2 transition-all text-left ${
+                        selectedTemplate === 'saas' 
+                          ? 'border-brand-teal bg-brand-teal/5 shadow-lg' 
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <div className="text-3xl mb-3">💻</div>
+                      <h3 className="font-bold text-brand-navy mb-2">SaaS</h3>
+                      <p className="text-gray-600 text-sm">Trial to paid subscription</p>
+                    </button>
+
+                    <button
+                      onClick={() => setSelectedTemplate('leadgen')}
+                      className={`p-6 rounded-xl border-2 transition-all text-left ${
+                        selectedTemplate === 'leadgen' 
+                          ? 'border-brand-teal bg-brand-teal/5 shadow-lg' 
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <div className="text-3xl mb-3">🎯</div>
+                      <h3 className="font-bold text-brand-navy mb-2">Lead Gen</h3>
+                      <p className="text-gray-600 text-sm">Visitor to qualified lead</p>
+                    </button>
+                  </div>
                 </div>
 
+                {/* Data Sources */}
                 <div>
-                  <label className="block text-sm font-semibold text-brand-navy mb-3">Color Theme</label>
-                  <div className="grid grid-cols-4 gap-3">
-                    {colors.map(color => (
+                  <div className="flex items-center justify-between mb-4">
+                    <label className="block text-lg font-bold text-brand-navy">Connect Data Sources</label>
+                    <button
+                      onClick={() => setShowWebhookModal(true)}
+                      className="text-brand-teal hover:text-brand-teal/80 font-medium text-sm transition-colors flex items-center"
+                    >
+                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                      </svg>
+                      View Webhook Setup
+                    </button>
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {integrations.map(integration => (
                       <button
-                        key={color.value}
-                        onClick={() => setSelectedColor(color.value)}
-                        className={`w-full h-12 ${color.bg} rounded-xl transition-all transform hover:scale-105 ${
-                          selectedColor === color.value ? 'ring-4 ring-brand-teal ring-opacity-50 scale-105' : ''
+                        key={integration.name}
+                        onClick={() => connectIntegration(integration.name)}
+                        disabled={connectedIntegrations.includes(integration.name)}
+                        className={`p-4 rounded-xl border-2 transition-all transform hover:scale-105 ${
+                          connectedIntegrations.includes(integration.name)
+                            ? 'bg-green-50 border-green-200 cursor-default'
+                            : 'bg-white border-gray-200 hover:border-brand-teal hover:shadow-lg'
                         }`}
                       >
-                        {selectedColor === color.value && (
-                          <svg className="w-6 h-6 text-white mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
-                          </svg>
-                        )}
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                            <span className="text-2xl mr-3">{integration.icon}</span>
+                            <div className="text-left">
+                              <h5 className="font-bold text-brand-navy">{integration.name}</h5>
+                              <p className="text-gray-600 text-sm">Track {integration.events.length} events</p>
+                            </div>
+                          </div>
+                          {connectedIntegrations.includes(integration.name) ? (
+                            <div className="flex items-center text-green-600">
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                              </svg>
+                            </div>
+                          ) : (
+                            <div className="text-brand-teal font-semibold text-sm">Connect</div>
+                          )}
+                        </div>
                       </button>
                     ))}
                   </div>
                 </div>
 
-                {/* Preview */}
-                {newStepName && (
-                  <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
-                    <p className="text-sm font-semibold text-brand-navy mb-3">Preview:</p>
-                    <div className={`bg-white rounded-lg p-4 border-l-4 ${getStepColorClasses(selectedColor)} border-opacity-50`}>
-                      <div className="flex items-center">
-                        <div className={`w-12 h-12 ${getStepColorClasses(selectedColor).split(' ')[0]} rounded-lg flex items-center justify-center text-white text-lg mr-4`}>
-                          ⭐
-                        </div>
-                        <div>
-                          <h4 className="font-bold text-brand-navy">{newStepName}</h4>
-                          <p className="text-gray-600 text-sm">New journey step</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="flex space-x-4 mt-8">
-                <button
-                  onClick={() => setShowAddStepModal(false)}
-                  className="flex-1 border-2 border-gray-300 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-50 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={addNewStep}
-                  disabled={!newStepName.trim()}
-                  className="flex-1 bg-brand-teal hover:bg-brand-teal/90 disabled:bg-gray-300 text-white py-3 rounded-xl font-semibold transition-all transform hover:scale-105 disabled:transform-none disabled:cursor-not-allowed"
-                >
-                  Add Step
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Webhook Integration Modal */}
-        {showWebhookModal && (
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transform animate-fade-in-up">
-              {/* Modal Header */}
-              <div className="bg-gradient-to-r from-brand-teal to-cyan-500 text-white p-8 rounded-t-3xl">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-3xl font-bold mb-2">Connect Your Data Sources</h3>
-                    <p className="text-white/90 text-lg">Send customer events directly to CustomerPath via webhooks</p>
-                  </div>
+                {/* Create Button */}
+                <div className="pt-6 border-t border-gray-200">
                   <button
-                    onClick={() => setShowWebhookModal(false)}
-                    className="text-white/80 hover:text-white transition-colors"
+                    onClick={createJourney}
+                    disabled={!newJourneyName.trim()}
+                    className="w-full bg-brand-teal hover:bg-brand-teal/90 disabled:bg-gray-300 text-white py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105 shadow-lg disabled:transform-none disabled:cursor-not-allowed"
                   >
-                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                    Create Journey & Start Tracking
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
 
-              <div className="p-8">
-                {/* Webhook URL */}
-                <div className="bg-gray-50 rounded-2xl p-6 mb-8 border border-gray-200">
-                  <h4 className="text-lg font-bold text-brand-navy mb-3 flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                    </svg>
-                    Your Webhook URL
-                  </h4>
-                  <div className="flex items-center space-x-3">
-                    <code className="flex-1 bg-white px-4 py-3 rounded-lg border border-gray-300 text-sm font-mono text-brand-navy">
-                      https://api.customerpath.com/webhooks/journey-events/usr_demo123
-                    </code>
-                    <button
-                      onClick={() => navigator.clipboard.writeText('https://api.customerpath.com/webhooks/journey-events/usr_demo123')}
-                      className="bg-brand-teal hover:bg-brand-teal/90 text-white px-4 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg"
-                    >
-                      Copy
-                    </button>
-                  </div>
-                  <p className="text-gray-600 text-sm mt-2">Use this URL in Zapier, Make.com, or any webhook-enabled platform</p>
+      {/* Journey Detail View */}
+      {currentView === 'journey-detail' && (
+        <div className="p-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-8">
+              <button 
+                onClick={() => setCurrentView('dashboard')}
+                className="flex items-center text-gray-600 hover:text-brand-navy mb-4 transition-colors"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to Dashboard
+              </button>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h1 className="text-3xl font-bold text-brand-navy mb-2">E-commerce Checkout Flow</h1>
+                  <p className="text-gray-600">Real-time customer journey analytics</p>
                 </div>
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center bg-green-50 px-4 py-2 rounded-lg">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
+                    <span className="text-green-700 font-medium">Live Data</span>
+                  </div>
+                  <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg">
+                    Export Report
+                  </button>
+                </div>
+              </div>
+            </div>
 
-                {/* Integration Options */}
-                <div className="mb-8">
-                  <h4 className="text-xl font-bold text-brand-navy mb-6">Popular Integrations</h4>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {integrations.map(integration => (
-                      <div key={integration.name} className="group">
-                        <button
-                          onClick={() => connectIntegration(integration.name)}
-                          disabled={connectedIntegrations.includes(integration.name)}
-                          className={`w-full p-6 rounded-2xl border-2 transition-all transform hover:scale-105 ${
-                            connectedIntegrations.includes(integration.name)
-                              ? 'bg-green-50 border-green-200 cursor-default'
-                              : 'bg-white border-gray-200 hover:border-brand-teal hover:shadow-lg'
-                          }`}
-                        >
+            <div className="grid lg:grid-cols-3 gap-8">
+              {/* Journey Visualization */}
+              <div className="lg:col-span-2">
+                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+                  <div className="flex items-center justify-between mb-8">
+                    <h3 className="text-xl font-bold text-brand-navy">Customer Journey Flow</h3>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                      <span className="text-green-600 text-sm font-medium">Live Updates</span>
+                    </div>
+                  </div>
+
+                  {/* Journey Steps */}
+                  <div className="space-y-6">
+                    {journeySteps.map((step, index) => (
+                      <div key={step.id} className="relative">
+                        {/* Connection Line */}
+                        {index < journeySteps.length - 1 && (
+                          <div className="absolute left-8 top-20 w-0.5 h-12 bg-gradient-to-b from-gray-300 to-gray-200"></div>
+                        )}
+                        
+                        <div className={`bg-white rounded-xl p-6 border-l-4 shadow-lg hover:shadow-xl transition-all ${getStepColorClasses(step.color)} border-opacity-50`}>
                           <div className="flex items-center justify-between">
                             <div className="flex items-center">
-                              <span className="text-3xl mr-4">{integration.icon}</span>
-                              <div className="text-left">
-                                <h5 className="font-bold text-brand-navy text-lg">{integration.name}</h5>
-                                <p className="text-gray-600 text-sm">
-                                  {integration.events.join(', ').replace(/_/g, ' ')}
+                              <div className={`w-16 h-16 ${getStepColorClasses(step.color).split(' ')[0]} rounded-xl flex items-center justify-center text-white text-2xl mr-6 shadow-lg`}>
+                                {step.icon}
+                              </div>
+                              <div>
+                                <h4 className="text-xl font-bold text-brand-navy mb-1">{step.name}</h4>
+                                <p className="text-gray-600">
+                                  {step.visitors.toLocaleString()} visitors → {step.conversions.toLocaleString()} conversions
                                 </p>
                               </div>
                             </div>
-                            {connectedIntegrations.includes(integration.name) ? (
-                              <div className="flex items-center text-green-600">
-                                <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                                </svg>
-                                <span className="font-semibold">Connected</span>
+                            <div className="text-right">
+                              <div className="text-3xl font-bold text-brand-navy mb-1">
+                                {Math.round((step.conversions / step.visitors) * 100)}%
                               </div>
-                            ) : (
-                              <div className="text-brand-teal font-semibold">Connect →</div>
-                            )}
+                              <div className="text-gray-500 text-sm">conversion rate</div>
+                            </div>
                           </div>
-                        </button>
+                          
+                          {/* Progress Bar */}
+                          <div className="mt-4">
+                            <div className="bg-gray-100 rounded-full h-3 overflow-hidden">
+                              <div 
+                                className={`h-full ${getStepColorClasses(step.color).split(' ')[0]} transition-all duration-1000`}
+                                style={{ width: `${(step.conversions / step.visitors) * 100}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     ))}
                   </div>
-                </div>
 
-                {/* Sample Payload */}
-                <div className="bg-brand-navy/5 rounded-2xl p-6 border border-brand-navy/10">
-                  <h4 className="text-lg font-bold text-brand-navy mb-4 flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-brand-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                  {/* Overall Metrics */}
+                  <div className="mt-8 pt-6 border-t border-gray-200">
+                    <div className="grid grid-cols-3 gap-6 text-center">
+                      <div>
+                        <div className="text-2xl font-bold text-brand-navy">
+                          {Math.round((journeySteps[journeySteps.length - 1].conversions / journeySteps[0].visitors) * 100)}%
+                        </div>
+                        <div className="text-gray-600 text-sm">Overall Conversion</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-brand-navy">
+                          ${(journeySteps[journeySteps.length - 1].conversions * 50).toLocaleString()}
+                        </div>
+                        <div className="text-gray-600 text-sm">Revenue Impact</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-brand-navy">
+                          {journeySteps[0].visitors.toLocaleString()}
+                        </div>
+                        <div className="text-gray-600 text-sm">Total Visitors</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Live Events Sidebar */}
+              <div className="space-y-6">
+                {/* Connected Integrations */}
+                {connectedIntegrations.length > 0 && (
+                  <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg">
+                    <h3 className="text-lg font-bold text-brand-navy mb-4 flex items-center">
+                      <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                      </svg>
+                      Connected Sources
+                    </h3>
+                    <div className="space-y-2">
+                      {connectedIntegrations.map(integration => {
+                        const integrationData = integrations.find(i => i.name === integration)
+                        return (
+                          <div key={integration} className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
+                            <div className="flex items-center">
+                              <span className="text-lg mr-3">{integrationData?.icon}</span>
+                              <span className="font-semibold text-brand-navy">{integration}</span>
+                            </div>
+                            <div className="flex items-center">
+                              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
+                              <span className="text-green-600 text-sm font-medium">Active</span>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Live Events */}
+                <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg">
+                  <h3 className="text-lg font-bold text-brand-navy mb-4 flex items-center">
+                    <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse mr-3"></div>
+                    Live Customer Events
+                  </h3>
+                  <div className="space-y-3 max-h-80 overflow-y-auto">
+                    {realtimeEvents.length === 0 ? (
+                      <div className="text-center py-8 text-gray-500">
+                        <svg className="w-12 h-12 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7" />
+                        </svg>
+                        <p>Waiting for customer events...</p>
+                        <p className="text-sm">Connect your data sources to see live activity</p>
+                      </div>
+                    ) : (
+                      realtimeEvents.map(event => (
+                        <div key={event.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100 animate-fade-in-up">
+                          <div className="flex items-center">
+                            <span className="text-lg mr-3">{event.metadata?.icon || '📊'}</span>
+                            <div>
+                              <p className="font-semibold text-brand-navy text-sm">{event.event.replace('_', ' ')}</p>
+                              <p className="text-gray-600 text-xs">{event.stage}</p>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-gray-500 text-xs">
+                              {new Date(event.timestamp).toLocaleTimeString()}
+                            </p>
+                            <p className="text-gray-400 text-xs">{event.customerId}</p>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Webhook Setup Modal */}
+      {showWebhookModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            {/* Modal Header */}
+            <div className="bg-gradient-to-r from-brand-teal to-cyan-500 text-white p-8 rounded-t-3xl">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-3xl font-bold mb-2">Webhook Integration Setup</h3>
+                  <p className="text-white/90 text-lg">Connect your tools to send customer events to CustomerPath</p>
+                </div>
+                <button
+                  onClick={() => setShowWebhookModal(false)}
+                  className="text-white/80 hover:text-white transition-colors"
+                >
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div className="p-8">
+              {/* Webhook URL */}
+              <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl p-6 mb-8 border border-gray-200">
+                <h4 className="text-xl font-bold text-brand-navy mb-4 flex items-center">
+                  <svg className="w-6 h-6 mr-3 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  </svg>
+                  Your Webhook Endpoint
+                </h4>
+                <div className="flex items-center space-x-3">
+                  <code className="flex-1 bg-white px-6 py-4 rounded-xl border border-gray-300 text-sm font-mono text-brand-navy shadow-inner">
+                    https://api.customerpath.com/webhooks/events/usr_demo123
+                  </code>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText('https://api.customerpath.com/webhooks/events/usr_demo123')
+                      // Show copied feedback
+                    }}
+                    className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-4 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg flex items-center"
+                  >
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                     </svg>
-                    Sample Webhook Payload
-                  </h4>
-                  <pre className="bg-brand-navy text-green-400 p-4 rounded-xl text-sm overflow-x-auto font-mono">
+                    Copy URL
+                  </button>
+                </div>
+                <p className="text-gray-600 text-sm mt-3">Use this URL in Zapier, Make.com, or send POST requests directly</p>
+              </div>
+
+              {/* Integration Grid */}
+              <div className="mb-8">
+                <h4 className="text-xl font-bold text-brand-navy mb-6">Connect Your Tools</h4>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {integrations.map(integration => (
+                    <div key={integration.name} className="group">
+                      <button
+                        onClick={() => connectIntegration(integration.name)}
+                        disabled={connectedIntegrations.includes(integration.name)}
+                        className={`w-full p-6 rounded-2xl border-2 transition-all transform hover:scale-105 ${
+                          connectedIntegrations.includes(integration.name)
+                            ? 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 cursor-default shadow-lg'
+                            : 'bg-gradient-to-br from-white to-gray-50 border-gray-200 hover:border-brand-teal hover:shadow-xl'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mr-4 shadow-lg ${
+                              connectedIntegrations.includes(integration.name) 
+                                ? 'bg-green-500' 
+                                : 'bg-gradient-to-br from-gray-100 to-gray-200'
+                            }`}>
+                              <span className="text-2xl">{integration.icon}</span>
+                            </div>
+                            <div className="text-left">
+                              <h5 className="font-bold text-brand-navy text-lg">{integration.name}</h5>
+                              <p className="text-gray-600 text-sm">
+                                {integration.events.join(', ').replace(/_/g, ' ')}
+                              </p>
+                            </div>
+                          </div>
+                          {connectedIntegrations.includes(integration.name) ? (
+                            <div className="flex items-center text-green-600">
+                              <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                              </svg>
+                              <span className="font-bold">Connected</span>
+                            </div>
+                          ) : (
+                            <div className="text-brand-teal font-bold">Connect →</div>
+                          )}
+                        </div>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sample Payload */}
+              <div className="bg-gradient-to-br from-brand-navy/5 to-purple-50 rounded-2xl p-6 border border-brand-navy/10 mb-8">
+                <h4 className="text-lg font-bold text-brand-navy mb-4 flex items-center">
+                  <svg className="w-5 h-5 mr-2 text-brand-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                  </svg>
+                  Sample Webhook Payload
+                </h4>
+                <div className="bg-brand-navy rounded-xl p-6 shadow-inner">
+                  <pre className="text-green-400 text-sm font-mono overflow-x-auto">
 {`{
   "customer_id": "cust_abc123",
   "event": "trial_started",
@@ -710,57 +761,59 @@ const DemoPage: React.FC = () => {
   "metadata": {
     "plan": "pro",
     "source": "google_ads",
-    "value": 49.00
+    "value": 49.00,
+    "utm_campaign": "q1_growth"
   }
 }`}
                   </pre>
                 </div>
+              </div>
 
-                {/* Quick Setup Guide */}
-                <div className="mt-8 bg-blue-50 rounded-2xl p-6 border border-blue-200">
-                  <h4 className="text-lg font-bold text-brand-navy mb-4 flex items-center">
-                    <span className="text-2xl mr-2">⚡</span>
-                    Quick Zapier Setup
-                  </h4>
-                  <div className="space-y-3 text-sm text-gray-700">
+              {/* Zapier Setup Guide */}
+              <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-6 border border-blue-200">
+                <h4 className="text-lg font-bold text-brand-navy mb-4 flex items-center">
+                  <span className="text-2xl mr-3">⚡</span>
+                  Quick Zapier Setup
+                </h4>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
                     <div className="flex items-start">
-                      <div className="w-6 h-6 bg-brand-teal text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0">1</div>
-                      <span>Choose your trigger app (Shopify, HubSpot, etc.)</span>
+                      <div className="w-8 h-8 bg-brand-teal text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-1 flex-shrink-0">1</div>
+                      <div>
+                        <p className="font-semibold text-brand-navy">Choose Trigger</p>
+                        <p className="text-gray-600 text-sm">Select your app (Shopify, HubSpot, etc.)</p>
+                      </div>
                     </div>
                     <div className="flex items-start">
-                      <div className="w-6 h-6 bg-brand-teal text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0">2</div>
-                      <span>Add "Webhooks by Zapier" as the action</span>
-                    </div>
-                    <div className="flex items-start">
-                      <div className="w-6 h-6 bg-brand-teal text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0">3</div>
-                      <span>Paste your webhook URL and map the data fields</span>
-                    </div>
-                    <div className="flex items-start">
-                      <div className="w-6 h-6 bg-brand-teal text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0">4</div>
-                      <span>Test and activate - you're done! 🎉</span>
+                      <div className="w-8 h-8 bg-brand-teal text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-1 flex-shrink-0">2</div>
+                      <div>
+                        <p className="font-semibold text-brand-navy">Add Webhook Action</p>
+                        <p className="text-gray-600 text-sm">Use "Webhooks by Zapier"</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-
-                <div className="flex space-x-4 mt-8">
-                  <button
-                    onClick={() => setShowWebhookModal(false)}
-                    className="flex-1 border-2 border-gray-300 text-gray-700 py-4 rounded-xl font-semibold hover:bg-gray-50 transition-colors"
-                  >
-                    Close
-                  </button>
-                  <Link
-                    to="/signup"
-                    className="flex-1 bg-brand-teal hover:bg-brand-teal/90 text-white py-4 rounded-xl font-semibold transition-all transform hover:scale-105 text-center"
-                  >
-                    Start Free Trial
-                  </Link>
+                  <div className="space-y-4">
+                    <div className="flex items-start">
+                      <div className="w-8 h-8 bg-brand-teal text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-1 flex-shrink-0">3</div>
+                      <div>
+                        <p className="font-semibold text-brand-navy">Paste Webhook URL</p>
+                        <p className="text-gray-600 text-sm">Use the URL above</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
+                      <div className="w-8 h-8 bg-brand-teal text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-1 flex-shrink-0">4</div>
+                      <div>
+                        <p className="font-semibold text-brand-navy">Test & Activate</p>
+                        <p className="text-gray-600 text-sm">You're done! 🎉</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }
