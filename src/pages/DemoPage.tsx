@@ -200,70 +200,138 @@ const DemoPage = () => {
 
   // JOURNEY MAP - Interactive Visual Builder
   const renderJourneyMap = () => (
-    <div className="space-y-6">
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
+    <div className="grid grid-cols-2 gap-6 h-[calc(100vh-140px)]">
+      {/* Left: Journey Builder */}
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-bold text-gray-900">Journey Builder</h3>
           <button
             onClick={addJourneyStep}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold text-lg flex items-center space-x-2 transition-all transform hover:scale-105 shadow-lg"
+            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold text-lg flex items-center space-x-2 transition-all transform hover:scale-105 shadow-lg"
           >
             <Plus className="w-5 h-5" />
             <span>Add Step</span>
           </button>
         </div>
 
-        <div className="flex items-center justify-between space-x-6">
+        <div className="space-y-4">
           {journeySteps.map((step, i) => (
-            <React.Fragment key={step.id}>
-              <div className="text-center relative group flex-1 bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-all duration-300 border-2 border-transparent hover:border-blue-200">
-                {journeySteps.length > 2 && (
-                  <button
-                    onClick={() => removeJourneyStep(step.id)}
-                    className="absolute -top-2 -right-2 w-7 h-7 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all transform hover:scale-110 shadow-lg"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                )}
-                <div className="w-20 h-20 bg-purple-500 hover:bg-purple-600 rounded-xl flex items-center justify-center mb-4 mx-auto transition-all transform group-hover:scale-110 shadow-lg">
-                  <step.icon className="w-8 h-8 text-white" />
+            <div key={step.id} className="relative group">
+              <div className="flex items-center justify-between bg-gradient-to-r from-gray-50 to-gray-100 hover:from-blue-50 hover:to-purple-50 p-4 rounded-xl border border-gray-200 hover:border-blue-300 transition-all duration-300">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <span className="text-white font-bold text-lg">{i + 1}</span>
+                  </div>
+                  <div>
+                    {editingStep === step.id ? (
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="text"
+                          value={editName}
+                          onChange={(e) => setEditName(e.target.value)}
+                          className="bg-white border border-blue-300 rounded-lg px-3 py-2 text-lg font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          autoFocus
+                        />
+                        <button
+                          onClick={saveEdit}
+                          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-semibold text-lg transition-all"
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={cancelEdit}
+                          className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded-lg font-semibold text-lg transition-all"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <h4 className="text-lg font-bold text-gray-900">{step.name}</h4>
+                        <p className="text-gray-600 text-base">{step.users.toLocaleString()} users</p>
+                      </>
+                    )}
+                  </div>
                 </div>
-                <h4 className="font-semibold text-gray-900 text-lg mb-2">{step.name}</h4>
-                <p className="text-2xl font-bold text-gray-900 mb-3">{step.users.toLocaleString()}</p>
-                <button 
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center justify-center mx-auto transition-all transform hover:scale-105 shadow-md"
-                  onClick={() => console.log('Edit step:', step.id)}
-                >
-                  <Edit3 className="w-3 h-3 mr-1" />
-                  Edit Step
-                </button>
+                
+                {editingStep !== step.id && (
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={() => startEditing(step)}
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-lg"
+                    >
+                      Edit
+                    </button>
+                    {journeySteps.length > 2 && (
+                      <button
+                        onClick={() => removeJourneyStep(step.id)}
+                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-3 rounded-lg transition-all"
+                      >
+                        <X className="w-5 h-5" />
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
+              
               {i < journeySteps.length - 1 && (
-                <div className="flex flex-col items-center px-2">
-                  <ArrowRight className="w-5 h-5 text-gray-400" />
-                  <span className="text-sm text-red-600 font-semibold mt-1">
-                    -{Math.round((1 - (journeySteps[i + 1].users / step.users)) * 100)}%
-                  </span>
+                <div className="flex justify-center my-2">
+                  <div className="flex items-center space-x-2 bg-red-100 px-3 py-1 rounded-full">
+                    <ArrowRight className="w-4 h-4 text-red-600" />
+                    <span className="text-red-600 font-semibold text-base">
+                      -{Math.round((1 - (journeySteps[i + 1].users / step.users)) * 100)}% drop
+                    </span>
+                  </div>
                 </div>
               )}
-            </React.Fragment>
+            </div>
           ))}
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border border-blue-200">
-        <div className="grid grid-cols-3 gap-6 text-center">
-          <div>
-            <p className="text-3xl font-bold text-blue-600">{metrics.conversionRate}%</p>
-            <p className="text-gray-700 font-medium text-lg">Overall Conversion</p>
-          </div>
-          <div>
-            <p className="text-3xl font-bold text-green-600">${metrics.revenue}k</p>
-            <p className="text-gray-700 font-medium text-lg">Monthly Revenue</p>
-          </div>
-          <div>
-            <p className="text-3xl font-bold text-purple-600">{journeySteps.length}</p>
-            <p className="text-gray-700 font-medium text-lg">Journey Steps</p>
+      {/* Right: Conversion Funnel */}
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <h3 className="text-xl font-bold text-gray-900 mb-6">Conversion Funnel</h3>
+        
+        <div className="space-y-3">
+          {journeySteps.map((step, i) => {
+            const conversionRate = i === 0 ? 100 : Math.round((step.users / journeySteps[0].users) * 100);
+            const width = conversionRate;
+            
+            return (
+              <div key={step.id} className="relative">
+                <div 
+                  className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg p-4 text-white relative overflow-hidden transition-all duration-500"
+                  style={{ width: `${width}%`, minWidth: '250px' }}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-bold text-lg">{step.name}</h4>
+                      <p className="text-blue-100 text-base">{step.users.toLocaleString()} users</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold">{conversionRate}%</div>
+                    </div>
+                  </div>
+                  
+                  {/* Funnel shape effect */}
+                  <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-transparent to-black/10"></div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        
+        <div className="mt-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-4 border border-green-200">
+          <div className="grid grid-cols-2 gap-4 text-center">
+            <div>
+              <p className="text-2xl font-bold text-green-600">{metrics.conversionRate}%</p>
+              <p className="text-gray-700 font-medium text-base">Overall Rate</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-blue-600">${metrics.revenue}k</p>
+              <p className="text-gray-700 font-medium text-base">Revenue</p>
+            </div>
           </div>
         </div>
       </div>
@@ -338,140 +406,30 @@ const DemoPage = () => {
 
   // LIVE EVENTS - Real-time Activity
   const renderLiveEvents = () => (
-    <div className="grid grid-cols-2 gap-6 h-full">
-      {/* Left: Journey Builder */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-bold text-gray-900">Journey Builder</h3>
-          <button
-            onClick={addJourneyStep}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold flex items-center space-x-2 transition-all transform hover:scale-105 shadow-lg"
-          >
-            <Plus className="w-5 h-5" />
-            <span>Add Step</span>
-          </button>
-        </div>
-
-        <div className="space-y-4">
-          {journeySteps.map((step, i) => (
-            <div key={step.id} className="relative group">
-              <div className="flex items-center justify-between bg-gradient-to-r from-gray-50 to-gray-100 hover:from-blue-50 hover:to-purple-50 p-4 rounded-xl border border-gray-200 hover:border-blue-300 transition-all duration-300">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <span className="text-white font-bold">{i + 1}</span>
-                  </div>
-                  <div>
-                    {editingStep === step.id ? (
-                      <div className="flex items-center space-x-2">
-                        <input
-                          type="text"
-                          value={editName}
-                          onChange={(e) => setEditName(e.target.value)}
-                          className="bg-white border border-blue-300 rounded-lg px-3 py-2 text-lg font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          autoFocus
-                        />
-                        <button
-                          onClick={saveEdit}
-                          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition-all"
-                        >
-                          Save
-                        </button>
-                        <button
-                          onClick={cancelEdit}
-                          className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded-lg font-medium transition-all"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    ) : (
-                      <>
-                        <h4 className="text-lg font-bold text-gray-900">{step.name}</h4>
-                        <p className="text-gray-600">{step.users.toLocaleString()} users</p>
-                      </>
-                    )}
-                  </div>
-                </div>
-                
-                {editingStep !== step.id && (
-                  <div className="flex items-center space-x-2">
-                    <button
-                      onClick={() => startEditing(step)}
-                      className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-md"
-                    >
-                      Edit
-                    </button>
-                    {journeySteps.length > 2 && (
-                      <button
-                        onClick={() => removeJourneyStep(step.id)}
-                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg transition-all"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    )}
-                  </div>
-                )}
+    <div className="bg-white rounded-xl border border-gray-200 p-6 h-[calc(100vh-140px)]">
+      <h3 className="text-xl font-bold text-gray-900 mb-6">Live Customer Events</h3>
+      
+      <div className="space-y-3 overflow-y-auto h-full">
+        {liveEvents.map((event) => (
+          <div key={event.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-100">
+            <div className="flex items-center space-x-3">
+              <div className={`w-3 h-3 rounded-full ${
+                event.type === 'revenue' ? 'bg-green-500' :
+                event.type === 'conversion' ? 'bg-blue-500' : 'bg-gray-400'
+              }`} />
+              <div>
+                <p className="font-semibold text-gray-900 text-base">{event.event}</p>
+                <p className="text-gray-600 text-sm">{event.customer}</p>
               </div>
-              
-              {i < journeySteps.length - 1 && (
-                <div className="flex justify-center my-2">
-                  <div className="flex items-center space-x-2 bg-red-100 px-3 py-1 rounded-full">
-                    <ArrowRight className="w-4 h-4 text-red-600" />
-                    <span className="text-red-600 font-semibold">
-                      -{Math.round((1 - (journeySteps[i + 1].users / step.users)) * 100)}% drop
-                    </span>
-                  </div>
-                </div>
+            </div>
+            <div className="text-right">
+              {event.value && (
+                <p className="font-bold text-green-600 text-base">{event.value}</p>
               )}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Right: Conversion Funnel */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
-        <h3 className="text-xl font-bold text-gray-900 mb-6">Conversion Funnel</h3>
-        
-        <div className="space-y-3">
-          {journeySteps.map((step, i) => {
-            const conversionRate = i === 0 ? 100 : Math.round((step.users / journeySteps[0].users) * 100);
-            const width = conversionRate;
-            
-            return (
-              <div key={step.id} className="relative">
-                <div 
-                  className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg p-4 text-white relative overflow-hidden"
-                  style={{ width: `${width}%`, minWidth: '200px' }}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-bold text-lg">{step.name}</h4>
-                      <p className="text-blue-100">{step.users.toLocaleString()} users</p>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-bold">{conversionRate}%</div>
-                    </div>
-                  </div>
-                  
-                  {/* Funnel shape effect */}
-                  <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-transparent to-black/10"></div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        
-        <div className="mt-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-4 border border-green-200">
-          <div className="grid grid-cols-2 gap-4 text-center">
-            <div>
-              <p className="text-2xl font-bold text-green-600">{metrics.conversionRate}%</p>
-              <p className="text-gray-700 font-medium">Overall Rate</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-blue-600">${metrics.revenue}k</p>
-              <p className="text-gray-700 font-medium">Revenue</p>
+              <p className="text-gray-500 text-sm">{event.time}</p>
             </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );
