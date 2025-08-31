@@ -677,7 +677,7 @@ const DemoPage: React.FC = () => {
                           <div className="flex items-start space-x-3">
                             <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
                             <div>
-                              <div className="font-medium text-brand-navy text-sm">Moved to {currentJourney.stages[selectedCustomer.currentStage].name}</div>
+                              <div className="font-medium text-brand-navy text-sm">Moved to {currentJourney.stages[selectedCustomer.currentStage - 1].name}</div>
                               <div className="text-xs text-gray-500">2 hours ago</div>
                             </div>
                           </div>
