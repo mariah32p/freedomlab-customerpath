@@ -52,6 +52,15 @@ const DemoPage: React.FC = () => {
     }
   ]
 
+  const demoSteps = [
+    "Journey Overview",
+    "Visual Builder", 
+    "Customer Management",
+    "Analytics Dashboard",
+    "Individual Tracking",
+    "Export & Share"
+  ]
+
   const customers: Customer[] = [
     {
       id: "1",
@@ -144,14 +153,6 @@ const DemoPage: React.FC = () => {
       avatar: "RJ"
     }
   ]
-
-  const demoSteps = [
-    "Journey Overview",
-    "Visual Builder",
-    "Customer Management",
-    "Analytics Dashboard",
-    "Individual Tracking",
-    "Export & Share"
   ]
 
   useEffect(() => {
@@ -420,7 +421,7 @@ const DemoPage: React.FC = () => {
                           <div className="text-center">
                             <div className="text-sm text-gray-600 mb-1">Current Stage</div>
                             <div className={`px-3 py-1 rounded-full text-xs font-semibold text-white ${currentJourney.stages[customer.currentStage].color}`}>
-                              {currentJourney.stages[customer.currentStage].name}
+                              {currentJourney.stages[customer.currentStage - 1].name}
                             </div>
                           </div>
                           <div className="text-center">
@@ -642,9 +643,9 @@ const DemoPage: React.FC = () => {
                           {currentJourney.stages.map((stage, index) => (
                             <button
                               key={stage.id}
-                              onClick={() => setSelectedCustomer({...selectedCustomer, currentStage: index})}
+                              onClick={() => setSelectedCustomer({...selectedCustomer, currentStage: index + 1})}
                               className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
-                                index === selectedCustomer.currentStage
+                                index === selectedCustomer.currentStage - 1
                                   ? `${stage.color} text-white`
                                   : 'border border-gray-300 text-gray-600 hover:border-brand-teal hover:text-brand-teal'
                               }`}
