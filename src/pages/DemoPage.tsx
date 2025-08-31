@@ -578,12 +578,7 @@ const DemoPage = () => {
               ))}
             </nav>
             
-            {/* Demo Badge */}
-            <div className="flex items-center space-x-2 bg-emerald-50 px-3 py-2 rounded-lg border border-emerald-200">
-              <Play className="w-4 h-4 text-emerald-600" />
-              <span className="text-sm font-semibold text-emerald-700">Live Demo</span>
-            </div>
-          </div>
+          <div></div>
         </div>
       </header>
 
