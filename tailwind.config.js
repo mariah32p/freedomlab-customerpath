@@ -27,6 +27,9 @@ export default {
         'bounce-in': 'bounceIn 0.6s ease-out',
         'glow': 'glow 2s ease-in-out infinite alternate',
         'typing': 'typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite',
+        'wiggle': 'wiggle 1s ease-in-out infinite',
+        'heartbeat': 'heartbeat 1.5s ease-in-out infinite',
+        'shimmer': 'shimmer 2s linear infinite',
       },
       keyframes: {
         float: {
@@ -66,6 +69,18 @@ export default {
         'blink-caret': {
           '0%, 50%': { borderColor: 'transparent' },
           '51%, 100%': { borderColor: 'rgba(1, 183, 158, 1)' },
+        }
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        },
+        heartbeat: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.05)' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
         }
       }
     },

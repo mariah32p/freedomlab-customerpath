@@ -128,7 +128,9 @@ const DemoPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 font-montserrat">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 font-montserrat">
+      <Header />
+      
       {/* App Header */}
       <header className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6">
@@ -171,33 +173,34 @@ const DemoPage: React.FC = () => {
 
       {/* Dashboard View */}
       {currentView === 'dashboard' && (
-        <div className="p-8">
+        <div className="pt-24 p-8 animate-fade-in-up">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between mb-8">
               <div>
-                <h1 className="text-3xl font-bold text-brand-navy mb-2">Dashboard</h1>
-                <p className="text-gray-600">Overview of your customer journeys</p>
+                <h1 className="text-4xl font-bold text-brand-navy mb-2 animate-slide-in-left">Dashboard</h1>
+                <p className="text-gray-600 animate-slide-in-left" style={{ animationDelay: '0.2s' }}>Overview of your customer journeys</p>
               </div>
               <button 
                 onClick={() => setCurrentView('create-journey')}
-                className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg flex items-center"
+                className="bg-brand-teal hover:bg-brand-teal/90 text-white px-8 py-4 rounded-xl font-semibold transition-all transform hover:scale-110 shadow-xl hover:shadow-2xl flex items-center animate-glow animate-bounce-in"
+                style={{ animationDelay: '0.4s' }}
               >
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                 </svg>
-                Create Journey
+                Create New Journey
               </button>
             </div>
 
             {/* Stats Grid */}
-            <div className="grid md:grid-cols-4 gap-6 mb-8">
-              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+            <div className="grid md:grid-cols-4 gap-6 mb-8 animate-slide-in-right" style={{ animationDelay: '0.6s' }}>
+              <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 mb-1">Active Journeys</p>
-                    <p className="text-2xl font-bold text-brand-navy">3</p>
+                    <p className="text-3xl font-bold text-brand-navy">3</p>
                   </div>
-                  <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
                     <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
@@ -205,13 +208,13 @@ const DemoPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:scale-105" style={{ animationDelay: '0.1s' }}>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 mb-1">Customers Tracked</p>
-                    <p className="text-2xl font-bold text-brand-navy">8,247</p>
+                    <p className="text-3xl font-bold text-brand-navy">8,247</p>
                   </div>
-                  <div className="w-12 h-12 bg-brand-teal/10 rounded-xl flex items-center justify-center">
+                  <div className="w-14 h-14 bg-gradient-to-br from-brand-teal to-cyan-500 rounded-xl flex items-center justify-center shadow-lg">
                     <svg className="w-6 h-6 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
@@ -219,13 +222,13 @@ const DemoPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:scale-105" style={{ animationDelay: '0.2s' }}>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 mb-1">Avg Conversion</p>
-                    <p className="text-2xl font-bold text-brand-navy">27.8%</p>
+                    <p className="text-3xl font-bold text-brand-navy">27.8%</p>
                   </div>
-                  <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center">
+                  <div className="w-14 h-14 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
                     <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                     </svg>
@@ -233,13 +236,13 @@ const DemoPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:scale-105" style={{ animationDelay: '0.3s' }}>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 mb-1">Revenue Impact</p>
-                    <p className="text-2xl font-bold text-brand-navy">$114k</p>
+                    <p className="text-3xl font-bold text-brand-navy">$114k</p>
                   </div>
-                  <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center">
+                  <div className="w-14 h-14 bg-gradient-to-br from-purple-400 to-brand-purple rounded-xl flex items-center justify-center shadow-lg">
                     <svg className="w-6 h-6 text-brand-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
                     </svg>
@@ -249,66 +252,88 @@ const DemoPage: React.FC = () => {
             </div>
 
             {/* Journey List */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 animate-scale-in" style={{ animationDelay: '0.8s' }}>
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-brand-navy">Your Customer Journeys</h2>
+                <h2 className="text-2xl font-bold text-brand-navy">Your Customer Journeys</h2>
                 <button 
                   onClick={() => setCurrentView('create-journey')}
-                  className="text-brand-teal hover:text-brand-teal/80 font-medium text-sm transition-colors"
+                  className="text-brand-teal hover:text-brand-teal/80 font-semibold transition-all transform hover:scale-105"
                 >
                   View All →
                 </button>
               </div>
               
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div 
                   onClick={() => setCurrentView('journey-detail')}
-                  className="flex items-center justify-between p-6 bg-gradient-to-r from-blue-50 to-teal-50 rounded-xl border border-blue-100 hover:shadow-lg transition-all cursor-pointer group"
+                  className="flex items-center justify-between p-8 bg-gradient-to-r from-blue-50 via-teal-50 to-cyan-50 rounded-2xl border border-blue-200 hover:shadow-2xl transition-all duration-500 cursor-pointer group transform hover:scale-105 animate-slide-in-left"
+                  style={{ animationDelay: '1s' }}
                 >
                   <div className="flex items-center">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-teal-500 rounded-xl flex items-center justify-center mr-4 shadow-lg group-hover:scale-110 transition-transform">
-                      <span className="text-white text-lg">🛍️</span>
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-teal-500 rounded-2xl flex items-center justify-center mr-6 shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                      <span className="text-white text-2xl">🛍️</span>
                     </div>
                     <div>
-                      <p className="font-bold text-brand-navy text-lg">E-commerce Checkout Flow</p>
-                      <p className="text-gray-600">4 steps • 8,247 customers tracked</p>
+                      <p className="font-bold text-brand-navy text-xl mb-1">E-commerce Checkout Flow</p>
+                      <p className="text-gray-600 text-lg">4 steps • 8,247 customers tracked</p>
+                      <div className="flex items-center mt-2">
+                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
+                        <span className="text-green-600 text-sm font-medium">Live tracking</span>
+                      </div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-brand-navy text-xl">27.8%</p>
-                    <p className="text-gray-600 text-sm">conversion rate</p>
+                    <p className="font-bold text-brand-navy text-3xl mb-1">27.8%</p>
+                    <p className="text-gray-600">conversion rate</p>
+                    <div className="w-20 h-2 bg-gray-200 rounded-full mt-2 overflow-hidden">
+                      <div className="w-full h-full bg-gradient-to-r from-blue-500 to-teal-500 rounded-full animate-slide-in-right"></div>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-6 bg-gray-50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between p-8 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border border-purple-100 hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-slide-in-left" style={{ animationDelay: '1.2s' }}>
                   <div className="flex items-center">
-                    <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mr-4">
-                      <span className="text-purple-600 text-lg">📧</span>
+                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mr-6 shadow-xl">
+                      <span className="text-white text-2xl">📧</span>
                     </div>
                     <div>
-                      <p className="font-bold text-brand-navy">Email Nurture Campaign</p>
-                      <p className="text-gray-600">6 steps • 3,421 customers tracked</p>
+                      <p className="font-bold text-brand-navy text-xl mb-1">Email Nurture Campaign</p>
+                      <p className="text-gray-600 text-lg">6 steps • 3,421 customers tracked</p>
+                      <div className="flex items-center mt-2">
+                        <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse mr-2"></div>
+                        <span className="text-orange-600 text-sm font-medium">Optimizing</span>
+                      </div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-brand-navy">18.5%</p>
-                    <p className="text-gray-600 text-sm">conversion rate</p>
+                    <p className="font-bold text-brand-navy text-3xl mb-1">18.5%</p>
+                    <p className="text-gray-600">conversion rate</p>
+                    <div className="w-20 h-2 bg-gray-200 rounded-full mt-2 overflow-hidden">
+                      <div className="w-4/5 h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-6 bg-gray-50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between p-8 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-2xl border border-orange-100 hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-slide-in-left" style={{ animationDelay: '1.4s' }}>
                   <div className="flex items-center">
-                    <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mr-4">
-                      <span className="text-orange-600 text-lg">🎯</span>
+                    <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-2xl flex items-center justify-center mr-6 shadow-xl">
+                      <span className="text-white text-2xl">🎯</span>
                     </div>
                     <div>
-                      <p className="font-bold text-brand-navy">Lead Generation Funnel</p>
-                      <p className="text-gray-600">5 steps • 12,089 customers tracked</p>
+                      <p className="font-bold text-brand-navy text-xl mb-1">Lead Generation Funnel</p>
+                      <p className="text-gray-600 text-lg">5 steps • 12,089 customers tracked</p>
+                      <div className="flex items-center mt-2">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse mr-2"></div>
+                        <span className="text-blue-600 text-sm font-medium">Active</span>
+                      </div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-brand-navy">31.2%</p>
-                    <p className="text-gray-600 text-sm">conversion rate</p>
+                    <p className="font-bold text-brand-navy text-3xl mb-1">31.2%</p>
+                    <p className="text-gray-600">conversion rate</p>
+                    <div className="w-20 h-2 bg-gray-200 rounded-full mt-2 overflow-hidden">
+                      <div className="w-full h-full bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full"></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -319,77 +344,81 @@ const DemoPage: React.FC = () => {
 
       {/* Create Journey View */}
       {currentView === 'create-journey' && (
-        <div className="p-8">
+        <div className="pt-24 p-8 animate-fade-in-up">
           <div className="max-w-4xl mx-auto">
             <div className="mb-8">
               <button 
                 onClick={() => setCurrentView('dashboard')}
-                className="flex items-center text-gray-600 hover:text-brand-navy mb-4 transition-colors"
+                className="flex items-center text-gray-600 hover:text-brand-navy mb-6 transition-all transform hover:scale-105 animate-slide-in-left"
               >
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                 </svg>
                 Back to Dashboard
               </button>
-              <h1 className="text-3xl font-bold text-brand-navy mb-2">Create New Journey</h1>
-              <p className="text-gray-600">Set up a new customer journey to track and optimize</p>
+              <h1 className="text-4xl font-bold text-brand-navy mb-3 animate-slide-in-left" style={{ animationDelay: '0.2s' }}>Create New Journey</h1>
+              <p className="text-xl text-gray-600 animate-slide-in-left" style={{ animationDelay: '0.4s' }}>Set up a new customer journey to track and optimize</p>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
-              <div className="space-y-8">
+            <div className="bg-white rounded-3xl shadow-2xl border border-gray-200 p-10 animate-scale-in" style={{ animationDelay: '0.6s' }}>
+              <div className="space-y-10">
                 {/* Journey Name */}
                 <div>
-                  <label className="block text-lg font-bold text-brand-navy mb-3">Journey Name</label>
+                  <label className="block text-xl font-bold text-brand-navy mb-4 animate-slide-in-left" style={{ animationDelay: '0.8s' }}>Journey Name</label>
                   <input
                     type="text"
                     value={newJourneyName}
                     onChange={(e) => setNewJourneyName(e.target.value)}
                     placeholder="e.g., SaaS Trial to Paid Conversion"
-                    className="w-full px-6 py-4 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-transparent"
+                    className="w-full px-6 py-5 border-2 border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-4 focus:ring-brand-teal/20 focus:border-brand-teal transition-all duration-300 shadow-lg animate-slide-in-right"
+                    style={{ animationDelay: '1s' }}
                   />
                 </div>
 
                 {/* Template Selection */}
                 <div>
-                  <label className="block text-lg font-bold text-brand-navy mb-4">Choose Template</label>
-                  <div className="grid md:grid-cols-3 gap-4">
+                  <label className="block text-xl font-bold text-brand-navy mb-6 animate-slide-in-left" style={{ animationDelay: '1.2s' }}>Choose Template</label>
+                  <div className="grid md:grid-cols-3 gap-6">
                     <button
                       onClick={() => setSelectedTemplate('ecommerce')}
-                      className={`p-6 rounded-xl border-2 transition-all text-left ${
+                      className={`p-8 rounded-2xl border-2 transition-all duration-300 text-left transform hover:scale-110 shadow-lg hover:shadow-2xl animate-bounce-in ${
                         selectedTemplate === 'ecommerce' 
-                          ? 'border-brand-teal bg-brand-teal/5 shadow-lg' 
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-brand-teal bg-gradient-to-br from-brand-teal/10 to-cyan-50 shadow-2xl animate-glow' 
+                          : 'border-gray-200 hover:border-brand-teal bg-gradient-to-br from-white to-gray-50'
                       }`}
+                      style={{ animationDelay: '1.4s' }}
                     >
-                      <div className="text-3xl mb-3">🛍️</div>
-                      <h3 className="font-bold text-brand-navy mb-2">E-commerce</h3>
-                      <p className="text-gray-600 text-sm">Product discovery to purchase</p>
+                      <div className="text-4xl mb-4">🛍️</div>
+                      <h3 className="font-bold text-brand-navy mb-3 text-lg">E-commerce</h3>
+                      <p className="text-gray-600">Product discovery to purchase</p>
                     </button>
 
                     <button
                       onClick={() => setSelectedTemplate('saas')}
-                      className={`p-6 rounded-xl border-2 transition-all text-left ${
+                      className={`p-8 rounded-2xl border-2 transition-all duration-300 text-left transform hover:scale-110 shadow-lg hover:shadow-2xl animate-bounce-in ${
                         selectedTemplate === 'saas' 
-                          ? 'border-brand-teal bg-brand-teal/5 shadow-lg' 
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-brand-teal bg-gradient-to-br from-brand-teal/10 to-cyan-50 shadow-2xl animate-glow' 
+                          : 'border-gray-200 hover:border-brand-teal bg-gradient-to-br from-white to-gray-50'
                       }`}
+                      style={{ animationDelay: '1.6s' }}
                     >
-                      <div className="text-3xl mb-3">💻</div>
-                      <h3 className="font-bold text-brand-navy mb-2">SaaS</h3>
-                      <p className="text-gray-600 text-sm">Trial to paid subscription</p>
+                      <div className="text-4xl mb-4">💻</div>
+                      <h3 className="font-bold text-brand-navy mb-3 text-lg">SaaS</h3>
+                      <p className="text-gray-600">Trial to paid subscription</p>
                     </button>
 
                     <button
                       onClick={() => setSelectedTemplate('leadgen')}
-                      className={`p-6 rounded-xl border-2 transition-all text-left ${
+                      className={`p-8 rounded-2xl border-2 transition-all duration-300 text-left transform hover:scale-110 shadow-lg hover:shadow-2xl animate-bounce-in ${
                         selectedTemplate === 'leadgen' 
-                          ? 'border-brand-teal bg-brand-teal/5 shadow-lg' 
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-brand-teal bg-gradient-to-br from-brand-teal/10 to-cyan-50 shadow-2xl animate-glow' 
+                          : 'border-gray-200 hover:border-brand-teal bg-gradient-to-br from-white to-gray-50'
                       }`}
+                      style={{ animationDelay: '1.8s' }}
                     >
-                      <div className="text-3xl mb-3">🎯</div>
-                      <h3 className="font-bold text-brand-navy mb-2">Lead Gen</h3>
-                      <p className="text-gray-600 text-sm">Visitor to qualified lead</p>
+                      <div className="text-4xl mb-4">🎯</div>
+                      <h3 className="font-bold text-brand-navy mb-3 text-lg">Lead Gen</h3>
+                      <p className="text-gray-600">Visitor to qualified lead</p>
                     </button>
                   </div>
                 </div>
@@ -397,10 +426,11 @@ const DemoPage: React.FC = () => {
                 {/* Data Sources */}
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <label className="block text-lg font-bold text-brand-navy">Connect Data Sources</label>
+                    <label className="block text-xl font-bold text-brand-navy animate-slide-in-left" style={{ animationDelay: '2s' }}>Connect Data Sources</label>
                     <button
                       onClick={() => setShowWebhookModal(true)}
-                      className="text-brand-teal hover:text-brand-teal/80 font-medium text-sm transition-colors flex items-center"
+                      className="text-brand-teal hover:text-brand-teal/80 font-semibold transition-all transform hover:scale-105 flex items-center animate-slide-in-right"
+                      style={{ animationDelay: '2.2s' }}
                     >
                       <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
@@ -408,34 +438,42 @@ const DemoPage: React.FC = () => {
                       View Webhook Setup
                     </button>
                   </div>
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid md:grid-cols-2 gap-6">
                     {integrations.map(integration => (
                       <button
                         key={integration.name}
                         onClick={() => connectIntegration(integration.name)}
                         disabled={connectedIntegrations.includes(integration.name)}
-                        className={`p-4 rounded-xl border-2 transition-all transform hover:scale-105 ${
+                        className={`p-6 rounded-2xl border-2 transition-all duration-300 transform hover:scale-110 shadow-lg hover:shadow-2xl animate-bounce-in ${
                           connectedIntegrations.includes(integration.name)
-                            ? 'bg-green-50 border-green-200 cursor-default'
-                            : 'bg-white border-gray-200 hover:border-brand-teal hover:shadow-lg'
+                            ? 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-300 cursor-default shadow-xl animate-glow'
+                            : 'bg-gradient-to-br from-white to-gray-50 border-gray-200 hover:border-brand-teal'
                         }`}
+                        style={{ animationDelay: `${2.4 + index * 0.2}s` }}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
-                            <span className="text-2xl mr-3">{integration.icon}</span>
+                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center mr-4 shadow-lg ${
+                              connectedIntegrations.includes(integration.name)
+                                ? 'bg-gradient-to-br from-green-400 to-emerald-500'
+                                : 'bg-gradient-to-br from-gray-100 to-gray-200'
+                            }`}>
+                              <span className="text-xl">{integration.icon}</span>
+                            </div>
                             <div className="text-left">
-                              <h5 className="font-bold text-brand-navy">{integration.name}</h5>
-                              <p className="text-gray-600 text-sm">Track {integration.events.length} events</p>
+                              <h5 className="font-bold text-brand-navy text-lg">{integration.name}</h5>
+                              <p className="text-gray-600">Track {integration.events.length} events</p>
                             </div>
                           </div>
                           {connectedIntegrations.includes(integration.name) ? (
-                            <div className="flex items-center text-green-600">
-                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="flex items-center text-green-600 animate-scale-in">
+                              <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                               </svg>
+                              <span className="font-bold">Connected</span>
                             </div>
                           ) : (
-                            <div className="text-brand-teal font-semibold text-sm">Connect</div>
+                            <div className="text-brand-teal font-bold">Connect →</div>
                           )}
                         </div>
                       </button>
@@ -444,13 +482,14 @@ const DemoPage: React.FC = () => {
                 </div>
 
                 {/* Create Button */}
-                <div className="pt-6 border-t border-gray-200">
+                <div className="pt-8 border-t border-gray-200">
                   <button
                     onClick={createJourney}
                     disabled={!newJourneyName.trim()}
-                    className="w-full bg-brand-teal hover:bg-brand-teal/90 disabled:bg-gray-300 text-white py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105 shadow-lg disabled:transform-none disabled:cursor-not-allowed"
+                    className="w-full bg-gradient-to-r from-brand-teal to-cyan-500 hover:from-brand-teal/90 hover:to-cyan-400 disabled:from-gray-300 disabled:to-gray-400 text-white py-6 rounded-2xl font-bold text-xl transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl disabled:transform-none disabled:cursor-not-allowed animate-glow animate-bounce-in"
+                    style={{ animationDelay: '3.2s' }}
                   >
-                    Create Journey & Start Tracking
+                    🚀 Create Journey & Start Tracking
                   </button>
                 </div>
               </div>
@@ -461,12 +500,12 @@ const DemoPage: React.FC = () => {
 
       {/* Journey Detail View */}
       {currentView === 'journey-detail' && (
-        <div className="p-8">
+        <div className="pt-24 p-8 animate-fade-in-up">
           <div className="max-w-7xl mx-auto">
             <div className="mb-8">
               <button 
                 onClick={() => setCurrentView('dashboard')}
-                className="flex items-center text-gray-600 hover:text-brand-navy mb-4 transition-colors"
+                className="flex items-center text-gray-600 hover:text-brand-navy mb-6 transition-all transform hover:scale-105 animate-slide-in-left"
               >
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
@@ -475,15 +514,15 @@ const DemoPage: React.FC = () => {
               </button>
               <div className="flex items-center justify-between">
                 <div>
-                  <h1 className="text-3xl font-bold text-brand-navy mb-2">E-commerce Checkout Flow</h1>
-                  <p className="text-gray-600">Real-time customer journey analytics</p>
+                  <h1 className="text-4xl font-bold text-brand-navy mb-3 animate-slide-in-left" style={{ animationDelay: '0.2s' }}>E-commerce Checkout Flow</h1>
+                  <p className="text-xl text-gray-600 animate-slide-in-left" style={{ animationDelay: '0.4s' }}>Real-time customer journey analytics</p>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <div className="flex items-center bg-green-50 px-4 py-2 rounded-lg">
+                <div className="flex items-center space-x-6 animate-slide-in-right" style={{ animationDelay: '0.6s' }}>
+                  <div className="flex items-center bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-3 rounded-xl border border-green-200 shadow-lg">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
-                    <span className="text-green-700 font-medium">Live Data</span>
+                    <span className="text-green-700 font-bold">Live Data</span>
                   </div>
-                  <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg">
+                  <button className="bg-gradient-to-r from-brand-teal to-cyan-500 hover:from-brand-teal/90 hover:to-cyan-400 text-white px-8 py-4 rounded-xl font-bold transition-all duration-300 transform hover:scale-110 shadow-xl hover:shadow-2xl">
                     Export Report
                   </button>
                 </div>
@@ -492,51 +531,51 @@ const DemoPage: React.FC = () => {
 
             <div className="grid lg:grid-cols-3 gap-8">
               {/* Journey Visualization */}
-              <div className="lg:col-span-2">
-                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+              <div className="lg:col-span-2 animate-scale-in" style={{ animationDelay: '0.8s' }}>
+                <div className="bg-white rounded-3xl p-10 shadow-2xl border border-gray-200">
                   <div className="flex items-center justify-between mb-8">
-                    <h3 className="text-xl font-bold text-brand-navy">Customer Journey Flow</h3>
+                    <h3 className="text-2xl font-bold text-brand-navy">Customer Journey Flow</h3>
                     <div className="flex items-center space-x-2">
                       <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                      <span className="text-green-600 text-sm font-medium">Live Updates</span>
+                      <span className="text-green-600 font-bold">Live Updates</span>
                     </div>
                   </div>
 
                   {/* Journey Steps */}
-                  <div className="space-y-6">
+                  <div className="space-y-8">
                     {journeySteps.map((step, index) => (
-                      <div key={step.id} className="relative">
+                      <div key={step.id} className="relative animate-slide-in-left" style={{ animationDelay: `${1 + index * 0.3}s` }}>
                         {/* Connection Line */}
                         {index < journeySteps.length - 1 && (
-                          <div className="absolute left-8 top-20 w-0.5 h-12 bg-gradient-to-b from-gray-300 to-gray-200"></div>
+                          <div className="absolute left-10 top-24 w-1 h-16 bg-gradient-to-b from-brand-teal to-cyan-400 rounded-full shadow-lg animate-slide-in-right" style={{ animationDelay: `${1.2 + index * 0.3}s` }}></div>
                         )}
                         
-                        <div className={`bg-white rounded-xl p-6 border-l-4 shadow-lg hover:shadow-xl transition-all ${getStepColorClasses(step.color)} border-opacity-50`}>
+                        <div className={`bg-gradient-to-r from-white to-gray-50 rounded-2xl p-8 border-l-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 ${getStepColorClasses(step.color)} border-opacity-70`}>
                           <div className="flex items-center justify-between">
                             <div className="flex items-center">
-                              <div className={`w-16 h-16 ${getStepColorClasses(step.color).split(' ')[0]} rounded-xl flex items-center justify-center text-white text-2xl mr-6 shadow-lg`}>
+                              <div className={`w-20 h-20 ${getStepColorClasses(step.color).split(' ')[0]} rounded-2xl flex items-center justify-center text-white text-3xl mr-8 shadow-2xl transform hover:rotate-12 transition-all duration-300`}>
                                 {step.icon}
                               </div>
                               <div>
-                                <h4 className="text-xl font-bold text-brand-navy mb-1">{step.name}</h4>
-                                <p className="text-gray-600">
+                                <h4 className="text-2xl font-bold text-brand-navy mb-2">{step.name}</h4>
+                                <p className="text-gray-600 text-lg">
                                   {step.visitors.toLocaleString()} visitors → {step.conversions.toLocaleString()} conversions
                                 </p>
                               </div>
                             </div>
                             <div className="text-right">
-                              <div className="text-3xl font-bold text-brand-navy mb-1">
+                              <div className="text-4xl font-bold text-brand-navy mb-2">
                                 {Math.round((step.conversions / step.visitors) * 100)}%
                               </div>
-                              <div className="text-gray-500 text-sm">conversion rate</div>
+                              <div className="text-gray-500">conversion rate</div>
                             </div>
                           </div>
                           
                           {/* Progress Bar */}
-                          <div className="mt-4">
-                            <div className="bg-gray-100 rounded-full h-3 overflow-hidden">
+                          <div className="mt-6">
+                            <div className="bg-gray-200 rounded-full h-4 overflow-hidden shadow-inner">
                               <div 
-                                className={`h-full ${getStepColorClasses(step.color).split(' ')[0]} transition-all duration-1000`}
+                                className={`h-full ${getStepColorClasses(step.color).split(' ')[0]} transition-all duration-2000 shadow-lg animate-slide-in-right`}
                                 style={{ width: `${(step.conversions / step.visitors) * 100}%` }}
                               ></div>
                             </div>
@@ -547,16 +586,15 @@ const DemoPage: React.FC = () => {
                   </div>
 
                   {/* Overall Metrics */}
-                  <div className="mt-8 pt-6 border-t border-gray-200">
-                    <div className="grid grid-cols-3 gap-6 text-center">
-                      <div>
-                        <div className="text-2xl font-bold text-brand-navy">
+                  <div className="mt-10 pt-8 border-t border-gray-200">
+                    <div className="grid grid-cols-3 gap-8 text-center">
+                      <div className="animate-bounce-in" style={{ animationDelay: '2.5s' }}>
+                        <div className="text-3xl font-bold text-brand-navy mb-2">
                           {Math.round((journeySteps[journeySteps.length - 1].conversions / journeySteps[0].visitors) * 100)}%
                         </div>
-                        <div className="text-gray-600 text-sm">Overall Conversion</div>
+                        <div className="text-gray-600">Overall Conversion</div>
                       </div>
-                      <div>
-                        <div className="text-2xl font-bold text-brand-navy">
+                      <div className="animate-bounce-in" style={{ animationDelay: '2.7s' }}>
                           ${(journeySteps[journeySteps.length - 1].conversions * 50).toLocaleString()}
                         </div>
                         <div className="text-gray-600 text-sm">Revenue Impact</div>
