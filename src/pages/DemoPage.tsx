@@ -11,25 +11,6 @@ import {
   CheckCircle, Clock, Globe, Webhook, X
 } from "lucide-react";
 
-const CountUp = ({ end, duration = 2, separator = '', prefix = '', suffix = '' }) => {
-  const [current, setCurrent] = useState(0);
-  
-  useEffect(() => {
-    let startTime = null;
-    const animate = (timestamp) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-      setCurrent(Math.floor(progress * end));
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-    requestAnimationFrame(animate);
-  }, [end, duration]);
-  
-  return <span>{prefix}{current.toLocaleString()}{suffix}</span>;
-};
-
 const MetricCard = ({ title, value, icon: Icon, gradient, prefix = '', suffix = '', trend = null }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
@@ -61,24 +42,24 @@ const MetricCard = ({ title, value, icon: Icon, gradient, prefix = '', suffix = 
 const DemoPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [journeySteps, setJourneySteps] = useState([
-    { name: 'Landing Page', users: 8247, icon: MousePointerClick, color: 'from-blue-500 to-blue-600' },
-    { name: 'Demo Booking', users: 6432, icon: Calendar, color: 'from-teal-500 to-teal-600' },
-    { name: 'Trial Signup', users: 3987, icon: Users, color: 'from-purple-500 to-purple-600' },
-    { name: 'Payment', users: 1834, icon: CreditCard, color: 'from-emerald-500 to-emerald-600' }
+    { id: 1, name: 'Landing Page', users: 8247, icon: MousePointerClick, color: 'from-blue-500 to-blue-600' },
+    { id: 2, name: 'Demo Booking', users: 6432, icon: Calendar, color: 'from-teal-500 to-teal-600' },
+    { id: 3, name: 'Trial Signup', users: 3987, icon: Users, color: 'from-purple-500 to-purple-600' },
+    { id: 4, name: 'Payment', users: 1834, icon: CreditCard, color: 'from-emerald-500 to-emerald-600' }
   ]);
   
   const [connectedTools, setConnectedTools] = useState([
-    { name: 'Calendly', type: 'Demo Bookings', status: 'Active', events: '247 events today', color: 'blue' },
-    { name: 'Stripe', type: 'Payments', status: 'Active', events: '89 events today', color: 'emerald' },
-    { name: 'HubSpot', type: 'Form Submissions', status: 'Active', events: '156 events today', color: 'orange' }
+    { id: 1, name: 'Calendly', type: 'Demo Bookings', status: 'Active', events: '247 events today', color: 'blue' },
+    { id: 2, name: 'Stripe', type: 'Payments', status: 'Active', events: '89 events today', color: 'emerald' },
+    { id: 3, name: 'HubSpot', type: 'Form Submissions', status: 'Active', events: '156 events today', color: 'orange' }
   ]);
 
-  // Static metrics - no more crazy animations
+  // Calculate metrics from actual data
   const metrics = {
-    totalJourneys: 8,
-    customersTracked: 12847,
-    conversionRate: 67,
-    revenue: 114000
+    totalJourneys: journeySteps.length,
+    customersTracked: journeySteps[0]?.users || 0,
+    conversionRate: journeySteps.length > 1 ? Math.round((journeySteps[journeySteps.length - 1].users / journeySteps[0].users) * 100) : 0,
+    revenue: journeySteps[journeySteps.length - 1]?.users ? journeySteps[journeySteps.length - 1].users * 25.8 : 0
   };
 
   useEffect(() => {
@@ -97,6 +78,7 @@ const DemoPage = () => {
 
   const addJourneyStep = () => {
     const newStep = {
+      id: Date.now(),
       name: 'New Step',
       users: Math.floor(journeySteps[journeySteps.length - 1].users * 0.7),
       icon: Target,
@@ -105,9 +87,9 @@ const DemoPage = () => {
     setJourneySteps([...journeySteps, newStep]);
   };
 
-  const removeJourneyStep = (index) => {
+  const removeJourneyStep = (id) => {
     if (journeySteps.length > 2) {
-      setJourneySteps(journeySteps.filter((_, i) => i !== index));
+      setJourneySteps(journeySteps.filter(step => step.id !== id));
     }
   };
 
@@ -115,6 +97,7 @@ const DemoPage = () => {
     const tools = ['Mailchimp', 'Airtable', 'Typeform', 'Slack', 'Zapier'];
     const randomTool = tools[Math.floor(Math.random() * tools.length)];
     const newTool = {
+      id: Date.now(),
       name: randomTool,
       type: 'Integration',
       status: 'Active',
@@ -124,9 +107,9 @@ const DemoPage = () => {
     setConnectedTools([...connectedTools, newTool]);
   };
 
-  const removeTool = (index) => {
+  const removeTool = (id) => {
     if (connectedTools.length > 1) {
-      setConnectedTools(connectedTools.filter((_, i) => i !== index));
+      setConnectedTools(connectedTools.filter(tool => tool.id !== id));
     }
   };
 
@@ -225,7 +208,7 @@ const DemoPage = () => {
                   <h4 className="text-2xl font-bold text-gray-900 mb-4">Landing Page</h4>
                   <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 border border-blue-200 shadow-lg">
                     <p className="text-5xl font-bold text-blue-600 mb-2">8,247</p>
-                    <p className="text-blue-700 text-lg font-semibold">Unique Visitors</p>
+                      <p className="text-5xl font-bold text-blue-600 mb-2">{journeySteps[0]?.users.toLocaleString() || '0'}</p>
                     <div className="mt-4 flex items-center justify-center space-x-2">
                       <TrendingUp className="w-4 h-4 text-emerald-500" />
                       <span className="text-emerald-600 font-bold text-sm">+12% this week</span>
@@ -244,7 +227,7 @@ const DemoPage = () => {
                   <h4 className="text-2xl font-bold text-gray-900 mb-4">Demo Booking</h4>
                   <div className="bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl p-6 border border-teal-200 shadow-lg">
                     <p className="text-5xl font-bold text-teal-600 mb-2">6,432</p>
-                    <p className="text-teal-700 text-lg font-semibold">Demos Booked</p>
+                      <p className="text-5xl font-bold text-teal-600 mb-2">{journeySteps[1]?.users.toLocaleString() || '0'}</p>
                     <div className="mt-4 bg-red-100 px-3 py-2 rounded-xl border border-red-200">
                       <span className="text-red-700 font-bold text-sm">-22% Drop-off Alert</span>
                     </div>
@@ -262,7 +245,7 @@ const DemoPage = () => {
                   <h4 className="text-2xl font-bold text-gray-900 mb-4">Trial Signup</h4>
                   <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 border border-purple-200 shadow-lg">
                     <p className="text-5xl font-bold text-purple-600 mb-2">3,987</p>
-                    <p className="text-purple-700 text-lg font-semibold">Free Trials</p>
+                      <p className="text-5xl font-bold text-purple-600 mb-2">{journeySteps[2]?.users.toLocaleString() || '0'}</p>
                     <div className="mt-4 bg-red-100 px-3 py-2 rounded-xl border border-red-200">
                       <span className="text-red-700 font-bold text-sm">-38% Drop-off Alert</span>
                     </div>
@@ -280,7 +263,7 @@ const DemoPage = () => {
                   <h4 className="text-2xl font-bold text-gray-900 mb-4">Paid Customers</h4>
                   <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl p-6 border border-emerald-200 shadow-lg">
                     <p className="text-5xl font-bold text-emerald-600 mb-2">$47.2k</p>
-                    <p className="text-emerald-700 text-lg font-semibold">Monthly Revenue</p>
+                      <p className="text-5xl font-bold text-emerald-600 mb-2">${Math.round(metrics.revenue / 1000)}k</p>
                     <div className="mt-4 bg-emerald-100 px-3 py-2 rounded-xl border border-emerald-200">
                       <span className="text-emerald-700 font-bold text-sm">2,289 Active Customers</span>
                     </div>
@@ -827,7 +810,7 @@ const DemoPage = () => {
                     <div className="text-right ml-4">
                       <div className="flex items-center space-x-2 text-gray-500 text-sm font-semibold bg-gray-100 px-3 py-1.5 rounded-full">
                         <Clock className="w-3 h-3" />
-                        <span>{event.time}</span>
+                        <span className="text-emerald-700 font-bold text-sm">{journeySteps[3]?.users.toLocaleString() || '0'} Active Customers</span>
                       </div>
                     </div>
                   </div>
