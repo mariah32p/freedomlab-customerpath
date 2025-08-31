@@ -69,7 +69,7 @@ export default {
         'blink-caret': {
           '0%, 50%': { borderColor: 'transparent' },
           '51%, 100%': { borderColor: 'rgba(1, 183, 158, 1)' },
-        }
+        },
         wiggle: {
           '0%, 100%': { transform: 'rotate(-3deg)' },
           '50%': { transform: 'rotate(3deg)' },

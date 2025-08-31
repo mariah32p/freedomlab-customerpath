@@ -123,7 +123,9 @@ const DemoPage: React.FC = () => {
       pink: 'bg-pink-500 border-pink-200',
       indigo: 'bg-indigo-500 border-indigo-200',
       red: 'bg-red-500 border-red-200'
-    }
+    </div>
+  )
+}
     return colorMap[color] || 'bg-gray-500 border-gray-200'
   }
 
