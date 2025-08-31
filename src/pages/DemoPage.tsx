@@ -131,198 +131,332 @@ const DemoPage = () => {
   };
 
   const renderDashboard = () => (
-    <div className="space-y-8">
-      {/* Beautiful Funnel Visualization */}
-      <motion.div 
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="bg-white rounded-xl border border-gray-100 shadow-sm p-8"
-      >
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900">SaaS Customer Journey</h3>
-            <p className="text-gray-600">Your highest converting funnel</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 -mx-6 -my-8 px-6 py-8">
+      <div className="max-w-none">
+        {/* Stunning Header */}
+        <div className="text-center space-y-6 mb-12">
+          <div className="flex items-center justify-center space-x-4">
+            <div className="w-6 h-6 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full animate-pulse shadow-xl" />
+            <h2 className="text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-900 bg-clip-text text-transparent">
+              Customer Journey Analytics
+            </h2>
+            <div className="w-6 h-6 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full animate-pulse shadow-xl" />
           </div>
-          <div className="flex items-center space-x-2 bg-emerald-50 px-4 py-2 rounded-lg border border-emerald-200">
-            <div className="w-2 h-2 bg-emerald-500 rounded-full" />
-            <span className="text-emerald-700 font-semibold text-sm">78% Overall Conversion</span>
-          </div>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Real-time insights into your highest-converting customer funnel
+          </p>
         </div>
-        
-        {/* Beautiful Funnel Flow */}
-        <div className="relative">
-          {/* Connection Lines */}
-          <div className="absolute top-16 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-300 via-teal-400 to-emerald-400 opacity-30" />
+
+        {/* Premium Metrics Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+          <MetricCard 
+            title="Total Visitors" 
+            value={metrics.customersTracked} 
+            icon={Users} 
+            gradient="bg-gradient-to-br from-blue-500 to-blue-600"
+            trend="+12%"
+          />
+          <MetricCard 
+            title="Active Journeys" 
+            value={metrics.totalJourneys} 
+            icon={Target} 
+            gradient="bg-gradient-to-br from-purple-500 to-purple-600"
+            trend="+3"
+          />
+          <MetricCard 
+            title="Conversion Rate" 
+            value={metrics.conversionRate} 
+            icon={TrendingUp} 
+            gradient="bg-gradient-to-br from-emerald-500 to-emerald-600"
+            suffix="%"
+            trend="+8%"
+          />
+          <MetricCard 
+            title="Monthly Revenue" 
+            value={metrics.revenue} 
+            icon={DollarSign} 
+            gradient="bg-gradient-to-br from-amber-500 to-orange-600"
+            prefix="$"
+            trend="+23%"
+          />
+        </div>
+
+        {/* Stunning Funnel Visualization */}
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="bg-white/90 backdrop-blur-sm border border-white/50 rounded-3xl shadow-2xl overflow-hidden"
+        >
+          {/* Premium Header */}
+          <div className="bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 px-10 py-10 text-white">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-3xl flex items-center justify-center shadow-2xl">
+                  <BarChart2 className="w-10 h-10 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-4xl font-bold mb-3">SaaS Customer Journey</h3>
+                  <p className="text-gray-300 text-xl">Your highest converting funnel • Updated 3 minutes ago</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-4 bg-emerald-500/20 px-8 py-4 rounded-2xl border border-emerald-400/30">
+                <div className="w-5 h-5 bg-emerald-400 rounded-full animate-pulse shadow-lg" />
+                <span className="text-emerald-300 font-bold text-2xl">78% Overall Conversion</span>
+              </div>
+            </div>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
-            {/* Landing Page */}
-            <div className="text-center relative z-10">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <MousePointerClick className="w-10 h-10 text-white" />
-              </div>
-              <h4 className="font-bold text-gray-900 mb-2">Landing</h4>
-              <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
-                <p className="text-3xl font-bold text-blue-600 mb-1">8,247</p>
-                <p className="text-blue-700 text-sm font-medium">Visitors</p>
-              </div>
-            </div>
-            
-            {/* Demo Booking */}
-            <div className="text-center relative z-10">
-              <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <Calendar className="w-10 h-10 text-white" />
-              </div>
-              <h4 className="font-bold text-gray-900 mb-2">Demo</h4>
-              <div className="bg-teal-50 rounded-xl p-4 border border-teal-100">
-                <p className="text-3xl font-bold text-teal-600 mb-1">6,432</p>
-                <p className="text-teal-700 text-sm font-medium">Bookings</p>
-              </div>
-              <div className="mt-2 text-xs text-red-600 font-semibold bg-red-50 px-2 py-1 rounded-full border border-red-200">
-                -22% Drop-off
-              </div>
-            </div>
-            
-            {/* Trial Signup */}
-            <div className="text-center relative z-10">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <Users className="w-10 h-10 text-white" />
-              </div>
-              <h4 className="font-bold text-gray-900 mb-2">Trial</h4>
-              <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
-                <p className="text-3xl font-bold text-purple-600 mb-1">3,987</p>
-                <p className="text-purple-700 text-sm font-medium">Signups</p>
-              </div>
-              <div className="mt-2 text-xs text-red-600 font-semibold bg-red-50 px-2 py-1 rounded-full border border-red-200">
-                -38% Drop-off
-              </div>
-            </div>
-            
-            {/* Paid Customers */}
-            <div className="text-center relative z-10">
-              <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <DollarSign className="w-10 h-10 text-white" />
-              </div>
-              <h4 className="font-bold text-gray-900 mb-2">Paid</h4>
-              <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
-                <p className="text-3xl font-bold text-emerald-600 mb-1">$47.2k</p>
-                <p className="text-emerald-700 text-sm font-medium">Revenue</p>
-              </div>
-              <div className="mt-2 text-xs text-emerald-600 font-semibold bg-emerald-50 px-2 py-1 rounded-full border border-emerald-200">
-                2,289 Customers
+          {/* Massive Funnel Flow */}
+          <div className="p-12">
+            <div className="relative">
+              {/* Flowing Connection Lines */}
+              <div className="absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 via-teal-500 to-emerald-500 opacity-40 rounded-full shadow-lg" />
+              
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-12 relative">
+                {/* Landing Page */}
+                <motion.div 
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  className="text-center relative z-10 group"
+                >
+                  <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:shadow-3xl transition-all duration-300">
+                    <MousePointerClick className="w-16 h-16 text-white" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-gray-900 mb-4">Landing Page</h4>
+                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 border border-blue-200 shadow-lg">
+                    <p className="text-5xl font-bold text-blue-600 mb-2">8,247</p>
+                    <p className="text-blue-700 text-lg font-semibold">Unique Visitors</p>
+                    <div className="mt-4 flex items-center justify-center space-x-2">
+                      <TrendingUp className="w-4 h-4 text-emerald-500" />
+                      <span className="text-emerald-600 font-bold text-sm">+12% this week</span>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                {/* Demo Booking */}
+                <motion.div 
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  className="text-center relative z-10 group"
+                >
+                  <div className="w-32 h-32 bg-gradient-to-br from-teal-500 to-teal-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:shadow-3xl transition-all duration-300">
+                    <Calendar className="w-16 h-16 text-white" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-gray-900 mb-4">Demo Booking</h4>
+                  <div className="bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl p-6 border border-teal-200 shadow-lg">
+                    <p className="text-5xl font-bold text-teal-600 mb-2">6,432</p>
+                    <p className="text-teal-700 text-lg font-semibold">Demos Booked</p>
+                    <div className="mt-4 bg-red-100 px-3 py-2 rounded-xl border border-red-200">
+                      <span className="text-red-700 font-bold text-sm">-22% Drop-off Alert</span>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                {/* Trial Signup */}
+                <motion.div 
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  className="text-center relative z-10 group"
+                >
+                  <div className="w-32 h-32 bg-gradient-to-br from-purple-500 to-purple-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:shadow-3xl transition-all duration-300">
+                    <Users className="w-16 h-16 text-white" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-gray-900 mb-4">Trial Signup</h4>
+                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 border border-purple-200 shadow-lg">
+                    <p className="text-5xl font-bold text-purple-600 mb-2">3,987</p>
+                    <p className="text-purple-700 text-lg font-semibold">Free Trials</p>
+                    <div className="mt-4 bg-red-100 px-3 py-2 rounded-xl border border-red-200">
+                      <span className="text-red-700 font-bold text-sm">-38% Drop-off Alert</span>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                {/* Paid Customers */}
+                <motion.div 
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  className="text-center relative z-10 group"
+                >
+                  <div className="w-32 h-32 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:shadow-3xl transition-all duration-300">
+                    <DollarSign className="w-16 h-16 text-white" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-gray-900 mb-4">Paid Customers</h4>
+                  <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl p-6 border border-emerald-200 shadow-lg">
+                    <p className="text-5xl font-bold text-emerald-600 mb-2">$47.2k</p>
+                    <p className="text-emerald-700 text-lg font-semibold">Monthly Revenue</p>
+                    <div className="mt-4 bg-emerald-100 px-3 py-2 rounded-xl border border-emerald-200">
+                      <span className="text-emerald-700 font-bold text-sm">2,289 Active Customers</span>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </div>
           </div>
-        </div>
-        
-        {/* Key Insights */}
-        <div className="mt-8 bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-6 border border-gray-200">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
-                <TrendingDown className="w-5 h-5 text-white" />
+          
+          {/* AI-Powered Insights Section */}
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="mt-12 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-10 text-white shadow-2xl"
+          >
+            <div className="flex items-center space-x-4 mb-8">
+              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                <Sparkles className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h4 className="font-bold text-gray-900">Biggest Drop-off Point</h4>
-                <p className="text-gray-600 text-sm">Demo → Trial: 38% of potential customers lost</p>
+                <h4 className="text-3xl font-bold mb-2">AI-Powered Insights</h4>
+                <p className="text-white/80 text-lg">Automated recommendations to boost your conversions</p>
               </div>
             </div>
-            <div className="text-right">
-              <p className="text-lg font-bold text-orange-600">+$18k potential</p>
-              <p className="text-gray-600 text-sm">if improved by 10%</p>
+            
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
+                <div className="flex items-center space-x-3 mb-4">
+                  <Trophy className="w-6 h-6 text-yellow-300" />
+                  <h5 className="text-xl font-bold">Biggest Opportunity</h5>
+                </div>
+                <p className="text-white/90 text-lg leading-relaxed">
+                  Improve demo → trial conversion by optimizing your onboarding flow. 
+                  <span className="font-bold text-yellow-300"> Potential +$18k monthly revenue</span>
+                </p>
+              </div>
+              
+              <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
+                <div className="flex items-center space-x-3 mb-4">
+                  <Target className="w-6 h-6 text-emerald-300" />
+                  <h5 className="text-xl font-bold">Quick Win</h5>
+                </div>
+                <p className="text-white/90 text-lg leading-relaxed">
+                  Focus marketing spend on Google Ads - your highest converting source at 
+                  <span className="font-bold text-emerald-300"> 42% conversion rate</span>
+                </p>
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 
   const renderJourneyMap = () => (
-    <div className="space-y-8">
-      <div className="text-center space-y-4">
-        <h2 className="text-3xl font-bold text-gray-900">Build Your Customer Journey</h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Drag and drop to create your perfect customer flow
-        </p>
-      </div>
-
-      {/* Interactive Journey Builder */}
-      <motion.div 
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-xl border border-gray-100 shadow-sm p-8"
-      >
-        <div className="flex items-center justify-between mb-8">
-          <h3 className="text-xl font-bold text-gray-900">SaaS Customer Journey</h3>
-          <button 
-            onClick={addJourneyStep}
-            className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2 transition-all"
-          >
-            <Plus className="w-4 h-4" />
-            <span>Add Step</span>
-          </button>
-        </div>
-        
-        <div className="flex items-center justify-between overflow-x-auto pb-4">
-          {journeySteps.map((step, i) => (
-            <React.Fragment key={i}>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="flex flex-col items-center relative group"
-              >
-                {journeySteps.length > 2 && (
-                  <button
-                    onClick={() => removeJourneyStep(i)}
-                    className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                )}
-                
-                <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center shadow-lg`}>
-                  <step.icon className="w-8 h-8 text-white" />
-                </div>
-                
-                <div className="mt-4 text-center">
-                  <h4 className="font-semibold text-gray-900 mb-1">{step.name}</h4>
-                  <div className="bg-gray-50 rounded-lg p-3 min-w-[120px]">
-                    <p className="text-xl font-bold text-gray-900">{step.users.toLocaleString()}</p>
-                    <p className="text-xs text-gray-600">Users</p>
-                  </div>
-                </div>
-              </motion.div>
-              
-              {i < journeySteps.length - 1 && (
-                <div className="flex flex-col items-center justify-center mx-4">
-                  <ArrowRight className="w-6 h-6 text-gray-300 mb-1" />
-                  <div className="bg-red-50 border border-red-200 rounded-lg px-2 py-1">
-                    <p className="text-xs font-bold text-red-600">
-                      -{Math.round((1 - (journeySteps[i + 1].users / step.users)) * 100)}%
-                    </p>
-                  </div>
-                </div>
-              )}
-            </React.Fragment>
-          ))}
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-indigo-50 to-blue-50 -mx-6 -my-8 px-6 py-8">
+      <div className="max-w-none">
+        {/* Stunning Header */}
+        <div className="text-center space-y-6 mb-12">
+          <div className="flex items-center justify-center space-x-4">
+            <Edit3 className="w-8 h-8 text-purple-600 animate-bounce" />
+            <h2 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 bg-clip-text text-transparent">
+              Visual Journey Builder
+            </h2>
+            <Edit3 className="w-8 h-8 text-purple-600 animate-bounce" />
+          </div>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Drag, drop, and customize your customer journey with our intuitive visual builder
+          </p>
         </div>
 
-        {/* Overall Performance */}
-        <div className="mt-8 text-center bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-6 border border-emerald-200">
-          <div className="flex items-center justify-center space-x-8">
-            <div>
-              <p className="text-2xl font-bold text-emerald-600">22.3%</p>
-              <p className="text-emerald-700 font-medium text-sm">Overall Conversion</p>
-            </div>
-            <div className="w-px h-8 bg-emerald-300" />
-            <div>
-              <p className="text-2xl font-bold text-teal-600">$47.2k</p>
-              <p className="text-teal-700 font-medium text-sm">Monthly Revenue</p>
+        {/* Interactive Journey Builder */}
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white/90 backdrop-blur-sm border border-white/50 rounded-3xl shadow-2xl overflow-hidden"
+        >
+          {/* Premium Builder Header */}
+          <div className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 px-10 py-10 text-white">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-6">
+                <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-3xl flex items-center justify-center shadow-2xl">
+                  <Target className="w-10 h-10 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-4xl font-bold mb-3">Journey Builder</h3>
+                  <p className="text-white/80 text-xl">Build and optimize your customer flow</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-4">
+                <button className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white px-6 py-3 rounded-xl font-semibold transition-all border border-white/30">
+                  <Settings className="w-5 h-5 mr-2 inline" />
+                  Settings
+                </button>
+                <button 
+                  onClick={addJourneyStep}
+                  className="bg-white text-purple-600 hover:bg-gray-50 px-6 py-3 rounded-xl font-bold flex items-center space-x-2 transition-all shadow-lg"
+                >
+                  <Plus className="w-5 h-5" />
+                  <span>Add Step</span>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </motion.div>
+          
+          {/* Massive Journey Flow */}
+          <div className="p-12">
+            <div className="flex items-center justify-between overflow-x-auto pb-8">
+              {journeySteps.map((step, i) => (
+                <React.Fragment key={i}>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    whileHover={{ scale: 1.05, y: -4 }}
+                    transition={{ duration: 0.4, delay: i * 0.1 }}
+                    className="flex flex-col items-center relative group"
+                  >
+                    {journeySteps.length > 2 && (
+                      <button
+                        onClick={() => removeJourneyStep(i)}
+                        className="absolute -top-3 -right-3 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all z-10 shadow-lg"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    )}
+                    
+                    <div className={`w-24 h-24 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center shadow-2xl group-hover:shadow-3xl transition-all duration-300`}>
+                      <step.icon className="w-12 h-12 text-white" />
+                    </div>
+                    
+                    <div className="mt-6 text-center">
+                      <h4 className="text-xl font-bold text-gray-900 mb-3">{step.name}</h4>
+                      <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 min-w-[160px] shadow-lg border border-gray-200">
+                        <p className="text-3xl font-bold text-gray-900 mb-1">{step.users.toLocaleString()}</p>
+                        <p className="text-gray-600 font-semibold">Users</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                  
+                  {i < journeySteps.length - 1 && (
+                    <div className="flex flex-col items-center justify-center mx-8">
+                      <ArrowRight className="w-8 h-8 text-gray-400 mb-2" />
+                      <div className="bg-gradient-to-r from-red-100 to-orange-100 border border-red-200 rounded-xl px-4 py-2 shadow-lg">
+                        <p className="text-sm font-bold text-red-600">
+                          -{Math.round((1 - (journeySteps[i + 1].users / step.users)) * 100)}% Drop-off
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+
+            {/* Performance Summary */}
+            <div className="mt-12 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 backdrop-blur-sm rounded-2xl p-8 border border-emerald-200/50">
+              <div className="flex items-center justify-center space-x-12">
+                <div className="text-center">
+                  <p className="text-4xl font-bold text-emerald-600 mb-2">22.3%</p>
+                  <p className="text-emerald-700 font-bold text-lg">Overall Conversion</p>
+                </div>
+                <div className="w-px h-16 bg-emerald-300" />
+                <div className="text-center">
+                  <p className="text-4xl font-bold text-teal-600 mb-2">$47.2k</p>
+                  <p className="text-teal-700 font-bold text-lg">Monthly Revenue</p>
+                </div>
+                <div className="w-px h-16 bg-emerald-300" />
+                <div className="text-center">
+                  <p className="text-4xl font-bold text-blue-600 mb-2">2,289</p>
+                  <p className="text-blue-700 font-bold text-lg">Active Customers</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 
