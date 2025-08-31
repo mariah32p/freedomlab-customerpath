@@ -132,40 +132,6 @@ const DemoPage = () => {
 
   const renderDashboard = () => (
     <div className="space-y-8">
-      {/* Key Metrics - Static, Clean */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <MetricCard 
-          title="Active Journeys" 
-          value={metrics.totalJourneys} 
-          icon={Target} 
-          gradient="bg-gradient-to-br from-blue-500 to-blue-600"
-        />
-        <MetricCard 
-          title="Customers Tracked" 
-          value={metrics.customersTracked} 
-          icon={Users} 
-          gradient="bg-gradient-to-br from-teal-500 to-teal-600"
-          trend="+12%"
-        />
-        <MetricCard 
-          title="Conversion Rate" 
-          value={metrics.conversionRate} 
-          suffix="%" 
-          icon={TrendingUp} 
-          gradient="bg-gradient-to-br from-purple-500 to-purple-600"
-          trend="+5.2%"
-        />
-        <MetricCard 
-          title="Revenue Impact" 
-          value={Math.round(metrics.revenue / 1000)} 
-          prefix="$" 
-          suffix="k" 
-          icon={DollarSign} 
-          gradient="bg-gradient-to-br from-emerald-500 to-emerald-600"
-          trend="+18%"
-        />
-      </div>
-
       {/* Featured Journey Funnel */}
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
