@@ -6,7 +6,16 @@ import {
   CreditCard, MousePointerClick, Calendar, DollarSign, Webhook, X, Edit3
 } from "lucide-react";
 
-const MetricCard = ({ title, value, prefix = '', suffix = '', trend = null, color = 'blue' }) => {
+interface MetricCardProps {
+  title: string;
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  trend?: string | null;
+  color?: 'blue' | 'teal' | 'purple' | 'green';
+}
+
+const MetricCard: React.FC<MetricCardProps> = ({ title, value, prefix = '', suffix = '', trend = null, color = 'blue' }) => {
   const colorClasses = {
     blue: 'bg-blue-50 border-blue-200',
     teal: 'bg-teal-50 border-teal-200', 
@@ -31,9 +40,9 @@ const MetricCard = ({ title, value, prefix = '', suffix = '', trend = null, colo
   );
 };
 
-const DemoPage = () => {
+const DemoPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [editingStep, setEditingStep] = useState(null);
+  const [editingStep, setEditingStep] = useState<number | null>(null);
   const [editName, setEditName] = useState('');
   const [journeySteps, setJourneySteps] = useState([
     { id: 1, name: 'Landing Page', users: 8247, icon: MousePointerClick, color: 'blue' },
@@ -42,7 +51,7 @@ const DemoPage = () => {
     { id: 4, name: 'Payment', users: 1834, icon: CreditCard, color: 'green' }
   ]);
 
-  const startEditing = (step) => {
+  const startEditing = (step: any) => {
     setEditingStep(step.id);
     setEditName(step.name);
   };
@@ -108,7 +117,7 @@ const DemoPage = () => {
     setJourneySteps([...journeySteps, newStep]);
   };
 
-  const removeJourneyStep = (id) => {
+  const removeJourneyStep = (id: number) => {
     if (journeySteps.length > 2) {
       setJourneySteps(journeySteps.filter(step => step.id !== id));
     }
@@ -127,7 +136,7 @@ const DemoPage = () => {
     setConnectedTools([...connectedTools, newTool]);
   };
 
-  const removeTool = (id) => {
+  const removeTool = (id: number) => {
     if (connectedTools.length > 1) {
       setConnectedTools(connectedTools.filter(tool => tool.id !== id));
     }
