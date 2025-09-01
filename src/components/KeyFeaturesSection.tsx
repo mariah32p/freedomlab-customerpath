@@ -137,244 +137,91 @@ const KeyFeaturesSection: React.FC = () => {
       )
     },
     {
-      id: 'ai-insights',
-      title: 'AI-Powered Insights',
-      subtitle: 'Smart Recommendations',
-      description: 'Get intelligent recommendations to optimize your customer journeys and boost conversions.',
+      id: 'webhook-support',
+      title: 'Guided Webhook Setup',
+      subtitle: 'Connect Your Tools',
+      description: 'Connect your existing tools through webhooks with guided setup for platforms like Zapier and Make.',
       benefits: [
-        'Automated bottleneck detection',
-        'Conversion optimization suggestions',
-        'Predictive customer behavior analysis',
-        'Personalized improvement recommendations'
+        'Step-by-step webhook configuration',
+        'Pre-built templates for popular tools',
+        'Zapier and Make.com integration guides',
+        'Real-time event testing and validation'
       ],
       mockup: (
         <div className="bg-white rounded-xl border border-gray-200 p-6 h-80 overflow-hidden">
           <div className="flex items-center justify-between mb-4">
-            <h4 className="font-bold text-gray-900">AI Insights</h4>
-            <div className="bg-purple-100 text-purple-600 px-2 py-1 rounded-full text-xs font-medium">
-              ✨ AI Powered
+            <h4 className="font-bold text-gray-900">Webhook Setup Guide</h4>
+            <div className="bg-brand-teal/10 text-brand-teal px-2 py-1 rounded-full text-xs font-medium">
+              🔗 Connected
             </div>
           </div>
           
           <div className="space-y-4">
-            <div className="bg-gradient-to-r from-red-50 to-orange-50 p-4 rounded-lg border border-red-200">
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                  </svg>
-                </div>
-                <div>
-                  <h5 className="font-semibold text-red-700 mb-1">Critical Drop-off Detected</h5>
-                  <p className="text-red-600 text-sm mb-2">38% of users abandon at the demo booking step</p>
-                  <button className="bg-red-500 text-white px-3 py-1 rounded text-xs font-medium">
-                    View Recommendations
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-lg border border-green-200">
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                  </svg>
-                </div>
-                <div>
-                  <h5 className="font-semibold text-green-700 mb-1">Optimization Opportunity</h5>
-                  <p className="text-green-600 text-sm mb-2">Add social proof to increase trial conversion by ~12%</p>
-                  <button className="bg-green-500 text-white px-3 py-1 rounded text-xs font-medium">
-                    Apply Suggestion
-                  </button>
-                </div>
-              </div>
-            </div>
-
             <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 rounded-lg border border-blue-200">
               <div className="flex items-start space-x-3">
                 <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7" />
                   </svg>
                 </div>
                 <div>
-                  <h5 className="font-semibold text-blue-700 mb-1">Performance Trend</h5>
-                  <p className="text-blue-600 text-sm mb-2">Google Ads traffic converting 23% higher than average</p>
+                  <h5 className="font-semibold text-blue-700 mb-1">Zapier Integration</h5>
+                  <p className="text-blue-600 text-sm mb-2">Connected to 3 workflows • 247 events today</p>
                   <button className="bg-blue-500 text-white px-3 py-1 rounded text-xs font-medium">
-                    Scale Campaign
+                    Configure Triggers
                   </button>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: 'integrations',
-      title: 'Seamless Integrations',
-      subtitle: 'Connect Your Stack',
-      description: 'Connect with your existing tools and platforms to automatically track customer interactions.',
-      benefits: [
-        'One-click integrations with popular tools',
-        'Custom API endpoints for any platform',
-        'Automatic data synchronization',
-        'Webhook support for real-time updates'
-      ],
-      mockup: (
-        <div className="bg-white rounded-xl border border-gray-200 p-6 h-80 overflow-hidden">
-          <div className="flex items-center justify-between mb-4">
-            <h4 className="font-bold text-gray-900">Connected Integrations</h4>
-            <button className="bg-brand-teal text-white px-3 py-1 rounded text-xs">+ Add Integration</button>
-          </div>
-          
-          <div className="space-y-3">
-            {[
-              { name: 'Stripe', type: 'Payments', status: 'Active', events: '89 events today', color: 'bg-purple-500' },
-              { name: 'Calendly', type: 'Bookings', status: 'Active', events: '247 events today', color: 'bg-blue-500' },
-              { name: 'HubSpot', type: 'CRM', status: 'Active', events: '156 events today', color: 'bg-orange-500' },
-              { name: 'Mailchimp', type: 'Email', status: 'Active', events: '423 events today', color: 'bg-yellow-500' },
-              { name: 'Google Analytics', type: 'Web Analytics', status: 'Syncing', events: 'Last sync: 2 min ago', color: 'bg-red-500' }
-            ].map((integration, i) => (
-              <div key={i} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100">
-                <div className="flex items-center space-x-3">
-                  <div className={`w-8 h-8 ${integration.color} rounded-lg flex items-center justify-center`}>
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h5 className="font-semibold text-gray-900 text-sm">{integration.name}</h5>
-                    <p className="text-gray-600 text-xs">{integration.type}</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="flex items-center space-x-1 mb-1">
-                    <div className={`w-2 h-2 rounded-full ${
-                      integration.status === 'Active' ? 'bg-green-500' : 'bg-yellow-500'
-                    }`}></div>
-                    <span className={`text-xs font-medium ${
-                      integration.status === 'Active' ? 'text-green-600' : 'text-yellow-600'
-                    }`}>
-                      {integration.status}
-                    </span>
-                  </div>
-                  <p className="text-gray-500 text-xs">{integration.events}</p>
-                </div>
-              </div>
-            ))}
-          </div>
 
-          <div className="mt-4 bg-brand-teal/10 rounded-lg p-3 border border-brand-teal/20">
-            <div className="flex items-center space-x-2 mb-2">
-              <svg className="w-4 h-4 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7" />
-              </svg>
-              <span className="font-semibold text-brand-teal text-sm">Webhook URL</span>
-            </div>
-            <div className="bg-white rounded border border-gray-200 p-2">
-              <code className="text-xs text-gray-600 font-mono">
-                https://api.customerpath.com/webhook/abc123
-              </code>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: 'advanced-analytics',
-      title: 'Advanced Analytics',
-      subtitle: 'Deep Customer Intelligence',
-      description: 'Dive deep into customer behavior patterns with advanced segmentation and cohort analysis.',
-      benefits: [
-        'Customer cohort analysis',
-        'Behavioral segmentation',
-        'Revenue attribution tracking',
-        'Custom metric definitions'
-      ],
-      mockup: (
-        <div className="bg-white rounded-xl border border-gray-200 p-6 h-80 overflow-hidden">
-          <div className="flex items-center justify-between mb-4">
-            <h4 className="font-bold text-gray-900">Customer Segments</h4>
-            <button className="bg-purple-500 text-white px-3 py-1 rounded text-xs">Create Segment</button>
-          </div>
-          
-          <div className="space-y-3">
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 rounded-lg border border-blue-200">
-              <div className="flex items-center justify-between mb-2">
-                <h5 className="font-semibold text-blue-700">High-Value Customers</h5>
-                <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs">1,247 users</span>
-              </div>
-              <div className="grid grid-cols-3 gap-2 text-xs">
-                <div className="text-center">
-                  <div className="font-bold text-blue-600">$127</div>
-                  <div className="text-gray-600">Avg LTV</div>
+            <div className="bg-gradient-to-r from-brand-teal/10 to-cyan-50 p-4 rounded-lg border border-brand-teal/20">
+              <div className="flex items-start space-x-3">
+                <div className="w-8 h-8 bg-brand-teal rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
                 </div>
-                <div className="text-center">
-                  <div className="font-bold text-blue-600">94%</div>
-                  <div className="text-gray-600">Retention</div>
-                </div>
-                <div className="text-center">
-                  <div className="font-bold text-blue-600">3.2x</div>
-                  <div className="text-gray-600">Conversion</div>
+                <div>
+                  <h5 className="font-semibold text-brand-teal mb-1">Make.com Automation</h5>
+                  <p className="text-brand-teal text-sm mb-2">Auto-sync customer data • 156 events today</p>
+                  <button className="bg-brand-teal text-white px-3 py-1 rounded text-xs font-medium">
+                    Edit Workflow
+                  </button>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-lg border border-green-200">
-              <div className="flex items-center justify-between mb-2">
-                <h5 className="font-semibold text-green-700">Trial Converters</h5>
-                <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs">892 users</span>
-              </div>
-              <div className="grid grid-cols-3 gap-2 text-xs">
-                <div className="text-center">
-                  <div className="font-bold text-green-600">$89</div>
-                  <div className="text-gray-600">Avg LTV</div>
+            <div className="bg-gradient-to-r from-purple-50 to-indigo-50 p-4 rounded-lg border border-purple-200">
+              <div className="flex items-start space-x-3">
+                <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
                 </div>
-                <div className="text-center">
-                  <div className="font-bold text-green-600">87%</div>
-                  <div className="text-gray-600">Retention</div>
-                </div>
-                <div className="text-center">
-                  <div className="font-bold text-green-600">2.1x</div>
-                  <div className="text-gray-600">Conversion</div>
+                <div>
+                  <h5 className="font-semibold text-purple-700 mb-1">Custom Webhook</h5>
+                  <p className="text-purple-600 text-sm mb-2">Direct API integration • 89 events today</p>
+                  <button className="bg-purple-500 text-white px-3 py-1 rounded text-xs font-medium">
+                    View Docs
+                  </button>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-yellow-50 to-orange-50 p-4 rounded-lg border border-yellow-200">
-              <div className="flex items-center justify-between mb-2">
-                <h5 className="font-semibold text-orange-700">At-Risk Users</h5>
-                <span className="bg-orange-500 text-white px-2 py-1 rounded-full text-xs">156 users</span>
+            <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+              <div className="flex items-center space-x-2 mb-2">
+                <svg className="w-4 h-4 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7" />
+                </svg>
+                <span className="font-semibold text-brand-teal text-sm">Your Webhook URL</span>
               </div>
-              <div className="grid grid-cols-3 gap-2 text-xs">
-                <div className="text-center">
-                  <div className="font-bold text-orange-600">$34</div>
-                  <div className="text-gray-600">Avg LTV</div>
-                </div>
-                <div className="text-center">
-                  <div className="font-bold text-orange-600">23%</div>
-                  <div className="text-gray-600">Retention</div>
-                </div>
-                <div className="text-center">
-                  <div className="font-bold text-orange-600">0.8x</div>
-                  <div className="text-gray-600">Conversion</div>
-                </div>
+              <div className="bg-white rounded border border-gray-200 p-2">
+                <code className="text-xs text-gray-600 font-mono">
+                  https://api.customerpath.com/webhook/abc123
+                </code>
               </div>
             </div>
-          </div>
-
-          <div className="mt-4 bg-purple-50 rounded-lg p-3 border border-purple-200">
-            <div className="flex items-center space-x-2 mb-2">
-              <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-              </svg>
-              <span className="font-semibold text-purple-600 text-sm">AI Recommendation</span>
-            </div>
-            <p className="text-purple-700 text-sm">
-              Focus retention efforts on Trial Converters segment for maximum ROI impact
-            </p>
           </div>
         </div>
       )
