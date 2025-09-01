@@ -209,14 +209,14 @@ const LandingPage: React.FC = () => {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Basic Plan */}
-            <div className="bg-white p-8 lg:p-10 rounded-3xl shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300">
+            {/* Standard Plan */}
+            <div className="bg-white p-8 lg:p-10 rounded-3xl shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
               <div className="text-center mb-10">
-                <h3 className="text-3xl font-bold text-brand-navy mb-4">Basic</h3>
+                <h3 className="text-3xl font-bold text-brand-navy mb-4">Standard</h3>
                 <div className="text-6xl font-bold text-brand-navy mb-4">
                   $29<span className="text-2xl font-normal text-gray-500">/month</span>
                 </div>
-                <p className="text-lg text-gray-600">Perfect for small teams getting started</p>
+                <p className="text-lg text-gray-600">Perfect for small teams and startups</p>
               </div>
 
               <div className="space-y-5 mb-10">
@@ -224,31 +224,31 @@ const LandingPage: React.FC = () => {
                   <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  <span className="text-gray-700 text-lg">Up to 3 customer journey maps</span>
+                  <span className="text-gray-700 text-lg">Up to 5 customer journey maps</span>
                 </div>
                 <div className="flex items-center">
                   <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  <span className="text-gray-700 text-lg">Up to 3 tool connections</span>
+                  <span className="text-gray-700 text-lg">Up to 10,000 events per month</span>
                 </div>
                 <div className="flex items-center">
                   <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  <span className="text-gray-700 text-lg">Real-time analytics dashboard</span>
+                  <span className="text-gray-700 text-lg">Real-time analytics & live feed</span>
                 </div>
                 <div className="flex items-center">
                   <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  <span className="text-gray-700 text-lg">Live customer activity feed</span>
+                  <span className="text-gray-700 text-lg">Basic webhook setup</span>
                 </div>
                 <div className="flex items-center">
                   <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  <span className="text-gray-700 text-lg">Custom webhook setup</span>
+                  <span className="text-gray-700 text-lg">Export journey maps (PNG/PDF)</span>
                 </div>
               </div>
 
@@ -270,7 +270,7 @@ const LandingPage: React.FC = () => {
                 <div className="text-6xl font-bold text-brand-navy mb-4">
                   $49<span className="text-2xl font-normal text-gray-500">/month</span>
                 </div>
-                <p className="text-lg text-gray-600">For growing teams that need more power</p>
+                <p className="text-lg text-gray-600">For scaling businesses and agencies</p>
               </div>
 
               <div className="space-y-5 mb-10">
@@ -284,19 +284,31 @@ const LandingPage: React.FC = () => {
                   <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  <span className="text-gray-700 text-lg">Unlimited tool connections</span>
+                  <span className="text-gray-700 text-lg">Unlimited events tracking</span>
                 </div>
                 <div className="flex items-center">
                   <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  <span className="text-gray-700 text-lg">Advanced analytics & insights</span>
+                  <span className="text-gray-700 text-lg">Advanced analytics & AI insights</span>
                 </div>
                 <div className="flex items-center">
                   <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  <span className="text-gray-700 text-lg">Custom webhook setup</span>
+                  <span className="text-gray-700 text-lg">Advanced webhook automation</span>
+                </div>
+                <div className="flex items-center">
+                  <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span className="text-gray-700 text-lg">Team collaboration features</span>
+                </div>
+                <div className="flex items-center">
+                  <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span className="text-gray-700 text-lg">Priority support & onboarding</span>
                 </div>
               </div>
 
