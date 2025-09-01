@@ -24,7 +24,7 @@ const LandingPage: React.FC = () => {
               
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight px-2 sm:px-0">
                 Turn Customer Data Into
-                <span className="block bg-gradient-to-r from-brand-teal to-cyan-300 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-brand-teal to-cyan-300 bg-clip-text text-transparent py-2">
                   Visual Insights
                 </span>
               </h1>
