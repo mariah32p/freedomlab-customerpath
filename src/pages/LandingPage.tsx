@@ -251,10 +251,6 @@ const LandingPage: React.FC = () => {
                   <span className="text-gray-700 text-lg">Export journey maps (PNG/PDF)</span>
                 </div>
               </div>
-
-              <Link to="/signup" className="w-full bg-gray-100 hover:bg-gray-200 text-brand-navy py-4 rounded-lg font-semibold text-lg transition-all border-2 border-gray-200 hover:border-gray-300 block text-center">
-                Start Free Trial
-              </Link>
             </div>
 
             {/* Pro Plan */}
@@ -290,7 +286,7 @@ const LandingPage: React.FC = () => {
                   <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  <span className="text-gray-700 text-lg">Advanced analytics & AI insights</span>
+                  <span className="text-gray-700 text-lg">Advanced analytics dashboard</span>
                 </div>
                 <div className="flex items-center">
                   <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -304,21 +300,14 @@ const LandingPage: React.FC = () => {
                   </svg>
                   <span className="text-gray-700 text-lg">Team collaboration features</span>
                 </div>
-                <div className="flex items-center">
-                  <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-gray-700 text-lg">Priority support & onboarding</span>
-                </div>
               </div>
-
-              <Link to="/signup" className="w-full bg-brand-teal hover:bg-brand-teal/90 text-white py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-xl block text-center">
-                Start Free Trial
-              </Link>
             </div>
           </div>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-16">
+            <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-12 py-5 rounded-xl font-bold text-xl transition-all transform hover:scale-105 shadow-2xl inline-block">
+              Start Free Trial
+            </Link>
             <p className="text-gray-600 text-lg">
               All plans include a 7-day free trial • Cancel anytime
             </p>
