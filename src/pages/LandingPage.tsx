@@ -255,14 +255,6 @@ const LandingPage: React.FC = () => {
                   <span className="text-gray-700 text-sm sm:text-base lg:text-lg">Export journey maps (PNG/PDF)</span>
                 </div>
               </div>
-
-              <Link 
-                to="/signup" 
-                onClick={() => window.scrollTo(0, 0)}
-                className="block w-full bg-gray-100 hover:bg-gray-200 text-brand-navy py-4 rounded-lg font-semibold text-lg transition-all border-2 border-gray-200 hover:border-gray-300 text-center"
-              >
-                Start Free Trial
-              </Link>
             </div>
 
             {/* Pro Plan */}
@@ -313,14 +305,6 @@ const LandingPage: React.FC = () => {
                   <span className="text-gray-700 text-sm sm:text-base lg:text-lg">Team collaboration features</span>
                 </div>
               </div>
-
-              <Link 
-                to="/signup" 
-                onClick={() => window.scrollTo(0, 0)}
-                className="block w-full bg-brand-teal hover:bg-brand-teal/90 text-white py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-lg text-center"
-              >
-                Start Free Trial
-              </Link>
             </div>
           </div>
 
