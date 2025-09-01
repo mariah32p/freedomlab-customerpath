@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
+import MobileDemoComponent from '../components/MobileDemoComponent'
 import { useAuth } from '../hooks/useAuth'
 
 const LandingPage: React.FC = () => {
@@ -167,8 +168,9 @@ const LandingPage: React.FC = () => {
 
           {/* Demo Embed */}
           <div className="max-w-6xl mx-auto">
-            <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
-              <div className="aspect-video md:aspect-video" style={{ aspectRatio: window.innerWidth < 768 ? '4/3' : '16/9' }}>
+            {/* Desktop Demo */}
+            <div className="hidden md:block bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+              <div className="aspect-video">
                 <iframe
                   src="/demo?embedded=true"
                   className="w-full h-full border-0"
@@ -176,6 +178,11 @@ const LandingPage: React.FC = () => {
                   loading="lazy"
                 />
               </div>
+            </div>
+            
+            {/* Mobile Demo */}
+            <div className="md:hidden max-w-sm mx-auto">
+              <MobileDemoComponent />
             </div>
           </div>
         </div>
