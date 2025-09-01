@@ -308,7 +308,7 @@ const LandingPage: React.FC = () => {
             <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-12 py-5 rounded-xl font-bold text-xl transition-all transform hover:scale-105 shadow-2xl inline-block">
               Start Free Trial
             </Link>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-600 text-lg mt-8">
               All plans include a 7-day free trial • Cancel anytime
             </p>
           </div>
