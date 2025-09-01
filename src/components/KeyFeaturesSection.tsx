@@ -418,7 +418,7 @@ const KeyFeaturesSection: React.FC = () => {
             <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-semibold text-base md:text-lg transition-all transform hover:scale-105 shadow-lg">
               Start Free Trial
             </button>
-            <p className="text-gray-500 text-sm mt-3">7-day free trial • No credit card required</p>
+            <p className="text-gray-500 text-sm mt-3">7-day free trial • Cancel anytime</p>
           </div>
         </div>
       </div>
