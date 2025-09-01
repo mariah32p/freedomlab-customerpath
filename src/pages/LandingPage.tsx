@@ -147,16 +147,20 @@ const LandingPage: React.FC = () => {
               Watch how easy it is to build, analyze, and optimize customer journeys
             </p>
             
-            {/* Demo Disclaimer */}
-            <div className="mt-8 mb-6 max-w-2xl mx-auto">
-              <div className="bg-gradient-to-r from-brand-teal/10 to-blue-50 border border-brand-teal/20 rounded-xl p-4">
-                <div className="flex items-center justify-center space-x-2 text-brand-teal">
-                  <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-10 5a7 7 0 1114 0H3z" />
-                  </svg>
-                  <span className="font-semibold text-sm">Interactive Demo</span>
-                  <span className="text-brand-teal/70 text-sm">• Watch it cycle through features automatically</span>
+            {/* Demo Disclaimer - More Prominent */}
+            <div className="mt-8 mb-8 max-w-3xl mx-auto">
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-6 shadow-xl border-2 border-white/20">
+                <div className="flex items-center justify-center space-x-3 mb-2">
+                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-10 5a7 7 0 1114 0H3z" />
+                    </svg>
+                  </div>
+                  <span className="font-bold text-lg">🎬 Interactive Demo</span>
                 </div>
+                <p className="text-white/90 text-center font-medium">
+                  Watch it automatically cycle through features • Stay tuned for the full experience!
+                </p>
               </div>
             </div>
           </div>
