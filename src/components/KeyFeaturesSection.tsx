@@ -402,11 +402,6 @@ const KeyFeaturesSection: React.FC = () => {
               >
                 {features[activeFeature].mockup}
               </motion.div>
-              
-              {/* Floating Badge */}
-              <div className="absolute -top-4 -right-4 bg-brand-teal text-white px-4 py-2 rounded-xl shadow-lg text-sm font-bold animate-pulse">
-                Interactive
-              </div>
             </div>
           </motion.div>
         </AnimatePresence>
