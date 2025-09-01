@@ -48,6 +48,14 @@ const Header: React.FC = () => {
                   Login
                 </Link>
                 <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-md font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 font-montserrat text-base">
+                  Start Free Trial
+                </Link>
+              </>
+            )}
+          </div>
+          
+          {/* Mobile Menu Button and CTA */}
+          {!isAuthenticated && (
               <div className="md:hidden flex items-center space-x-3">
                 <button
                   onClick={toggleMobileMenu}
@@ -73,7 +81,6 @@ const Header: React.FC = () => {
                 Sign Out
               </button>
             )}
-          </div>
           
           {/* Mobile CTA Button */}
           {!isAuthenticated && (
