@@ -189,6 +189,9 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Key Features Section */}
+      <KeyFeaturesSection />
+
       {/* Problem/Solution Section */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
@@ -460,9 +463,6 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </section>
-
-      {/* Key Features Section */}
-      <KeyFeaturesSection />
 
       {/* Features Grid */}
       <section className="py-20 bg-white">
