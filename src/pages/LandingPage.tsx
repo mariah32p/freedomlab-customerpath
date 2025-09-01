@@ -146,6 +146,19 @@ const LandingPage: React.FC = () => {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Watch how easy it is to build, analyze, and optimize customer journeys
             </p>
+            
+            {/* Demo Disclaimer */}
+            <div className="mt-8 mb-6 max-w-2xl mx-auto">
+              <div className="bg-gradient-to-r from-brand-teal/10 to-blue-50 border border-brand-teal/20 rounded-xl p-4">
+                <div className="flex items-center justify-center space-x-2 text-brand-teal">
+                  <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-10 5a7 7 0 1114 0H3z" />
+                  </svg>
+                  <span className="font-semibold text-sm">Interactive Demo</span>
+                  <span className="text-brand-teal/70 text-sm">• Watch it cycle through features automatically</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Demo Embed */}
