@@ -81,13 +81,6 @@ const Header: React.FC = () => {
                 Sign Out
               </button>
             )}
-          
-          {/* Mobile CTA Button */}
-          {!isAuthenticated && (
-            <Link to="/signup" className="md:hidden bg-brand-teal hover:bg-brand-teal/90 text-white px-4 py-2 rounded-md font-semibold transition-all duration-200 text-sm">
-              Try Free
-            </Link>
-          )}
         </div>
       </div>
       </header>
