@@ -314,6 +314,151 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-brand-navy mb-6">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-xl text-gray-600">
+              Everything you need to know about CustomerPath
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+              <h3 className="text-xl font-bold text-brand-navy mb-4">
+                Do I need technical skills to set up CustomerPath?
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Not at all! CustomerPath is designed for business users. Our visual journey builder uses drag-and-drop, and we provide step-by-step guides for connecting your tools via webhooks. Most customers are up and running in under 30 minutes.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+              <h3 className="text-xl font-bold text-brand-navy mb-4">
+                Can I use CustomerPath with my existing tools?
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Yes! CustomerPath works with any tool that can send webhooks - including Stripe, Calendly, HubSpot, Mailchimp, and hundreds of others. We also provide templates for popular automation tools like Zapier and Make.com.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+              <h3 className="text-xl font-bold text-brand-navy mb-4">
+                What happens after my 7-day trial ends?
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Your card will be charged for your selected plan. You can cancel anytime during the trial with no charges. If you cancel after the trial, you'll have access until the end of your billing period.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+              <h3 className="text-xl font-bold text-brand-navy mb-4">
+                Is my customer data secure?
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Absolutely. We use enterprise-grade encryption, secure cloud infrastructure, and never store sensitive customer information. Your data is processed in real-time and stored securely with regular backups.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+              <h3 className="text-xl font-bold text-brand-navy mb-4">
+                Can I switch plans later?
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Yes! You can upgrade or downgrade your plan anytime from your account settings. Changes take effect immediately, and billing is prorated automatically.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+              <h3 className="text-xl font-bold text-brand-navy mb-4">
+                What if I need help getting started?
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                We provide comprehensive setup guides, video tutorials, and email support to help you get the most out of CustomerPath. Most questions are answered in our knowledge base within minutes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-20 bg-brand-navy text-white relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+            backgroundSize: '40px 40px'
+          }}></div>
+        </div>
+        
+        <div className="relative max-w-4xl mx-auto text-center px-6">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+            Stop Guessing Where Your
+            <span className="block text-brand-teal">Customers Drop Off</span>
+          </h2>
+          
+          <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Join hundreds of businesses using CustomerPath to increase conversions, reduce churn, and turn customer data into actionable insights.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
+            <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-12 py-5 rounded-xl font-bold text-xl transition-all transform hover:scale-105 shadow-2xl inline-block">
+              Start Your Free Trial
+            </Link>
+            
+            <Link to="/demo" className="border-2 border-white/30 text-white hover:bg-white/10 px-12 py-5 rounded-xl font-bold text-xl transition-all backdrop-blur-sm inline-block">
+              View Live Demo
+            </Link>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-8 text-white/70 text-sm">
+            <div className="flex items-center">
+              <svg className="h-4 w-4 mr-2 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>7-day free trial</span>
+            </div>
+            <div className="flex items-center">
+              <svg className="h-4 w-4 mr-2 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>No setup fees</span>
+            </div>
+            <div className="flex items-center">
+              <svg className="h-4 w-4 mr-2 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Cancel anytime</span>
+            </div>
+          </div>
+          
+          {/* Trust Indicators */}
+          <div className="mt-12 pt-8 border-t border-white/20">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+              <div>
+                <div className="text-2xl font-bold text-brand-teal">500+</div>
+                <div className="text-white/70 text-sm">Active Users</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-brand-teal">2.3M+</div>
+                <div className="text-white/70 text-sm">Events Tracked</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-brand-teal">98%</div>
+                <div className="text-white/70 text-sm">Uptime</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-brand-teal">24/7</div>
+                <div className="text-white/70 text-sm">Data Sync</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
