@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import MobileDemoComponent from '../components/MobileDemoComponent'
 import KeyFeaturesSection from '../components/KeyFeaturesSection'
+import SocialProofSection from '../components/SocialProofSection'
 import { useAuth } from '../hooks/useAuth'
 
 const LandingPage: React.FC = () => {
@@ -191,6 +192,9 @@ const LandingPage: React.FC = () => {
 
       {/* Key Features Section */}
       <KeyFeaturesSection />
+
+      {/* Social Proof Section */}
+      <SocialProofSection />
 
       {/* Problem/Solution Section */}
       <section className="py-20 bg-white">
