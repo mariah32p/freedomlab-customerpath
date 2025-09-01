@@ -34,7 +34,11 @@ const LandingPage: React.FC = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-6 sm:mb-8 px-4 sm:px-0">
-                <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl inline-block text-center">
+                <Link 
+                  to="/signup" 
+                  onClick={() => window.scrollTo(0, 0)}
+                  className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl inline-block text-center"
+                >
                   Start Free Trial
                 </Link>
               </div>
@@ -251,6 +255,14 @@ const LandingPage: React.FC = () => {
                   <span className="text-gray-700 text-sm sm:text-base lg:text-lg">Export journey maps (PNG/PDF)</span>
                 </div>
               </div>
+
+              <Link 
+                to="/signup" 
+                onClick={() => window.scrollTo(0, 0)}
+                className="block w-full bg-gray-100 hover:bg-gray-200 text-brand-navy py-4 rounded-lg font-semibold text-lg transition-all border-2 border-gray-200 hover:border-gray-300 text-center"
+              >
+                Start Free Trial
+              </Link>
             </div>
 
             {/* Pro Plan */}
@@ -301,11 +313,23 @@ const LandingPage: React.FC = () => {
                   <span className="text-gray-700 text-sm sm:text-base lg:text-lg">Team collaboration features</span>
                 </div>
               </div>
+
+              <Link 
+                to="/signup" 
+                onClick={() => window.scrollTo(0, 0)}
+                className="block w-full bg-brand-teal hover:bg-brand-teal/90 text-white py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-lg text-center"
+              >
+                Start Free Trial
+              </Link>
             </div>
           </div>
 
           <div className="text-center mt-12 md:mt-16 px-4">
-            <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-lg sm:text-xl transition-all transform hover:scale-105 shadow-2xl inline-block">
+            <Link 
+              to="/signup" 
+              onClick={() => window.scrollTo(0, 0)}
+              className="bg-brand-teal hover:bg-brand-teal/90 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-lg sm:text-xl transition-all transform hover:scale-105 shadow-2xl inline-block"
+            >
               Start Free Trial
             </Link>
             <p className="text-gray-600 text-base sm:text-lg mt-6 sm:mt-8">
@@ -414,7 +438,11 @@ const LandingPage: React.FC = () => {
             Join hundreds of businesses using CustomerPath to increase conversions, reduce churn, and turn customer data into actionable insights.
           </p>
           
-          <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-lg sm:text-xl transition-all transform hover:scale-105 shadow-2xl inline-block">
+          <Link 
+            to="/signup" 
+            onClick={() => window.scrollTo(0, 0)}
+            className="bg-brand-teal hover:bg-brand-teal/90 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-lg sm:text-xl transition-all transform hover:scale-105 shadow-2xl inline-block"
+          >
             Start Your Free Trial
           </Link>
         </div>
