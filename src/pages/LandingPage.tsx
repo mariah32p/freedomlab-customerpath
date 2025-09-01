@@ -136,6 +136,43 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Demo Video Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-brand-navy mb-4">
+              See CustomerPath in Action
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Watch how easy it is to build, analyze, and optimize customer journeys
+            </p>
+          </div>
+
+          {/* Demo Embed */}
+          <div className="max-w-6xl mx-auto">
+            <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+              <div className="aspect-video">
+                <iframe
+                  src="/demo"
+                  className="w-full h-full border-0"
+                  title="CustomerPath Interactive Demo"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            
+            <div className="text-center mt-8">
+              <Link to="/demo" className="inline-flex items-center text-brand-teal hover:text-brand-teal/80 font-semibold transition-colors">
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                Open Full Demo
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Problem/Solution Section */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
