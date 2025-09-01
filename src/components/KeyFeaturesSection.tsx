@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 const KeyFeaturesSection: React.FC = () => {
   const [activeFeature, setActiveFeature] = useState(0)
@@ -415,9 +416,13 @@ const KeyFeaturesSection: React.FC = () => {
             <p className="text-sm md:text-base text-gray-600 mb-6">
               Start your free trial and see these features in action with your own data
             </p>
-            <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-semibold text-base md:text-lg transition-all transform hover:scale-105 shadow-lg">
+            <Link 
+              to="/signup" 
+              onClick={() => window.scrollTo(0, 0)}
+              className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-semibold text-base md:text-lg transition-all transform hover:scale-105 shadow-lg inline-block"
+            >
               Start Free Trial
-            </button>
+            </Link>
             <p className="text-gray-500 text-sm mt-3">7-day free trial • Cancel anytime</p>
           </div>
         </div>
