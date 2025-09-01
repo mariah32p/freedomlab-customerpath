@@ -149,16 +149,16 @@ const LandingPage: React.FC = () => {
             
             {/* Demo Disclaimer - More Prominent */}
             <div className="mt-8 mb-8 max-w-3xl mx-auto">
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-6 shadow-xl border-2 border-white/20">
-                <div className="flex items-center justify-center space-x-3 mb-2">
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-4 md:p-6 shadow-xl border-2 border-white/20">
+                <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3 mb-2">
                   <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-10 5a7 7 0 1114 0H3z" />
                     </svg>
                   </div>
-                  <span className="font-bold text-lg">🎬 Interactive Demo</span>
+                  <span className="font-bold text-lg text-center sm:text-left">🎬 Interactive Demo</span>
                 </div>
-                <p className="text-white/90 text-center font-medium">
+                <p className="text-white/90 text-center font-medium text-sm md:text-base">
                   Watch it automatically cycle through features • Stay tuned for the full experience!
                 </p>
               </div>
@@ -168,7 +168,7 @@ const LandingPage: React.FC = () => {
           {/* Demo Embed */}
           <div className="max-w-6xl mx-auto">
             <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
-              <div className="aspect-video">
+              <div className="aspect-video md:aspect-video" style={{ aspectRatio: window.innerWidth < 768 ? '4/3' : '16/9' }}>
                 <iframe
                   src="/demo?embedded=true"
                   className="w-full h-full border-0"
