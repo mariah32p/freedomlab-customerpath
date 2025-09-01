@@ -91,9 +91,15 @@ const DemoPage: React.FC = () => {
   };
 
   useEffect(() => {
+    // Start with faster cycling for first few rounds, then slow down
+    let cycleCount = 0
+    const maxFastCycles = 2
+    
     const interval = setInterval(() => {
       setCurrentStep(prev => (prev + 1) % 4);
-    }, 6000);
+      cycleCount++
+    }, cycleCount < maxFastCycles ? 3000 : 6000); // 3s for first 2 cycles, then 6s
+    
     return () => clearInterval(interval);
   }, []);
 

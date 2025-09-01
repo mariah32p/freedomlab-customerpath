@@ -104,9 +104,9 @@ const SigninPage: React.FC = () => {
               </div>
 
               <div className="flex justify-end">
-                <button type="button" className="text-sm text-brand-teal hover:text-brand-teal/80 transition-colors">
+                <Link to="/forgot-password" className="text-sm text-brand-teal hover:text-brand-teal/80 transition-colors">
                   Forgot password?
-                </button>
+                </Link>
               </div>
 
               <button
