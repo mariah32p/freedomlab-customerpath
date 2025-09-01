@@ -339,10 +339,19 @@ const LandingPage: React.FC = () => {
 
             <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
               <h3 className="text-xl font-bold text-brand-navy mb-4">
+                What are webhooks and how do I set them up?
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Webhooks are automatic notifications that your tools send when something happens (like a new signup or payment). CustomerPath gives you a unique webhook URL that you can add to tools like Stripe, Calendly, or Mailchimp. We provide step-by-step guides for popular tools, and you can use free tiers of Zapier or Make.com to connect tools that don't have direct webhook support.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+              <h3 className="text-xl font-bold text-brand-navy mb-4">
                 Can I use CustomerPath with my existing tools?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Yes! CustomerPath works with any tool that can send webhooks - including Stripe, Calendly, HubSpot, Mailchimp, and hundreds of others. We also provide templates for popular automation tools like Zapier and Make.com.
+                Yes! CustomerPath works with any tool that can send webhooks - including Stripe, Calendly, HubSpot, Mailchimp, and hundreds of others. For tools without direct webhook support, you can use free automation tools like Zapier or Make.com to bridge the connection.
               </p>
             </div>
 
@@ -360,7 +369,7 @@ const LandingPage: React.FC = () => {
                 Is my customer data secure?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Absolutely. We use enterprise-grade encryption, secure cloud infrastructure, and never store sensitive customer information. Your data is processed in real-time and stored securely with regular backups.
+                Yes. We use enterprise-grade encryption and secure cloud infrastructure. Customer journey data is stored securely with regular backups. We only store the information needed to track your customer journeys (like email addresses and event timestamps) - never payment details or other sensitive information.
               </p>
             </div>
 
