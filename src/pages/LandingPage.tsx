@@ -414,58 +414,9 @@ const LandingPage: React.FC = () => {
             Join hundreds of businesses using CustomerPath to increase conversions, reduce churn, and turn customer data into actionable insights.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-            <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-12 py-5 rounded-xl font-bold text-xl transition-all transform hover:scale-105 shadow-2xl inline-block">
-              Start Your Free Trial
-            </Link>
-            
-            <Link to="/demo" className="border-2 border-white/30 text-white hover:bg-white/10 px-12 py-5 rounded-xl font-bold text-xl transition-all backdrop-blur-sm inline-block">
-              View Live Demo
-            </Link>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-8 text-white/70 text-sm">
-            <div className="flex items-center">
-              <svg className="h-4 w-4 mr-2 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>7-day free trial</span>
-            </div>
-            <div className="flex items-center">
-              <svg className="h-4 w-4 mr-2 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>No setup fees</span>
-            </div>
-            <div className="flex items-center">
-              <svg className="h-4 w-4 mr-2 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span>Cancel anytime</span>
-            </div>
-          </div>
-          
-          {/* Trust Indicators */}
-          <div className="mt-12 pt-8 border-t border-white/20">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <div className="text-2xl font-bold text-brand-teal">500+</div>
-                <div className="text-white/70 text-sm">Active Users</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-brand-teal">2.3M+</div>
-                <div className="text-white/70 text-sm">Events Tracked</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-brand-teal">98%</div>
-                <div className="text-white/70 text-sm">Uptime</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-brand-teal">24/7</div>
-                <div className="text-white/70 text-sm">Data Sync</div>
-              </div>
-            </div>
-          </div>
+          <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-12 py-5 rounded-xl font-bold text-xl transition-all transform hover:scale-105 shadow-2xl inline-block">
+            Start Your Free Trial
+          </Link>
         </div>
       </section>
     </div>
