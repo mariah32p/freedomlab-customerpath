@@ -15,36 +15,23 @@ const Header: React.FC = () => {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gray-100 z-50 shadow-sm">
+    <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-100 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link to={isAuthenticated ? "/dashboard" : "/"} className="text-2xl font-bold text-brand-navy font-montserrat hover:text-brand-teal transition-colors">
+          <Link to={isAuthenticated ? "/dashboard" : "/"} className="text-xl md:text-2xl font-bold text-brand-navy font-montserrat hover:text-brand-teal transition-colors max-w-[120px] md:max-w-none">
             CustomerPath
           </Link>
           
-          {/* Navigation */}
-          <nav className="hidden md:flex items-center space-x-10">
-            {isAuthenticated ? (
-              <>
-                <Link to="/dashboard" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
-                  Dashboard
-                </Link>
-                <Link to="/journeys" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
-                  Journeys
-                </Link>
-                <Link to="/analytics" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
-                  Analytics
-                </Link>
-                <Link to="/settings" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
-                  Settings
-                </Link>
-              </>
-            ) : null}
-          </nav>
+          {/* Mobile Menu Button */}
+          <button className="md:hidden p-2 text-brand-navy hover:text-brand-teal transition-colors">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
           
           {/* CTA Buttons */}
-          <div className="flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4">
             {isAuthenticated ? (
               <button 
                 onClick={handleSignOut}
@@ -54,18 +41,22 @@ const Header: React.FC = () => {
               </button>
             ) : (
               <>
-                <Link to="/pricing" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
-                  Pricing
-                </Link>
                 <Link to="/signin" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
-                  Sign In
+                  Login
                 </Link>
-                <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 font-montserrat">
+                <Link to="/signup" className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-md font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 font-montserrat text-base">
                   Start Free Trial
                 </Link>
               </>
             )}
           </div>
+          
+          {/* Mobile CTA Button */}
+          {!isAuthenticated && (
+            <Link to="/signup" className="md:hidden bg-brand-teal hover:bg-brand-teal/90 text-white px-4 py-2 rounded-md font-semibold transition-all duration-200 text-sm">
+              Try Free
+            </Link>
+          )}
         </div>
       </div>
     </header>
