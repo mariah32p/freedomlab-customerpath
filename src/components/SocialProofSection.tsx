@@ -66,15 +66,15 @@ const SocialProofSection: React.FC = () => {
               ))}
             </div>
             <p className="text-gray-700 italic leading-relaxed mb-6">
-              "CustomerPath helped us identify a 40% drop-off in our onboarding flow. After optimizing based on their insights, we increased conversions by 25% in just 2 weeks."
+              "CustomerPath helped us identify a 40% drop-off in our SaaS onboarding flow. After optimizing based on their insights, we increased trial-to-paid conversions by 25%."
             </p>
             <div className="flex items-center">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-4">
-                <span className="text-white font-bold text-lg">SC</span>
+                <span className="text-white font-bold text-lg">MW</span>
               </div>
               <div>
-                <div className="font-semibold text-brand-navy">Sarah Chen</div>
-                <div className="text-sm text-gray-600">Head of Growth, TechCorp</div>
+                <div className="font-semibold text-brand-navy">Mariah W.</div>
+                <div className="text-sm text-gray-600">VP Product, Software Company</div>
               </div>
             </div>
           </div>
@@ -86,15 +86,15 @@ const SocialProofSection: React.FC = () => {
               ))}
             </div>
             <p className="text-gray-700 italic leading-relaxed mb-6">
-              "The visual journey maps make it so easy to spot bottlenecks. We've reduced churn by 30% and our team finally understands where customers struggle."
+              "The visual journey maps make it so easy to spot bottlenecks in our client onboarding. We've reduced churn by 30% and our whole team can now see where clients get stuck."
             </p>
             <div className="flex items-center">
               <div className="w-12 h-12 bg-gradient-to-br from-brand-teal to-cyan-500 rounded-full flex items-center justify-center mr-4">
-                <span className="text-white font-bold text-lg">MR</span>
+                <span className="text-white font-bold text-lg">DR</span>
               </div>
               <div>
-                <div className="font-semibold text-brand-navy">Mike Rodriguez</div>
-                <div className="text-sm text-gray-600">VP Marketing, StartupXYZ</div>
+                <div className="font-semibold text-brand-navy">Diane R.</div>
+                <div className="text-sm text-gray-600">Director of Operations, Professional Services</div>
               </div>
             </div>
           </div>
@@ -106,15 +106,15 @@ const SocialProofSection: React.FC = () => {
               ))}
             </div>
             <p className="text-gray-700 italic leading-relaxed mb-6">
-              "Setting up webhooks with Zapier was incredibly simple. Now our customer data flows automatically and we can see the complete journey in real-time."
+              "Setting up webhooks with Zapier was incredibly simple. Now our lead data flows automatically from our website to CRM and we can see the complete client journey."
             </p>
             <div className="flex items-center">
               <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mr-4">
-                <span className="text-white font-bold text-lg">JL</span>
+                <span className="text-white font-bold text-lg">NR</span>
               </div>
               <div>
-                <div className="font-semibold text-brand-navy">Jessica Liu</div>
-                <div className="text-sm text-gray-600">Product Manager, ScaleUp</div>
+                <div className="font-semibold text-brand-navy">Nathan R.</div>
+                <div className="text-sm text-gray-600">IT Director, Legal Services Firm</div>
               </div>
             </div>
           </div>
