@@ -248,7 +248,7 @@ const LandingPage: React.FC = () => {
                   <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  <span className="text-gray-700 text-lg">Email support</span>
+                  <span className="text-gray-700 text-lg">Custom webhook setup</span>
                 </div>
               </div>
 
@@ -296,13 +296,7 @@ const LandingPage: React.FC = () => {
                   <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  <span className="text-gray-700 text-lg">Priority support & training</span>
-                </div>
-                <div className="flex items-center">
-                  <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-gray-700 text-lg">Custom webhook configurations</span>
+                  <span className="text-gray-700 text-lg">Custom webhook setup</span>
                 </div>
               </div>
 
