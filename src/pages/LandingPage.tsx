@@ -195,6 +195,130 @@ const LandingPage: React.FC = () => {
 
       {/* Social Proof Section */}
       <SocialProofSection />
+
+      {/* Pricing Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-brand-navy mb-6">
+              Simple, Transparent Pricing
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Start with a 7-day free trial. Scale as you grow.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Basic Plan */}
+            <div className="bg-white p-8 lg:p-10 rounded-3xl shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300">
+              <div className="text-center mb-10">
+                <h3 className="text-3xl font-bold text-brand-navy mb-4">Basic</h3>
+                <div className="text-6xl font-bold text-brand-navy mb-4">
+                  $29<span className="text-2xl font-normal text-gray-500">/month</span>
+                </div>
+                <p className="text-lg text-gray-600">Perfect for small teams getting started</p>
+              </div>
+
+              <div className="space-y-5 mb-10">
+                <div className="flex items-center">
+                  <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span className="text-gray-700 text-lg">Up to 3 customer journey maps</span>
+                </div>
+                <div className="flex items-center">
+                  <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span className="text-gray-700 text-lg">Up to 3 tool connections</span>
+                </div>
+                <div className="flex items-center">
+                  <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span className="text-gray-700 text-lg">Real-time analytics dashboard</span>
+                </div>
+                <div className="flex items-center">
+                  <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span className="text-gray-700 text-lg">Live customer activity feed</span>
+                </div>
+                <div className="flex items-center">
+                  <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span className="text-gray-700 text-lg">Email support</span>
+                </div>
+              </div>
+
+              <Link to="/signup" className="w-full bg-gray-100 hover:bg-gray-200 text-brand-navy py-4 rounded-lg font-semibold text-lg transition-all border-2 border-gray-200 hover:border-gray-300 block text-center">
+                Start Free Trial
+              </Link>
+            </div>
+
+            {/* Pro Plan */}
+            <div className="relative bg-white p-8 lg:p-10 rounded-3xl shadow-2xl border-2 border-brand-teal">
+              <div className="absolute -top-5 left-1/2 transform -translate-x-1/2">
+                <span className="bg-brand-teal text-white px-8 py-3 rounded-full text-sm font-bold shadow-xl">
+                  Most Popular
+                </span>
+              </div>
+              
+              <div className="text-center mb-10">
+                <h3 className="text-3xl font-bold text-brand-navy mb-4">Pro</h3>
+                <div className="text-6xl font-bold text-brand-navy mb-4">
+                  $49<span className="text-2xl font-normal text-gray-500">/month</span>
+                </div>
+                <p className="text-lg text-gray-600">For growing teams that need more power</p>
+              </div>
+
+              <div className="space-y-5 mb-10">
+                <div className="flex items-center">
+                  <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span className="text-gray-700 text-lg">Unlimited journey maps</span>
+                </div>
+                <div className="flex items-center">
+                  <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span className="text-gray-700 text-lg">Unlimited tool connections</span>
+                </div>
+                <div className="flex items-center">
+                  <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span className="text-gray-700 text-lg">Advanced analytics & insights</span>
+                </div>
+                <div className="flex items-center">
+                  <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span className="text-gray-700 text-lg">Priority support & training</span>
+                </div>
+                <div className="flex items-center">
+                  <svg className="h-6 w-6 text-brand-teal mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span className="text-gray-700 text-lg">Custom webhook configurations</span>
+                </div>
+              </div>
+
+              <Link to="/signup" className="w-full bg-brand-teal hover:bg-brand-teal/90 text-white py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-xl block text-center">
+                Start Free Trial
+              </Link>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <p className="text-gray-600 text-lg">
+              All plans include a 7-day free trial • Cancel anytime
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
