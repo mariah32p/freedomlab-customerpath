@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import MobileDemoComponent from '../components/MobileDemoComponent'
+import KeyFeaturesSection from '../components/KeyFeaturesSection'
 import { useAuth } from '../hooks/useAuth'
 
 const LandingPage: React.FC = () => {
@@ -459,6 +460,9 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Key Features Section */}
+      <KeyFeaturesSection />
 
       {/* Features Grid */}
       <section className="py-20 bg-white">
