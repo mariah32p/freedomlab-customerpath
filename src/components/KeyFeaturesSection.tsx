@@ -9,17 +9,17 @@ const KeyFeaturesSection: React.FC = () => {
       id: 'visual-builder',
       title: 'Visual Journey Builder',
       subtitle: 'Drag & Drop Interface',
-      description: 'Create detailed customer journey maps with our intuitive visual builder. No technical skills required.',
+      description: 'Map out your customer journey from first touch to conversion. See exactly where customers engage, hesitate, and drop off.',
       benefits: [
-        'Drag-and-drop touchpoint creation',
-        'Pre-built templates for common journeys',
-        'Real-time collaboration with team members',
-        'Custom branding and styling options'
+        'Drag-and-drop journey step creation',
+        'Real-time user count tracking',
+        'Visual drop-off rate indicators',
+        'Editable step names and metrics'
       ],
       mockup: (
-        <div className="bg-white rounded-xl border border-gray-200 p-6 h-80 overflow-hidden">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 h-96 overflow-hidden">
           <div className="flex items-center justify-between mb-4">
-            <h4 className="font-bold text-gray-900">E-commerce Journey Builder</h4>
+            <h4 className="font-bold text-gray-900">SaaS Customer Journey</h4>
             <div className="flex space-x-2">
               <button className="bg-blue-500 text-white px-3 py-1 rounded text-xs">+ Add Step</button>
               <button className="border border-gray-300 text-gray-600 px-3 py-1 rounded text-xs">Save</button>
@@ -28,10 +28,10 @@ const KeyFeaturesSection: React.FC = () => {
           
           <div className="space-y-3">
             {[
-              { name: 'Landing Page', users: '8.2k', color: 'bg-blue-500' },
-              { name: 'Product Demo', users: '6.4k', color: 'bg-brand-teal' },
-              { name: 'Trial Signup', users: '4.0k', color: 'bg-purple-500' },
-              { name: 'Payment', users: '1.8k', color: 'bg-green-500' }
+              { name: 'Google Search → Landing', users: '5.2k', color: 'bg-blue-500', dropRate: null },
+              { name: 'Demo Video Watch', users: '3.4k', color: 'bg-brand-teal', dropRate: 35 },
+              { name: 'Free Trial Signup', users: '2.2k', color: 'bg-purple-500', dropRate: 35 },
+              { name: 'Paid Subscription', users: '1.3k', color: 'bg-green-500', dropRate: 41 }
             ].map((step, i) => (
               <div key={i} className="relative">
                 <div className="flex items-center justify-between bg-gray-50 p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors cursor-pointer">
@@ -45,29 +45,43 @@ const KeyFeaturesSection: React.FC = () => {
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
+                    <div className="text-right mr-2">
+                      <div className="text-lg font-bold text-gray-900">
+                        {i === 0 ? '100%' : `${Math.round((parseFloat(step.users.replace('k', '')) / 5.2) * 100)}%`}
+                      </div>
+                      <div className="text-xs text-gray-500">conversion</div>
+                    </div>
                     <button className="text-gray-400 hover:text-gray-600">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                       </svg>
                     </button>
-                    <button className="text-gray-400 hover:text-red-500">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
-                    </button>
                   </div>
                 </div>
-                {i < 3 && (
+                {i < 3 && step.dropRate && (
                   <div className="flex justify-center py-1">
                     <div className="bg-red-100 px-2 py-1 rounded-full">
                       <span className="text-red-600 text-xs font-medium">
-                        -{Math.round((1 - (parseInt(step.users.replace('k', '')) / (i === 0 ? 8.2 : i === 1 ? 6.4 : 4.0))) * 100)}% drop
+                        -{step.dropRate}% drop-off
                       </span>
                     </div>
                   </div>
                 )}
               </div>
             ))}
+          </div>
+          
+          <div className="mt-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-4 border border-green-200">
+            <div className="grid grid-cols-2 gap-4 text-center">
+              <div>
+                <p className="text-xl font-bold text-green-600">25%</p>
+                <p className="text-gray-700 text-sm">Overall Conversion</p>
+              </div>
+              <div>
+                <p className="text-xl font-bold text-blue-600">$64k</p>
+                <p className="text-gray-700 text-sm">Monthly Revenue</p>
+              </div>
+            </div>
           </div>
         </div>
       )
@@ -76,17 +90,17 @@ const KeyFeaturesSection: React.FC = () => {
       id: 'real-time-analytics',
       title: 'Real-time Analytics',
       subtitle: 'Live Data Insights',
-      description: 'Track customer behavior as it happens with real-time analytics and conversion tracking.',
+      description: 'See your customer data update in real-time. Track conversions, monitor drop-offs, and get instant insights as customers move through your journey.',
       benefits: [
         'Live conversion rate monitoring',
-        'Real-time drop-off identification',
-        'Instant performance alerts',
-        'Historical trend analysis'
+        'Real-time customer activity feed',
+        'Instant revenue tracking',
+        'Performance trend indicators'
       ],
       mockup: (
-        <div className="bg-white rounded-xl border border-gray-200 p-6 h-80 overflow-hidden">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 h-96 overflow-hidden">
           <div className="flex items-center justify-between mb-4">
-            <h4 className="font-bold text-gray-900">Live Analytics Dashboard</h4>
+            <h4 className="font-bold text-gray-900">Live Customer Dashboard</h4>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
               <span className="text-green-600 text-sm font-medium">Live</span>
@@ -95,24 +109,25 @@ const KeyFeaturesSection: React.FC = () => {
           
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-              <div className="text-2xl font-bold text-blue-600">24.8%</div>
+              <div className="text-2xl font-bold text-blue-600">25%</div>
               <div className="text-gray-600 text-sm">Conversion Rate</div>
-              <div className="text-green-600 text-xs font-medium">+3.2% today</div>
+              <div className="text-green-600 text-xs font-medium">+2.1% today</div>
             </div>
             <div className="bg-brand-teal/10 p-4 rounded-lg border border-brand-teal/20">
-              <div className="text-2xl font-bold text-brand-teal">$47.2k</div>
+              <div className="text-2xl font-bold text-brand-teal">$64k</div>
               <div className="text-gray-600 text-sm">Revenue</div>
-              <div className="text-green-600 text-xs font-medium">+12% this week</div>
+              <div className="text-green-600 text-xs font-medium">+18% this month</div>
             </div>
           </div>
 
           <div className="space-y-2">
             <h5 className="font-semibold text-gray-900 text-sm">Recent Activity</h5>
             {[
-              { time: '2s ago', event: 'Payment completed', user: 'sarah@company.com', value: '$49' },
-              { time: '8s ago', event: 'Trial started', user: 'mike@startup.io', value: null },
-              { time: '15s ago', event: 'Demo booked', user: 'jessica@scale.com', value: null },
-              { time: '23s ago', event: 'Page visit', user: 'david@growth.co', value: null }
+              { time: '3s ago', event: 'Subscription started', user: 'sarah@techcorp.com', value: '$49' },
+              { time: '12s ago', event: 'Demo completed', user: 'mike@startup.io', value: null },
+              { time: '28s ago', event: 'Trial signup', user: 'jessica@scale.com', value: null },
+              { time: '45s ago', event: 'Landing page visit', user: 'david@growth.co', value: null },
+              { time: '1m ago', event: 'Demo video started', user: 'emma@business.net', value: null }
             ].map((activity, i) => (
               <div key={i} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center space-x-3">
@@ -140,24 +155,24 @@ const KeyFeaturesSection: React.FC = () => {
       id: 'webhook-support',
       title: 'Guided Webhook Setup',
       subtitle: 'Connect Your Tools',
-      description: 'Connect your existing tools through webhooks with guided setup for platforms like Zapier and Make.',
+      description: 'Connect CustomerPath to your existing tools using webhooks. We provide step-by-step guides for Zapier, Make.com, and custom integrations.',
       benefits: [
         'Step-by-step webhook configuration',
-        'Pre-built templates for popular tools',
+        'Zapier workflow templates',
         'Zapier and Make.com integration guides',
-        'Real-time event testing and validation'
+        'Custom webhook URL generation'
       ],
       mockup: (
-        <div className="bg-white rounded-xl border border-gray-200 p-6 h-80 overflow-hidden">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 h-96 overflow-hidden">
           <div className="flex items-center justify-between mb-4">
-            <h4 className="font-bold text-gray-900">Webhook Setup Guide</h4>
+            <h4 className="font-bold text-gray-900">Connected Tools</h4>
             <div className="bg-brand-teal/10 text-brand-teal px-2 py-1 rounded-full text-xs font-medium">
-              🔗 Connected
+              3 Active
             </div>
           </div>
           
           <div className="space-y-4">
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 rounded-lg border border-blue-200">
+            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 rounded-lg border border-blue-200 hover:shadow-md transition-shadow">
               <div className="flex items-start space-x-3">
                 <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,15 +181,15 @@ const KeyFeaturesSection: React.FC = () => {
                 </div>
                 <div>
                   <h5 className="font-semibold text-blue-700 mb-1">Zapier Integration</h5>
-                  <p className="text-blue-600 text-sm mb-2">Connected to 3 workflows • 247 events today</p>
+                  <p className="text-blue-600 text-sm mb-2">Auto-sync demo bookings • 89 events today</p>
                   <button className="bg-blue-500 text-white px-3 py-1 rounded text-xs font-medium">
-                    Configure Triggers
+                    Edit Workflow
                   </button>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-brand-teal/10 to-cyan-50 p-4 rounded-lg border border-brand-teal/20">
+            <div className="bg-gradient-to-r from-brand-teal/10 to-cyan-50 p-4 rounded-lg border border-brand-teal/20 hover:shadow-md transition-shadow">
               <div className="flex items-start space-x-3">
                 <div className="w-8 h-8 bg-brand-teal rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -184,41 +199,42 @@ const KeyFeaturesSection: React.FC = () => {
                 </div>
                 <div>
                   <h5 className="font-semibold text-brand-teal mb-1">Make.com Automation</h5>
-                  <p className="text-brand-teal text-sm mb-2">Auto-sync customer data • 156 events today</p>
+                  <p className="text-brand-teal text-sm mb-2">Sync trial signups to CRM • 156 events today</p>
                   <button className="bg-brand-teal text-white px-3 py-1 rounded text-xs font-medium">
-                    Edit Workflow
+                    View Scenario
                   </button>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-purple-50 to-indigo-50 p-4 rounded-lg border border-purple-200">
+            <div className="bg-gradient-to-r from-purple-50 to-indigo-50 p-4 rounded-lg border border-purple-200 hover:shadow-md transition-shadow">
               <div className="flex items-start space-x-3">
                 <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                   </svg>
                 </div>
                 <div>
-                  <h5 className="font-semibold text-purple-700 mb-1">Custom Webhook</h5>
-                  <p className="text-purple-600 text-sm mb-2">Direct API integration • 89 events today</p>
+                  <h5 className="font-semibold text-purple-700 mb-1">Stripe Webhook</h5>
+                  <p className="text-purple-600 text-sm mb-2">Payment events tracking • 47 events today</p>
                   <button className="bg-purple-500 text-white px-3 py-1 rounded text-xs font-medium">
-                    View Docs
+                    Test Events
                   </button>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
               <div className="flex items-center space-x-2 mb-2">
                 <svg className="w-4 h-4 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
                 <span className="font-semibold text-brand-teal text-sm">Your Webhook URL</span>
+                <button className="bg-brand-teal text-white px-2 py-1 rounded text-xs">Copy</button>
               </div>
-              <div className="bg-white rounded border border-gray-200 p-2">
+              <div className="bg-white rounded border border-gray-200 p-3">
                 <code className="text-xs text-gray-600 font-mono">
-                  https://api.customerpath.com/webhook/abc123
+                  https://api.customerpath.com/webhook/usr_abc123xyz
                 </code>
               </div>
             </div>
@@ -229,14 +245,86 @@ const KeyFeaturesSection: React.FC = () => {
   ]
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
+        {/* Context Section */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-brand-navy mb-6 leading-tight">
-            Key Features That Drive Results
+            Map Every Step of Your Customer's Journey
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Powerful tools designed specifically for understanding and optimizing customer journeys
+          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-8">
+            A customer journey is the complete path someone takes from first discovering your product to becoming a loyal customer. CustomerPath helps you visualize each touchpoint, measure what's working, and optimize what isn't.
+          </p>
+          
+          {/* Journey Explanation */}
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl p-8 border border-gray-200">
+              <h3 className="text-2xl font-bold text-brand-navy mb-6">Real Example: SaaS Customer Journey</h3>
+              
+              <div className="grid md:grid-cols-4 gap-6">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-blue-500 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
+                  <h4 className="font-bold text-brand-navy mb-2">Discovery</h4>
+                  <p className="text-gray-600 text-sm">Google search → Landing page</p>
+                  <div className="text-lg font-bold text-blue-600 mt-2">5,247</div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-brand-teal rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <h4 className="font-bold text-brand-navy mb-2">Demo</h4>
+                  <p className="text-gray-600 text-sm">Watches product demo video</p>
+                  <div className="text-lg font-bold text-brand-teal mt-2">3,421</div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-purple-500 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                    </svg>
+                  </div>
+                  <h4 className="font-bold text-brand-navy mb-2">Trial</h4>
+                  <p className="text-gray-600 text-sm">Signs up for free trial</p>
+                  <div className="text-lg font-bold text-purple-600 mt-2">2,156</div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-green-500 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <h4 className="font-bold text-brand-navy mb-2">Customer</h4>
+                  <p className="text-gray-600 text-sm">Converts to paid plan</p>
+                  <div className="text-lg font-bold text-green-600 mt-2">1,289</div>
+                </div>
+              </div>
+              
+              <div className="mt-8 text-center">
+                <div className="inline-flex items-center bg-green-100 text-green-700 px-6 py-3 rounded-full font-semibold">
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                  24.6% Overall Conversion Rate • $64k Monthly Revenue
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="text-center mb-16">
+          <h3 className="text-3xl font-bold text-brand-navy mb-4">
+            See How Each Feature Works
+          </h3>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Explore the tools that make customer journey optimization simple and effective
           </p>
         </div>
 
