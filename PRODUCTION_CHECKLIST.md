@@ -3,16 +3,20 @@ Overview: Subscription + App MVP (Supabase + Stripe on Netlify)
 ✅ Landing page: Every button is a single CTA ("Start Free Trial"). All of them open the sign-up flow (no plan-specific buttons on the landing page).
 ✅ Sign-up: Create the user in Supabase Auth (email confirmation is turned off), then send them to /get-started.
 ✅ Get Started: User chooses Basic or Pro. When they click "Start 7-day trial," the server creates a Stripe Checkout Session with a trial and redirects them to Stripe.
-🔄 Return: After Checkout, Stripe sends the user back to /dashboard. Your webhook marks the subscription as "trialing" and stores the trial end date. (NEEDS TESTING)
-🔄 Dashboard: Shows the product's real sections (e.g., Dashboard, Forms, Submissions, Settings) plus Settings. A small banner shows trial days left and charge date. All features work during the trial. (NEEDS AUTH FIX)
+✅ Return: After Checkout, Stripe sends the user back to /success, then redirects to /dashboard. Webhook marks subscription as "trialing" and stores trial end date.
+✅ Dashboard: Shows the product sections with trial banner showing days left and charge date. All features work during the trial.
 Auto-upgrade: At the end of the trial, Stripe automatically charges the card and the subscription becomes "active."
 
 2) App structure
 Routes
 ✅ /landing
 ✅ /signup: email/password sign-up
+✅ /signin: email/password sign-in
+✅ /forgot-password: password reset request
+✅ /reset-password: password reset form
 ✅ /get-started: plan selection + start trial (go to Checkout)
-🔄 /dashboard: protected app with product sections + Settings (NEEDS AUTH FIX)
+✅ /success: post-checkout redirect page
+✅ /dashboard: protected app with product sections + Settings
 Sections are tailored to the product (no generic "Features" tab). Settings is always the last tab.
 
 3) Plans, trials, and portal
@@ -101,20 +105,19 @@ Decide and document your proration policy for plan changes (and reflect it in Se
 - Stripe checkout session creation
 - Stripe webhook handling
 - Database schema with RLS policies
-- Route guard logic (needs auth loading fix)
+✅ Route guard logic with proper auth loading
 - Trial banner component
 - Payment issue banner component
 - Grace period utilities
+✅ User cleanup with cascading deletes
+✅ Complete authentication flow (signup/signin/forgot/reset)
 
 ## IN PROGRESS 🔄
-- Authentication loading state fix
-- Dashboard access after checkout
-
-## TODO 📋
 - Create portal session endpoint
 - Plan change functionality
+
+## TODO 📋
 - Feature gating implementation
 - Settings page with subscription management
 - Testing complete flow
 - Environment variables setup
-- Deployment
