@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 import Header from '../components/Header'
 import { supabase } from '../lib/supabase'
 import { validatePasswordStrength } from '../utils/passwordValidation'
 import PasswordStrengthIndicator from '../components/PasswordStrengthIndicator'
+import { useAuth } from '../hooks/useAuth'
 
 const ResetPasswordPage: React.FC = () => {
   const [password, setPassword] = useState('')
@@ -14,21 +15,40 @@ const ResetPasswordPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [isSuccess, setIsSuccess] = useState(false)
-  const [searchParams] = useSearchParams()
+  const [isValidSession, setIsValidSession] = useState(false)
+  const { user } = useAuth()
   
   const passwordStrength = validatePasswordStrength(password)
   const passwordsMatch = password === confirmPassword
   const showPasswordMismatch = confirmPassword.length > 0 && !passwordsMatch
 
   useEffect(() => {
-    // Check if we have the required tokens
-    const accessToken = searchParams.get('access_token')
-    const refreshToken = searchParams.get('refresh_token')
-    
-    if (!accessToken || !refreshToken) {
-      setError('Invalid or expired reset link. Please request a new password reset.')
+    const checkSession = async () => {
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession()
+        
+        if (error) {
+          console.error('Session error:', error)
+          setError('Invalid or expired reset link. Please request a new password reset.')
+          return
+        }
+
+        // Check if this is a password recovery session
+        if (session && user) {
+          console.log('Valid password recovery session found')
+          setIsValidSession(true)
+        } else {
+          console.log('No valid session for password reset')
+          setError('Invalid or expired reset link. Please request a new password reset.')
+        }
+      } catch (err) {
+        console.error('Error checking session:', err)
+        setError('Invalid or expired reset link. Please request a new password reset.')
+      }
     }
-  }, [searchParams])
+
+    checkSession()
+  }, [user])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -40,6 +60,11 @@ const ResetPasswordPage: React.FC = () => {
     
     if (!passwordsMatch) {
       setError('Passwords do not match.')
+      return
+    }
+    
+    if (!isValidSession) {
+      setError('Invalid session. Please request a new password reset.')
       return
     }
     
@@ -56,9 +81,11 @@ const ResetPasswordPage: React.FC = () => {
         return
       }
 
+      // Sign out after successful password update
       await supabase.auth.signOut()
       setIsSuccess(true)
     } catch (err) {
+      console.error('Password update error:', err)
       setError('An unexpected error occurred. Please try again.')
     } finally {
       setIsLoading(false)
@@ -107,6 +134,11 @@ const ResetPasswordPage: React.FC = () => {
             <div className="text-center mb-8">
               <h1 className="text-2xl font-bold text-white mb-2">Set New Password</h1>
               <p className="text-white/80">Choose a strong password for your account</p>
+              {!isValidSession && (
+                <div className="mt-4 p-3 bg-yellow-500/20 border border-yellow-500/30 rounded-lg">
+                  <p className="text-yellow-200 text-sm">Validating reset link...</p>
+                </div>
+              )}
             </div>
 
             {error && (
@@ -196,7 +228,7 @@ const ResetPasswordPage: React.FC = () => {
 
               <button
                 type="submit"
-                disabled={isLoading || !passwordStrength.isValid || !passwordsMatch}
+                disabled={isLoading || !passwordStrength.isValid || !passwordsMatch || !isValidSession}
                 className="w-full bg-brand-teal hover:bg-brand-teal/90 disabled:bg-brand-teal/50 text-white py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-xl disabled:transform-none disabled:cursor-not-allowed"
               >
                 {isLoading ? 'Updating Password...' : 'Update Password'}
