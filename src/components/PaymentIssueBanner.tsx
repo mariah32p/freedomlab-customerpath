@@ -1,6 +1,7 @@
 import React from 'react'
 import { UserProfile } from '../types/auth'
 import { isInGracePeriod } from '../utils/routeGuard'
+import { supabase } from '../lib/supabase'
 
 interface PaymentIssueBannerProps {
   profile: UserProfile

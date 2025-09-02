@@ -64,10 +64,10 @@ const ResetPasswordPage: React.FC = () => {
     
     setIsLoading(true)
     setError('')
-    
+
     try {
       const { error } = await supabase.auth.updateUser({
-        password: password
+        password
       })
 
       if (error) {
@@ -75,9 +75,10 @@ const ResetPasswordPage: React.FC = () => {
         return
       }
 
-      // Sign out after successful password update
-      await supabase.auth.signOut()
       setIsSuccess(true)
+      supabase.auth.signOut().catch((signOutErr) => {
+        console.error('Sign out error:', signOutErr)
+      })
     } catch (err) {
       console.error('Password update error:', err)
       setError('An unexpected error occurred. Please try again.')
