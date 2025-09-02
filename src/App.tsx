@@ -10,6 +10,7 @@ import ResetPasswordPage from './pages/ResetPasswordPage'
 import GetStartedPage from './pages/GetStartedPage'
 import DashboardPage from './pages/DashboardPage'
 import DemoPage from './pages/DemoPage'
+import SuccessPage from './pages/SuccessPage'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/get-started" element={<GetStartedPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/success" element={<SuccessPage />} />
           <Route path="/demo" element={<DemoPage />} />
         </Routes>
       </RouteGuard>
