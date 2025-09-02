@@ -5,8 +5,6 @@ import Header from '../components/Header'
 import { supabase } from '../lib/supabase'
 import { validatePasswordStrength } from '../utils/passwordValidation'
 import PasswordStrengthIndicator from '../components/PasswordStrengthIndicator'
-import { useAuth } from '../hooks/useAuth'
-
 const ResetPasswordPage: React.FC = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -16,7 +14,6 @@ const ResetPasswordPage: React.FC = () => {
   const [error, setError] = useState('')
   const [isSuccess, setIsSuccess] = useState(false)
   const [isValidSession, setIsValidSession] = useState(false)
-  const { user } = useAuth()
   
   const passwordStrength = validatePasswordStrength(password)
   const passwordsMatch = password === confirmPassword
@@ -25,22 +22,19 @@ const ResetPasswordPage: React.FC = () => {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const { data: { session }, error } = await supabase.auth.getSession()
-        
-        if (error) {
-          console.error('Session error:', error)
+        const {
+          data: { session },
+          error
+        } = await supabase.auth.getSession()
+
+        if (error || !session?.user) {
+          console.error('Session error or missing user:', error)
           setError('Invalid or expired reset link. Please request a new password reset.')
           return
         }
 
-        // Check if this is a password recovery session
-        if (session && user) {
-          console.log('Valid password recovery session found')
-          setIsValidSession(true)
-        } else {
-          console.log('No valid session for password reset')
-          setError('Invalid or expired reset link. Please request a new password reset.')
-        }
+        console.log('Valid password recovery session found')
+        setIsValidSession(true)
       } catch (err) {
         console.error('Error checking session:', err)
         setError('Invalid or expired reset link. Please request a new password reset.')
@@ -48,7 +42,7 @@ const ResetPasswordPage: React.FC = () => {
     }
 
     checkSession()
-  }, [user])
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -70,10 +64,10 @@ const ResetPasswordPage: React.FC = () => {
     
     setIsLoading(true)
     setError('')
-    
+
     try {
       const { error } = await supabase.auth.updateUser({
-        password: password
+        password
       })
 
       if (error) {
@@ -81,9 +75,10 @@ const ResetPasswordPage: React.FC = () => {
         return
       }
 
-      // Sign out after successful password update
-      await supabase.auth.signOut()
       setIsSuccess(true)
+      supabase.auth.signOut().catch((signOutErr) => {
+        console.error('Sign out error:', signOutErr)
+      })
     } catch (err) {
       console.error('Password update error:', err)
       setError('An unexpected error occurred. Please try again.')
@@ -134,7 +129,7 @@ const ResetPasswordPage: React.FC = () => {
             <div className="text-center mb-8">
               <h1 className="text-2xl font-bold text-white mb-2">Set New Password</h1>
               <p className="text-white/80">Choose a strong password for your account</p>
-              {!isValidSession && (
+              {!isValidSession && !error && (
                 <div className="mt-4 p-3 bg-yellow-500/20 border border-yellow-500/30 rounded-lg">
                   <p className="text-yellow-200 text-sm">Validating reset link...</p>
                 </div>
