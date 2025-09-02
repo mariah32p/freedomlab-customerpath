@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 import Header from '../components/Header'
 import { supabase } from '../lib/supabase'
@@ -14,21 +14,20 @@ const ResetPasswordPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [isSuccess, setIsSuccess] = useState(false)
-  const [searchParams] = useSearchParams()
   
   const passwordStrength = validatePasswordStrength(password)
   const passwordsMatch = password === confirmPassword
   const showPasswordMismatch = confirmPassword.length > 0 && !passwordsMatch
 
   useEffect(() => {
-    // Check if we have the required tokens
-    const accessToken = searchParams.get('access_token')
-    const refreshToken = searchParams.get('refresh_token')
-    
-    if (!accessToken || !refreshToken) {
-      setError('Invalid or expired reset link. Please request a new password reset.')
+    const verifySession = async () => {
+      const { data } = await supabase.auth.getSession()
+      if (!data.session?.user) {
+        setError('Invalid or expired reset link. Please request a new password reset.')
+      }
     }
-  }, [searchParams])
+    verifySession()
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -84,7 +83,7 @@ const ResetPasswordPage: React.FC = () => {
                   Your password has been reset. You can now sign in with your new password.
                 </p>
                 <Link
-                  to="/signin"
+                  to="/signin?message=password-reset-success"
                   className="block w-full bg-brand-teal hover:bg-brand-teal/90 text-white py-3 rounded-lg font-semibold transition-all"
                 >
                   Go to Sign In
