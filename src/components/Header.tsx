@@ -36,12 +36,17 @@ const Header: React.FC = () => {
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             {isAuthenticated ? (
-              <button 
-                onClick={handleSignOut}
-                className="text-brand-navy/70 hover:text-red-600 font-medium transition-colors duration-200 font-montserrat"
-              >
-                Sign Out
-              </button>
+              <div className="flex items-center space-x-4">
+                <Link to="/settings" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
+                  Settings
+                </Link>
+                <button 
+                  onClick={handleSignOut}
+                  className="text-brand-navy/70 hover:text-red-600 font-medium transition-colors duration-200 font-montserrat"
+                >
+                  Sign Out
+                </button>
+              </div>
             ) : (
               <>
                 <Link to="/signin" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 font-montserrat">
@@ -74,12 +79,17 @@ const Header: React.FC = () => {
             
             {/* Mobile Sign Out for authenticated users */}
             {isAuthenticated && (
-              <button 
-                onClick={handleSignOut}
-                className="md:hidden text-brand-navy/70 hover:text-red-600 font-medium transition-colors duration-200 text-sm"
-              >
-                Sign Out
-              </button>
+              <div className="md:hidden flex items-center space-x-3">
+                <Link to="/settings" className="text-brand-navy/70 hover:text-brand-navy font-medium transition-colors duration-200 text-sm">
+                  Settings
+                </Link>
+                <button 
+                  onClick={handleSignOut}
+                  className="text-brand-navy/70 hover:text-red-600 font-medium transition-colors duration-200 text-sm"
+                >
+                  Sign Out
+                </button>
+              </div>
             )}
         </div>
       </div>

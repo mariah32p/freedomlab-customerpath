@@ -36,7 +36,7 @@ const DashboardPage: React.FC = () => {
                   </span>
                 </div>
                 <button className="text-white/80 hover:text-white text-sm font-medium transition-colors">
-                  Manage in Settings →
+                  <a href="/settings">Manage in Settings →</a>
                 </button>
               </div>
             </div>

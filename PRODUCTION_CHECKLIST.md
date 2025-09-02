@@ -113,11 +113,9 @@ Decide and document your proration policy for plan changes (and reflect it in Se
 ✅ Complete authentication flow (signup/signin/forgot/reset)
 
 ## IN PROGRESS 🔄
-- Create portal session endpoint
-- Plan change functionality
+- Feature gating implementation
 
 ## TODO 📋
-- Feature gating implementation
 - Settings page with subscription management
 - Testing complete flow
 - Environment variables setup

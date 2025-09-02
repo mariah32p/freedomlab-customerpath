@@ -18,21 +18,32 @@ const PaymentIssueBanner: React.FC<PaymentIssueBannerProps> = ({ profile }) => {
 
   const handleUpdatePayment = async () => {
     try {
-      // TODO: Create portal session to update payment method
-      const response = await fetch('/api/create-portal-session', {
+      const { data: { session } } = await supabase.auth.getSession()
+      
+      if (!session) {
+        throw new Error('Not authenticated')
+      }
+
+      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-portal-session`
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
         }
       })
 
-      const { url } = await response.json()
+      const data = await response.json()
       
-      if (url) {
-        window.location.href = url
+      if (data.success && data.url) {
+        window.open(data.url, '_blank')
+      } else {
+        throw new Error(data.error || 'Failed to open billing portal')
       }
     } catch (error) {
       console.error('Error creating portal session:', error)
+      alert('Failed to open billing portal. Please try again or contact support.')
     }
   }
 

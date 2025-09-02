@@ -11,6 +11,7 @@ import GetStartedPage from './pages/GetStartedPage'
 import DashboardPage from './pages/DashboardPage'
 import DemoPage from './pages/DemoPage'
 import SuccessPage from './pages/SuccessPage'
+import SettingsPage from './pages/SettingsPage'
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/success" element={<SuccessPage />} />
           <Route path="/demo" element={<DemoPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
         </Routes>
       </RouteGuard>
     </Router>
