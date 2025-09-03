@@ -8,6 +8,7 @@ const ForgotPasswordPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState('')
+  const [rateLimitSeconds, setRateLimitSeconds] = useState(0)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -31,7 +32,29 @@ const ForgotPasswordPage: React.FC = () => {
 
       if (error) {
         console.error('Reset password error:', error)
-        setError(error.message)
+        
+        // Check if it's a rate limit error
+        if (error.message.includes('you can only request this after')) {
+          const match = error.message.match(/(\d+)\s+seconds/)
+          const seconds = match ? parseInt(match[1]) : 7
+          setRateLimitSeconds(seconds)
+          setError(`Please wait ${seconds} seconds before requesting another reset link.`)
+          
+          // Start countdown
+          const countdown = setInterval(() => {
+            setRateLimitSeconds(prev => {
+              if (prev <= 1) {
+                clearInterval(countdown)
+                setError('')
+                return 0
+              }
+              setError(`Please wait ${prev - 1} seconds before requesting another reset link.`)
+              return prev - 1
+            })
+          }, 1000)
+        } else {
+          setError(error.message)
+        }
         return
       }
 
@@ -128,10 +151,10 @@ const ForgotPasswordPage: React.FC = () => {
 
               <button
                 type="submit"
-                disabled={isLoading}
+                disabled={isLoading || rateLimitSeconds > 0}
                 className="w-full bg-brand-teal hover:bg-brand-teal/90 disabled:bg-brand-teal/50 text-white py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-xl disabled:transform-none disabled:cursor-not-allowed"
               >
-                {isLoading ? 'Sending Reset Link...' : 'Send Reset Link'}
+                {isLoading ? 'Sending Reset Link...' : rateLimitSeconds > 0 ? `Wait ${rateLimitSeconds}s` : 'Send Reset Link'}
               </button>
             </form>
 
