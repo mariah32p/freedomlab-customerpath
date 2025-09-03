@@ -15,8 +15,13 @@ const ForgotPasswordPage: React.FC = () => {
     setError('')
     
     try {
+      const redirectUrl = `${window.location.origin}/reset-password`
+      console.log('Using redirect URL:', redirectUrl)
+      console.log('Current origin:', window.location.origin)
+      console.log('Current href:', window.location.href)
+      
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`,
+        redirectTo: redirectUrl,
         captchaToken: undefined // Explicitly disable captcha for now
       })
 
