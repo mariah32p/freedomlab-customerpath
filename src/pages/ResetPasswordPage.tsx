@@ -25,35 +25,7 @@ const ResetPasswordPage: React.FC = () => {
       try {
         const url = new URL(window.location.href)
         
-        // Check if we're on the home page with hash params (Supabase redirect)
-        if (window.location.pathname === '/' && window.location.hash) {
-          // Parse hash parameters
-          const hashParams = new URLSearchParams(url.hash.replace('#', ''))
-          const accessToken = hashParams.get('access_token')
-          const refreshToken = hashParams.get('refresh_token')
-          const type = hashParams.get('type')
-          
-          if (type === 'recovery' && accessToken && refreshToken) {
-            // Set the session with the tokens from the URL
-            const { error: sessionError } = await supabase.auth.setSession({
-              access_token: accessToken,
-              refresh_token: refreshToken
-            })
-            
-            if (sessionError) {
-              console.error('Error setting session:', sessionError)
-              setError('Invalid or expired reset link. Please request a new password reset.')
-              return
-            }
-            
-            // Redirect to the actual reset password page
-            window.history.replaceState({}, '', '/reset-password')
-            setIsValidSession(true)
-            return
-          }
-        }
-        
-        // Handle direct access to /reset-password page
+        // Handle both hash and search params for token
         const hashParams = new URLSearchParams(url.hash.replace('#', ''))
         const tokenHash = hashParams.get('token_hash') || url.searchParams.get('token_hash')
 
@@ -70,6 +42,7 @@ const ResetPasswordPage: React.FC = () => {
           }
         }
 
+        // Check for session after token verification
         const {
           data: { session },
           error
