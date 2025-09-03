@@ -29,9 +29,6 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
       const url = new URL(window.location.href)
       const currentOrigin = window.location.origin
       
-      // Check if we're on production and need to redirect to a different environment
-      const isProduction = currentOrigin.includes('customerpath-production.netlify.app')
-      
       if (url.hash) {
         const hashParams = new URLSearchParams(url.hash.replace('#', ''))
         const accessToken = hashParams.get('access_token')
@@ -41,31 +38,10 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
         if (type === 'recovery' && accessToken && refreshToken) {
           console.log('Found recovery tokens in URL, setting session and redirecting...')
           
-          // If we're on production, try to redirect to the environment that initiated the request
-          if (isProduction) {
-            // Check for a stored target environment or use a default dev environment
-            const targetOrigin = localStorage.getItem('customerpath_target_env') || 
-                                sessionStorage.getItem('customerpath_target_env') ||
-                                'http://localhost:5173' // fallback to common dev port
-            
-            console.log('Redirecting from production to:', targetOrigin)
-            window.location.href = `${targetOrigin}/reset-password#access_token=${accessToken}&refresh_token=${refreshToken}&type=recovery`
-            return true
-          }
-          
-          // If we're on production, try to redirect to the environment that initiated the request
-          if (isProduction) {
-            // Check for a stored target environment or use a default dev environment
-            const targetOrigin = localStorage.getItem('customerpath_target_env') || 
-                                sessionStorage.getItem('customerpath_target_env') ||
-                                'http://localhost:5173' // fallback to common dev port
-            
-            console.log('Redirecting from production to:', targetOrigin)
-            window.location.href = `${targetOrigin}/reset-password#access_token=${accessToken}&refresh_token=${refreshToken}&type=recovery`
-            return true
-          }
-          
           try {
+            // Import supabase here to avoid circular dependency
+            const { supabase } = await import('../lib/supabase')
+            
             const { error: sessionError } = await supabase.auth.setSession({
               access_token: accessToken,
               refresh_token: refreshToken
