@@ -16,8 +16,8 @@ const ForgotPasswordPage: React.FC = () => {
     
     try {
       // Store current environment so we can redirect back here from production
-      const currentOrigin = window.location.origin
-      localStorage.setItem('customerpath_target_env', currentOrigin)
+      const appOrigin = window.location.origin
+      localStorage.setItem('customerpath_target_env', appOrigin)
       
       const redirectUrl = `${window.location.origin}/reset-password`
       console.log('Using redirect URL:', redirectUrl)
