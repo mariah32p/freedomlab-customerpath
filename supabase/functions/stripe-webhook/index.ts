@@ -83,6 +83,7 @@ Deno.serve(async (req) => {
         const customerData = {
           user_id: userId,
           customer_id: session.customer,
+          created_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
         }
 
@@ -94,8 +95,23 @@ Deno.serve(async (req) => {
 
         if (customerError) {
           console.error('Error storing customer:', customerError)
+          console.error('Customer data that failed:', customerData)
+          console.error('Full error details:', JSON.stringify(customerError, null, 2))
         } else {
           console.log('Customer stored successfully')
+          
+          // Verify the record was created
+          const { data: verifyCustomer, error: verifyError } = await supabaseClient
+            .from('stripe_customers')
+            .select('*')
+            .eq('user_id', userId)
+            .single()
+          
+          if (verifyError) {
+            console.error('Error verifying customer record:', verifyError)
+          } else {
+            console.log('Verified customer record:', verifyCustomer)
+          }
         }
 
         break
@@ -129,18 +145,34 @@ Deno.serve(async (req) => {
           userId = subscription.metadata.user_id
           
           // Create the missing customer record
+          console.log('Creating missing customer record for user:', userId, 'customer:', customerId)
           const { error: customerInsertError } = await supabaseClient
             .from('stripe_customers')
             .upsert({
               user_id: userId,
               customer_id: customerId,
+              created_at: new Date().toISOString(),
               updated_at: new Date().toISOString()
             })
           
           if (customerInsertError) {
             console.error('Error creating missing customer record:', customerInsertError)
+            console.error('Full error details:', JSON.stringify(customerInsertError, null, 2))
           } else {
             console.log('Created missing customer record for user:', userId)
+            
+            // Verify the record was created
+            const { data: verifyCustomer, error: verifyError } = await supabaseClient
+              .from('stripe_customers')
+              .select('*')
+              .eq('user_id', userId)
+              .single()
+            
+            if (verifyError) {
+              console.error('Error verifying created customer record:', verifyError)
+            } else {
+              console.log('Verified created customer record:', verifyCustomer)
+            }
           }
         }
 
