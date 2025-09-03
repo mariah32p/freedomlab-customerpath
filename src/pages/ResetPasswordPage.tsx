@@ -42,25 +42,6 @@ const ResetPasswordPage: React.FC = () => {
           }
         }
 
-        const url = new URL(window.location.href)
-        // Supabase may send the recovery token as either a hash or search param
-        const hashParams = new URLSearchParams(url.hash.replace('#', ''))
-        const tokenHash =
-          hashParams.get('token_hash') || url.searchParams.get('token_hash')
-
-        if (tokenHash) {
-          const { error: verifyError } = await supabase.auth.verifyOtp({
-            token_hash: tokenHash,
-            type: 'recovery'
-          })
-
-          if (verifyError) {
-            console.error('Error verifying recovery token:', verifyError)
-            setError('Invalid or expired reset link. Please request a new password reset.')
-            return
-          }
-        }
-
         const {
           data: { session },
           error
