@@ -10,8 +10,12 @@ const Header: React.FC = () => {
   const handleSignOut = async () => {
     try {
       await signOut()
+      // Force a page reload to clear all state and redirect to landing
+      window.location.href = '/'
     } catch (error) {
       console.error('Sign out failed:', error)
+      // Still try to redirect even if sign out had an error
+      window.location.href = '/'
     }
   }
 

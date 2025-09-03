@@ -102,6 +102,14 @@ export const useAuth = (): AuthState => {
         
         if (!mounted) return
         
+        // Handle sign out event specifically
+        if (event === 'SIGNED_OUT') {
+          setUser(null)
+          setProfile(null)
+          setIsLoading(false)
+          return
+        }
+        
         if (session?.user) {
           setUser(session.user)
           await loadProfile(session.user.id)

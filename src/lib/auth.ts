@@ -7,8 +7,8 @@ export const signOut = async () => {
       console.error('Error signing out:', error.message)
       throw error
     }
-    // Redirect to landing page after successful sign out
-    window.location.href = '/'
+    // Let the auth state change handle the redirect naturally
+    console.log('Sign out successful')
   } catch (error) {
     console.error('Sign out failed:', error)
     throw error
