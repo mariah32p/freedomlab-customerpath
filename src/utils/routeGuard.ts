@@ -43,7 +43,7 @@ export const getRedirectPath = (
     return '/dashboard'
   }
 
-  // Otherwise (no subscription, canceled, expired grace period), send to get-started
+  // Otherwise (not_started, canceled, expired grace period), send to get-started
   return '/get-started'
 }
 
