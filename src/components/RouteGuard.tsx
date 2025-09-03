@@ -24,8 +24,47 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
   useEffect(() => {
     console.log('RouteGuard check:', { isLoading, isAuthenticated, path: location.pathname, profile })
     
+    // Handle Supabase redirect from production with recovery tokens
+    const handleSupabaseRecoveryRedirect = async () => {
+      const url = new URL(window.location.href)
+      if (url.hash) {
+        const hashParams = new URLSearchParams(url.hash.replace('#', ''))
+        const accessToken = hashParams.get('access_token')
+        const refreshToken = hashParams.get('refresh_token')
+        const type = hashParams.get('type')
+        
+        if (type === 'recovery' && accessToken && refreshToken) {
+          console.log('Found recovery tokens in URL, setting session and redirecting...')
+          
+          try {
+            const { error: sessionError } = await supabase.auth.setSession({
+              access_token: accessToken,
+              refresh_token: refreshToken
+            })
+            
+            if (!sessionError) {
+              // Clear the hash and redirect to reset password
+              window.history.replaceState({}, document.title, window.location.pathname)
+              navigate('/reset-password', { replace: true })
+              return true
+            }
+          } catch (error) {
+            console.error('Error setting recovery session:', error)
+          }
+        }
+      }
+      return false
+    }
+    
     if (isLoading) {
       console.log('Still loading, waiting...')
+      // Check for recovery redirect even while loading
+      handleSupabaseRecoveryRedirect()
+      return
+    }
+    
+    // Handle recovery redirect first
+    if (handleSupabaseRecoveryRedirect()) {
       return
     }
 

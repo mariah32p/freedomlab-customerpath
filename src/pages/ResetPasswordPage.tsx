@@ -23,6 +23,36 @@ const ResetPasswordPage: React.FC = () => {
   useEffect(() => {
     const checkSession = async () => {
       try {
+        // Handle case where Supabase redirected to production but we're on a different environment
+        const url = new URL(window.location.href)
+        const currentOrigin = window.location.origin
+        
+        // If we're not on the expected environment, check for hash params and redirect
+        if (url.hash && !window.location.pathname.includes('reset-password')) {
+          const hashParams = new URLSearchParams(url.hash.replace('#', ''))
+          const accessToken = hashParams.get('access_token')
+          const refreshToken = hashParams.get('refresh_token')
+          const type = hashParams.get('type')
+          
+          if (type === 'recovery' && accessToken && refreshToken) {
+            // Set the session with the tokens from the URL
+            const { error: sessionError } = await supabase.auth.setSession({
+              access_token: accessToken,
+              refresh_token: refreshToken
+            })
+            
+            if (sessionError) {
+              console.error('Error setting session:', sessionError)
+              setError('Invalid or expired reset link. Please request a new password reset.')
+              return
+            }
+            
+            // Redirect to reset password page on current environment
+            window.location.href = `${currentOrigin}/reset-password`
+            return
+          }
+        }
+        
         const url = new URL(window.location.href)
         
         // Handle both hash and search params for token
