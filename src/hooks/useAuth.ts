@@ -22,18 +22,11 @@ export const useAuth = (): AuthState => {
         console.error('Error loading profile:', error)
         // If profile doesn't exist, create a basic one
         const { data: userData } = await supabase.auth.getUser()
-        const basicProfile: UserProfile = {
+        const basicProfile = {
           id: userId,
           email: userData.user?.email || '',
           plan: 'basic',
-          subscription_status: 'not_started',
-          trial_ends_at: null,
-          current_period_end: null,
-          customer_id: null,
-          subscription_id: null,
-          payment_issue_since: null,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
+          subscription_status: 'not_started'
         }
         
         // Try to create the profile in the database
@@ -41,8 +34,19 @@ export const useAuth = (): AuthState => {
           .from('profiles')
           .insert(basicProfile)
         
-        if (!insertError) {
-          setProfile(basicProfile)
+        if (insertError) {
+          console.error('Error creating profile:', insertError)
+        } else {
+          // Fetch the created profile to get all fields with defaults
+          const { data: newProfile } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', userId)
+            .single()
+          
+          if (newProfile) {
+            setProfile(newProfile)
+          }
         }
         setIsLoading(false)
         return
