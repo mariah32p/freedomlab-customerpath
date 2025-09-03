@@ -242,6 +242,59 @@ const GetStartedPage: React.FC = () => {
               </div>
             </div>
           </div>
+
+          {/* Plan Comparison */}
+          <div className="mt-16">
+            <h2 className="text-2xl font-bold text-white text-center mb-8">Compare Plans</h2>
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
+              <div className="overflow-x-auto">
+                <table className="w-full text-white">
+                  <thead>
+                    <tr className="border-b border-white/20">
+                      <th className="text-left py-3 px-4">Features</th>
+                      <th className="text-center py-3 px-4">Basic</th>
+                      <th className="text-center py-3 px-4">Pro</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-sm">
+                    <tr className="border-b border-white/10">
+                      <td className="py-3 px-4">Journey Maps</td>
+                      <td className="text-center py-3 px-4">Up to 3</td>
+                      <td className="text-center py-3 px-4">Unlimited</td>
+                    </tr>
+                    <tr className="border-b border-white/10">
+                      <td className="py-3 px-4">Customers Tracked</td>
+                      <td className="text-center py-3 px-4">1,000</td>
+                      <td className="text-center py-3 px-4">10,000</td>
+                    </tr>
+                    <tr className="border-b border-white/10">
+                      <td className="py-3 px-4">Analytics</td>
+                      <td className="text-center py-3 px-4">Basic</td>
+                      <td className="text-center py-3 px-4">Advanced + AI</td>
+                    </tr>
+                    <tr className="border-b border-white/10">
+                      <td className="py-3 px-4">API Access</td>
+                      <td className="text-center py-3 px-4">
+                        <svg className="h-4 w-4 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </td>
+                      <td className="text-center py-3 px-4">
+                        <svg className="h-4 w-4 text-brand-teal mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-4">Support</td>
+                      <td className="text-center py-3 px-4">Email</td>
+                      <td className="text-center py-3 px-4">Priority + Training</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
