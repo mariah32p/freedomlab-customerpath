@@ -53,7 +53,6 @@ const ResetPasswordPage: React.FC = () => {
           }
         }
         
-        const url = new URL(window.location.href)
         // Handle both hash and search params for token
         const hashParams = new URLSearchParams(url.hash.replace('#', ''))
         const tokenHash = hashParams.get('token_hash') || url.searchParams.get('token_hash')
