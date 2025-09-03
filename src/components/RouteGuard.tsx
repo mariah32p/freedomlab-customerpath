@@ -32,11 +32,6 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
       // Check if we're on production and need to redirect to a different environment
       const isProduction = currentOrigin.includes('customerpath-production.netlify.app')
       
-      const currentOrigin = window.location.origin
-      
-      // Check if we're on production and need to redirect to a different environment
-      const isProduction = currentOrigin.includes('customerpath-production.netlify.app')
-      
       if (url.hash) {
         const hashParams = new URLSearchParams(url.hash.replace('#', ''))
         const accessToken = hashParams.get('access_token')
