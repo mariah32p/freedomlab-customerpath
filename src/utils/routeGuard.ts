@@ -19,32 +19,8 @@ export const getRedirectPath = (
     return '/signup'
   }
 
-  // If no profile yet (shouldn't happen but safety check)
-  if (!profile) {
-    return '/signup'
-  }
-
-  // If status is trialing or active, send to dashboard
-  if (profile.subscription_status === 'trialing' || profile.subscription_status === 'active') {
-    return '/dashboard'
-  }
-
-  // If status is incomplete but has a valid trial (webhook race condition), treat as trialing
-  if (profile.subscription_status === 'incomplete' && profile.trial_ends_at) {
-    const trialEnd = new Date(profile.trial_ends_at)
-    const now = new Date()
-    if (trialEnd > now) {
-      return '/dashboard'
-    }
-  }
-
-  // If past_due and within 30-day grace period, allow dashboard (with banner)
-  if (profile.subscription_status === 'past_due' && isInGracePeriod(profile.payment_issue_since)) {
-    return '/dashboard'
-  }
-
-  // Otherwise (not_started, canceled, expired grace period), send to get-started
-  return '/get-started'
+  // Everyone goes to dashboard - feature gating happens there
+  return '/dashboard'
 }
 
 export const shouldShowPaymentBanner = (profile: UserProfile | null): boolean => {
