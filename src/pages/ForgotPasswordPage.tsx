@@ -16,16 +16,20 @@ const ForgotPasswordPage: React.FC = () => {
     
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`
+        redirectTo: `${window.location.origin}/reset-password`,
+        captchaToken: undefined // Explicitly disable captcha for now
       })
 
       if (error) {
+        console.error('Reset password error:', error)
         setError(error.message)
         return
       }
 
+      console.log('Reset password email sent successfully to:', email)
       setIsSuccess(true)
     } catch (err) {
+      console.error('Unexpected error:', err)
       setError('An unexpected error occurred. Please try again.')
     } finally {
       setIsLoading(false)
