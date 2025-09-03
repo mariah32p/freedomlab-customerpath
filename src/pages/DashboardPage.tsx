@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import PaymentIssueBanner from '../components/PaymentIssueBanner'
 import { useAuth } from '../hooks/useAuth'
@@ -9,7 +10,13 @@ const DashboardPage: React.FC = () => {
   
   const showPaymentBanner = shouldShowPaymentBanner(profile)
   const isTrialing = profile?.subscription_status === 'trialing'
+  const isActive = profile?.subscription_status === 'active'
+  const hasActiveSubscription = isTrialing || isActive
   const trialDaysRemaining = getTrialDaysRemaining(profile?.trial_ends_at || null)
+
+  // Check if user needs to get a subscription
+  const needsSubscription = !hasActiveSubscription && 
+    profile?.subscription_status !== 'past_due' // past_due users can still use during grace period
 
   return (
     <div className="min-h-screen bg-gray-50 font-montserrat">
@@ -35,9 +42,29 @@ const DashboardPage: React.FC = () => {
                     • Your card will be charged on {new Date(profile.trial_ends_at).toLocaleDateString()}
                   </span>
                 </div>
-                <button className="text-white/80 hover:text-white text-sm font-medium transition-colors">
-                  <a href="/settings">Manage in Settings →</a>
-                </button>
+                <Link to="/settings" className="text-white/80 hover:text-white text-sm font-medium transition-colors">
+                  Manage in Settings →
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* No Subscription Banner */}
+        {needsSubscription && (
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+            <div className="max-w-7xl mx-auto px-6 py-6">
+              <div className="text-center">
+                <h2 className="text-xl font-bold mb-2">Start Your CustomerPath Journey</h2>
+                <p className="text-white/90 mb-4">
+                  Choose a plan to unlock all features and start tracking your customer journeys
+                </p>
+                <Link 
+                  to="/get-started"
+                  className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
+                >
+                  Choose Your Plan
+                </Link>
               </div>
             </div>
           </div>
@@ -50,72 +77,123 @@ const DashboardPage: React.FC = () => {
             <h1 className="text-3xl font-bold text-brand-navy mb-2">
               Welcome back{profile?.email ? `, ${profile.email.split('@')[0]}` : ''}!
             </h1>
-            <p className="text-gray-600">Here's what's happening with your customer journeys</p>
+            <p className="text-gray-600">
+              {hasActiveSubscription 
+                ? "Here's what's happening with your customer journeys"
+                : "Get started by choosing a plan to unlock all features"
+              }
+            </p>
           </div>
 
-          {/* Quick Stats */}
-          <div className="grid md:grid-cols-4 gap-6 mb-8">
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">Total Journeys</p>
-                  <p className="text-2xl font-bold text-brand-navy">3</p>
-                </div>
-                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
+          {/* Quick Stats - Show for active subscriptions */}
+          {hasActiveSubscription && (
+            <div className="grid md:grid-cols-4 gap-6 mb-8">
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Total Journeys</p>
+                    <p className="text-2xl font-bold text-brand-navy">3</p>
+                  </div>
+                  <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
+                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">Customers Tracked</p>
-                  <p className="text-2xl font-bold text-brand-navy">1,247</p>
-                </div>
-                <div className="w-12 h-12 bg-brand-teal/10 rounded-xl flex items-center justify-center">
-                  <svg className="w-6 h-6 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Customers Tracked</p>
+                    <p className="text-2xl font-bold text-brand-navy">1,247</p>
+                  </div>
+                  <div className="w-12 h-12 bg-brand-teal/10 rounded-xl flex items-center justify-center">
+                    <svg className="w-6 h-6 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">Avg Conversion</p>
-                  <p className="text-2xl font-bold text-brand-navy">24.8%</p>
-                </div>
-                <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center">
-                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                  </svg>
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Avg Conversion</p>
+                    <p className="text-2xl font-bold text-brand-navy">24.8%</p>
+                  </div>
+                  <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center">
+                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">Revenue Impact</p>
-                  <p className="text-2xl font-bold text-brand-navy">$47.2k</p>
-                </div>
-                <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center">
-                  <svg className="w-6 h-6 text-brand-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                  </svg>
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Revenue Impact</p>
+                    <p className="text-2xl font-bold text-brand-navy">$47.2k</p>
+                  </div>
+                  <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center">
+                    <svg className="w-6 h-6 text-brand-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
+
+          {/* Locked Features Preview - Show for users without subscription */}
+          {needsSubscription && (
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
+              <div className="text-center py-12 relative">
+                <div className="absolute inset-0 bg-gray-50 opacity-50 rounded-xl"></div>
+                <div className="relative z-10">
+                  <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Customer Journey Analytics</h3>
+                  <p className="text-gray-600 mb-6">
+                    Track conversions, identify drop-offs, and optimize your customer experience
+                  </p>
+                  <Link 
+                    to="/get-started"
+                    className="bg-brand-teal text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-teal/90 transition-colors inline-block"
+                  >
+                    Unlock Features
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Recent Activity */}
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-8 mb-8">
             {/* Journey Overview */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 ${!hasActiveSubscription ? 'relative' : ''}`}>
+              {!hasActiveSubscription && (
+                <div className="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                    </div>
+                    <p className="text-gray-600 font-medium mb-3">Journey Analytics Locked</p>
+                    <Link 
+                      to="/get-started"
+                      className="bg-brand-teal text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-brand-teal/90 transition-colors"
+                    >
+                      Upgrade Now
+                    </Link>
+                  </div>
+                </div>
+              )}
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-bold text-brand-navy">Recent Journeys</h2>
                 <button className="text-brand-teal hover:text-brand-teal/80 font-medium text-sm transition-colors">
@@ -181,7 +259,25 @@ const DashboardPage: React.FC = () => {
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 ${!hasActiveSubscription ? 'relative' : ''}`}>
+              {!hasActiveSubscription && (
+                <div className="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                    </div>
+                    <p className="text-gray-600 font-medium mb-3">Actions Locked</p>
+                    <Link 
+                      to="/get-started"
+                      className="bg-brand-teal text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-brand-teal/90 transition-colors"
+                    >
+                      Upgrade Now
+                    </Link>
+                  </div>
+                </div>
+              )}
               <h2 className="text-xl font-bold text-brand-navy mb-6">Quick Actions</h2>
               
               <div className="space-y-4">
@@ -235,7 +331,25 @@ const DashboardPage: React.FC = () => {
           </div>
 
           {/* Recent Activity Feed */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+          <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 ${!hasActiveSubscription ? 'relative' : ''}`}>
+            {!hasActiveSubscription && (
+              <div className="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  </div>
+                  <p className="text-gray-600 font-medium mb-3">Activity Feed Locked</p>
+                  <Link 
+                    to="/get-started"
+                    className="bg-brand-teal text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-brand-teal/90 transition-colors"
+                  >
+                    Upgrade Now
+                  </Link>
+                </div>
+              </div>
+            )}
             <h2 className="text-xl font-bold text-brand-navy mb-6">Recent Activity</h2>
             
             <div className="space-y-4">
