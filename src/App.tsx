@@ -12,6 +12,9 @@ import DashboardPage from './pages/DashboardPage'
 import DemoPage from './pages/DemoPage'
 import SuccessPage from './pages/SuccessPage'
 import SettingsPage from './pages/SettingsPage'
+import JourneysPage from './pages/JourneysPage'
+import AnalyticsPage from './pages/AnalyticsPage'
+import IntegrationsPage from './pages/IntegrationsPage'
 
 function App() {
   return (
@@ -29,6 +32,9 @@ function App() {
           <Route path="/success" element={<SuccessPage />} />
           <Route path="/demo" element={<DemoPage />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/journeys" element={<JourneysPage />} />
+          <Route path="/analytics" element={<AnalyticsPage />} />
+          <Route path="/integrations" element={<IntegrationsPage />} />
         </Routes>
       </RouteGuard>
     </Router>

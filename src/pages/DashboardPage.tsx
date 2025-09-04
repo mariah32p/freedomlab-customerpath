@@ -282,26 +282,35 @@ const DashboardPage: React.FC = () => {
               <h2 className="text-xl font-bold text-brand-navy mb-6">Quick Actions</h2>
               
               <div className="space-y-4">
-                <button className="w-full bg-brand-teal hover:bg-brand-teal/90 text-white p-4 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg flex items-center justify-center">
+                <Link 
+                  to="/journeys"
+                  className="w-full bg-brand-teal hover:bg-brand-teal/90 text-white p-4 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg flex items-center justify-center"
+                >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
                   Create New Journey
-                </button>
+                </Link>
                 
-                <button className="w-full border-2 border-gray-200 hover:border-brand-teal text-brand-navy hover:text-brand-teal p-4 rounded-lg font-semibold transition-all flex items-center justify-center">
+                <Link 
+                  to="/integrations"
+                  className="w-full border-2 border-gray-200 hover:border-brand-teal text-brand-navy hover:text-brand-teal p-4 rounded-lg font-semibold transition-all flex items-center justify-center"
+                >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
                   </svg>
-                  Import Data
-                </button>
+                  Manage Integrations
+                </Link>
                 
-                <button className="w-full border-2 border-gray-200 hover:border-brand-purple text-brand-navy hover:text-brand-purple p-4 rounded-lg font-semibold transition-all flex items-center justify-center">
+                <Link 
+                  to="/analytics"
+                  className="w-full border-2 border-gray-200 hover:border-brand-purple text-brand-navy hover:text-brand-purple p-4 rounded-lg font-semibold transition-all flex items-center justify-center"
+                >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                   </svg>
                   View Analytics
-                </button>
+                </Link>
               </div>
 
               {/* Help Section */}
@@ -330,6 +339,54 @@ const DashboardPage: React.FC = () => {
               </div>
             </div>
           </div>
+
+          {/* Navigation Tabs */}
+          {hasActiveSubscription && (
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8">
+              <h2 className="text-xl font-bold text-brand-navy mb-6">Explore Your Dashboard</h2>
+              
+              <div className="grid md:grid-cols-3 gap-6">
+                <Link 
+                  to="/journeys"
+                  className="group bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl border border-blue-200 hover:shadow-lg transition-all"
+                >
+                  <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m0 0L9 7" />
+                    </svg>
+                  </div>
+                  <h3 className="font-bold text-blue-900 mb-2 group-hover:text-blue-700 transition-colors">Journey Maps</h3>
+                  <p className="text-blue-700 text-sm">Create and manage customer journey visualizations</p>
+                </Link>
+
+                <Link 
+                  to="/analytics"
+                  className="group bg-gradient-to-br from-brand-teal/10 to-cyan-50 p-6 rounded-xl border border-brand-teal/20 hover:shadow-lg transition-all"
+                >
+                  <div className="w-12 h-12 bg-brand-teal rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </div>
+                  <h3 className="font-bold text-brand-teal mb-2 group-hover:text-brand-teal/80 transition-colors">Advanced Analytics</h3>
+                  <p className="text-brand-teal text-sm">Deep dive into conversion metrics and AI insights</p>
+                </Link>
+
+                <Link 
+                  to="/integrations"
+                  className="group bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl border border-purple-200 hover:shadow-lg transition-all"
+                >
+                  <div className="w-12 h-12 bg-brand-purple rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                  </div>
+                  <h3 className="font-bold text-brand-purple mb-2 group-hover:text-brand-purple/80 transition-colors">Integrations</h3>
+                  <p className="text-brand-purple text-sm">Connect tools and automate data collection</p>
+                </Link>
+              </div>
+            </div>
+          )}
 
           {/* Recent Activity Feed */}
           <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 ${needsSubscription ? 'relative' : ''}`}>
