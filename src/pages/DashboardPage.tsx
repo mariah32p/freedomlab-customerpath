@@ -14,9 +14,10 @@ const DashboardPage: React.FC = () => {
   const hasActiveSubscription = isTrialing || isActive
   const trialDaysRemaining = getTrialDaysRemaining(profile?.trial_ends_at || null)
 
-  // Check if user needs to get a subscription
+  // Check if user needs to get a subscription (only if they have no subscription at all)
   const needsSubscription = !hasActiveSubscription && 
-    profile?.subscription_status !== 'past_due' // past_due users can still use during grace period
+    profile?.subscription_status !== 'past_due' && // past_due users can still use during grace period
+    profile?.subscription_status === 'not_started' // Only show for users who haven't started
 
   return (
     <div className="min-h-screen bg-gray-50 font-montserrat">
@@ -175,8 +176,8 @@ const DashboardPage: React.FC = () => {
           {/* Recent Activity */}
           <div className="grid lg:grid-cols-2 gap-8 mb-8">
             {/* Journey Overview */}
-            <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 ${!hasActiveSubscription ? 'relative' : ''}`}>
-              {!hasActiveSubscription && (
+            <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 ${needsSubscription ? 'relative' : ''}`}>
+              {needsSubscription && (
                 <div className="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
                   <div className="text-center">
                     <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -259,8 +260,8 @@ const DashboardPage: React.FC = () => {
             </div>
 
             {/* Quick Actions */}
-            <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 ${!hasActiveSubscription ? 'relative' : ''}`}>
-              {!hasActiveSubscription && (
+            <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 ${needsSubscription ? 'relative' : ''}`}>
+              {needsSubscription && (
                 <div className="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
                   <div className="text-center">
                     <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -331,8 +332,8 @@ const DashboardPage: React.FC = () => {
           </div>
 
           {/* Recent Activity Feed */}
-          <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 ${!hasActiveSubscription ? 'relative' : ''}`}>
-            {!hasActiveSubscription && (
+          <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 ${needsSubscription ? 'relative' : ''}`}>
+            {needsSubscription && (
               <div className="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
                 <div className="text-center">
                   <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
