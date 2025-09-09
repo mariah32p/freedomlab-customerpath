@@ -20,34 +20,8 @@ export const useAuth = (): AuthState => {
 
       if (error || !profileData) {
         console.error('Error loading profile:', error)
-        // If profile doesn't exist, create a basic one
-        const { data: userData } = await supabase.auth.getUser()
-        const basicProfile = {
-          id: userId,
-          email: userData.user?.email || '',
-          plan: 'basic',
-          subscription_status: 'not_started'
-        }
-        
-        // Try to create the profile in the database
-        const { error: insertError } = await supabase
-          .from('profiles')
-          .insert(basicProfile)
-        
-        if (insertError) {
-          console.error('Error creating profile:', insertError)
-        } else {
-          // Fetch the created profile to get all fields with defaults
-          const { data: newProfile } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', userId)
-            .single()
-          
-          if (newProfile) {
-            setProfile(newProfile)
-          }
-        }
+        // Profile should be created automatically by trigger
+        console.log('Profile not found, it should be created by trigger')
         setIsLoading(false)
         return
       }
@@ -145,14 +119,14 @@ export const useAuth = (): AuthState => {
           event: '*',
           schema: 'public',
           table: 'profiles',
-          filter: `id=eq.${user.id}`
+          filter: `user_id=eq.${user.id}`
         },
         (payload) => {
           console.log('Profile updated via real-time:', payload)
           if (payload.eventType === 'UPDATE' && payload.new) {
-            setProfile(payload.new as UserProfile)
+            setProfile(payload.new as any)
           } else if (payload.eventType === 'INSERT' && payload.new) {
-            setProfile(payload.new as UserProfile)
+            setProfile(payload.new as any)
           }
         }
       )

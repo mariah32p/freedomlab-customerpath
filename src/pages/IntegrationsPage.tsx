@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Header from '../components/Header'
-import PaymentIssueBanner from '../components/PaymentIssueBanner'
 import { useAuth } from '../hooks/useAuth'
-import { shouldShowPaymentBanner } from '../utils/routeGuard'
 import { Plus, Webhook, Settings, ExternalLink, Copy, Check } from 'lucide-react'
 
 interface Integration {
@@ -50,9 +49,6 @@ const IntegrationsPage: React.FC = () => {
   const [webhookUrl] = useState('https://api.customerpath.com/webhook/usr_abc123xyz789')
   const [copied, setCopied] = useState(false)
   
-  const showPaymentBanner = shouldShowPaymentBanner(profile)
-  const hasActiveSubscription = profile?.subscription_status === 'trialing' || profile?.subscription_status === 'active'
-
   const copyWebhookUrl = async () => {
     try {
       await navigator.clipboard.writeText(webhookUrl)
@@ -95,8 +91,6 @@ const IntegrationsPage: React.FC = () => {
     <div className="min-h-screen bg-gray-50 font-montserrat">
       <Header />
       
-      {showPaymentBanner && profile && <PaymentIssueBanner profile={profile} />}
-      
       <div className="pt-20">
         <div className="max-w-7xl mx-auto px-6 py-8">
           {/* Header */}
@@ -106,17 +100,13 @@ const IntegrationsPage: React.FC = () => {
               <p className="text-gray-600">Connect your tools to automatically track customer journeys</p>
             </div>
             
-            {hasActiveSubscription && (
-              <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg flex items-center space-x-2">
-                <Plus className="w-5 h-5" />
-                <span>Add Integration</span>
-              </button>
-            )}
+            <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg flex items-center space-x-2">
+              <Plus className="w-5 h-5" />
+              <span>Add Integration</span>
+            </button>
           </div>
 
-          {hasActiveSubscription ? (
-            <>
-              {/* Webhook URL Section */}
+          {/* Webhook URL Section */}
               <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8">
                 <h2 className="text-xl font-bold text-brand-navy mb-4">Your Webhook URL</h2>
                 <p className="text-gray-600 mb-4">
@@ -237,24 +227,6 @@ const IntegrationsPage: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </>
-          ) : (
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Webhook className="w-10 h-10 text-gray-400" />
-              </div>
-              <h2 className="text-2xl font-bold text-brand-navy mb-4">Integrations Locked</h2>
-              <p className="text-gray-600 mb-8 max-w-md mx-auto">
-                Connect unlimited tools and automate your customer journey tracking with webhooks and API access.
-              </p>
-              <Link 
-                to="/get-started"
-                className="bg-brand-teal hover:bg-brand-teal/90 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-lg inline-block"
-              >
-                Unlock Integrations
-              </Link>
-            </div>
-          )}
         </div>
       </div>
     </div>

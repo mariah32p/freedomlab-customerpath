@@ -1,18 +1,22 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
-import PaymentIssueBanner from '../components/PaymentIssueBanner'
 import { useAuth } from '../hooks/useAuth'
-import { shouldShowPaymentBanner } from '../utils/routeGuard'
 import { BarChart2, TrendingUp, Users, DollarSign, Calendar, Filter } from 'lucide-react'
+
+const formatCurrency = (amount: number) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).format(amount)
+}
 
 const AnalyticsPage: React.FC = () => {
   const { profile } = useAuth()
   const [selectedTimeframe, setSelectedTimeframe] = useState('30d')
   const [selectedJourney, setSelectedJourney] = useState('all')
   
-  const showPaymentBanner = shouldShowPaymentBanner(profile)
-  const hasActiveSubscription = profile?.subscription_status === 'trialing' || profile?.subscription_status === 'active'
-
   const timeframes = [
     { value: '7d', label: '7 Days' },
     { value: '30d', label: '30 Days' },
@@ -54,8 +58,6 @@ const AnalyticsPage: React.FC = () => {
     <div className="min-h-screen bg-gray-50 font-montserrat">
       <Header />
       
-      {showPaymentBanner && profile && <PaymentIssueBanner profile={profile} />}
-      
       <div className="pt-20">
         <div className="max-w-7xl mx-auto px-6 py-8">
           {/* Header */}
@@ -65,40 +67,36 @@ const AnalyticsPage: React.FC = () => {
               <p className="text-gray-600">Deep insights into your customer journey performance</p>
             </div>
             
-            {hasActiveSubscription && (
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-2">
-                  <Filter className="w-4 h-4 text-gray-500" />
-                  <select 
-                    value={selectedJourney}
-                    onChange={(e) => setSelectedJourney(e.target.value)}
-                    className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-teal"
-                  >
-                    {journeys.map(journey => (
-                      <option key={journey.value} value={journey.value}>{journey.label}</option>
-                    ))}
-                  </select>
-                </div>
-                
-                <div className="flex items-center space-x-2">
-                  <Calendar className="w-4 h-4 text-gray-500" />
-                  <select 
-                    value={selectedTimeframe}
-                    onChange={(e) => setSelectedTimeframe(e.target.value)}
-                    className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-teal"
-                  >
-                    {timeframes.map(timeframe => (
-                      <option key={timeframe.value} value={timeframe.value}>{timeframe.label}</option>
-                    ))}
-                  </select>
-                </div>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                <Filter className="w-4 h-4 text-gray-500" />
+                <select 
+                  value={selectedJourney}
+                  onChange={(e) => setSelectedJourney(e.target.value)}
+                  className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-teal"
+                >
+                  {journeys.map(journey => (
+                    <option key={journey.value} value={journey.value}>{journey.label}</option>
+                  ))}
+                </select>
               </div>
-            )}
+              
+              <div className="flex items-center space-x-2">
+                <Calendar className="w-4 h-4 text-gray-500" />
+                <select 
+                  value={selectedTimeframe}
+                  onChange={(e) => setSelectedTimeframe(e.target.value)}
+                  className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-teal"
+                >
+                  {timeframes.map(timeframe => (
+                    <option key={timeframe.value} value={timeframe.value}>{timeframe.label}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </div>
 
-          {hasActiveSubscription ? (
-            <>
-              {/* Key Metrics */}
+          {/* Key Metrics */}
               <div className="grid md:grid-cols-4 gap-6 mb-8">
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                   <div className="flex items-center justify-between">
@@ -271,24 +269,6 @@ const AnalyticsPage: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </>
-          ) : (
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
-                <BarChart2 className="w-10 h-10 text-gray-400" />
-              </div>
-              <h2 className="text-2xl font-bold text-brand-navy mb-4">Advanced Analytics Locked</h2>
-              <p className="text-gray-600 mb-8 max-w-md mx-auto">
-                Get detailed conversion insights, AI-powered recommendations, and real-time performance tracking.
-              </p>
-              <Link 
-                to="/get-started"
-                className="bg-brand-teal hover:bg-brand-teal/90 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-lg inline-block"
-              >
-                Unlock Analytics
-              </Link>
-            </div>
-          )}
         </div>
       </div>
     </div>

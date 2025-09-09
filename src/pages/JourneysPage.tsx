@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
-import PaymentIssueBanner from '../components/PaymentIssueBanner'
 import { useAuth } from '../hooks/useAuth'
-import { shouldShowPaymentBanner } from '../utils/routeGuard'
 import { Plus, Edit3, Trash2, Users, TrendingUp, Calendar, Target } from 'lucide-react'
 
 interface Journey {
@@ -56,9 +54,6 @@ const JourneysPage: React.FC = () => {
     }
   ])
 
-  const showPaymentBanner = shouldShowPaymentBanner(profile)
-  const hasActiveSubscription = profile?.subscription_status === 'trialing' || profile?.subscription_status === 'active'
-
   const getStatusBadge = (status: string) => {
     const config = {
       active: { bg: 'bg-green-100', text: 'text-green-800', label: 'Active' },
@@ -88,8 +83,6 @@ const JourneysPage: React.FC = () => {
     <div className="min-h-screen bg-gray-50 font-montserrat">
       <Header />
       
-      {showPaymentBanner && profile && <PaymentIssueBanner profile={profile} />}
-      
       <div className="pt-20">
         <div className="max-w-7xl mx-auto px-6 py-8">
           {/* Header */}
@@ -99,17 +92,14 @@ const JourneysPage: React.FC = () => {
               <p className="text-gray-600">Create, manage, and optimize your customer journey maps</p>
             </div>
             
-            {hasActiveSubscription && (
-              <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg flex items-center space-x-2">
-                <Plus className="w-5 h-5" />
-                <span>Create Journey</span>
-              </button>
-            )}
+            <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg flex items-center space-x-2">
+              <Plus className="w-5 h-5" />
+              <span>Create Journey</span>
+            </button>
           </div>
 
           {/* Stats Overview */}
-          {hasActiveSubscription && (
-            <div className="grid md:grid-cols-4 gap-6 mb-8">
+          <div className="grid md:grid-cols-4 gap-6 mb-8">
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <div className="flex items-center justify-between">
                   <div>
@@ -166,7 +156,6 @@ const JourneysPage: React.FC = () => {
                 </div>
               </div>
             </div>
-          )}
 
           {/* Journeys Grid */}
           <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -183,16 +172,14 @@ const JourneysPage: React.FC = () => {
                     <p className="text-gray-600 text-sm leading-relaxed">{journey.description}</p>
                   </div>
                   
-                  {hasActiveSubscription && (
-                    <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button className="p-2 text-gray-400 hover:text-brand-teal hover:bg-brand-teal/10 rounded-lg transition-all">
-                        <Edit3 className="w-4 h-4" />
-                      </button>
-                      <button className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all">
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  )}
+                  <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button className="p-2 text-gray-400 hover:text-brand-teal hover:bg-brand-teal/10 rounded-lg transition-all">
+                      <Edit3 className="w-4 h-4" />
+                    </button>
+                    <button className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mb-4">
@@ -223,57 +210,28 @@ const JourneysPage: React.FC = () => {
                     Updated {journey.lastUpdated}
                   </div>
                   
-                  {hasActiveSubscription ? (
-                    <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-4 py-2 rounded-lg font-semibold text-sm transition-all">
-                      View Details
-                    </button>
-                  ) : (
-                    <button className="bg-gray-100 text-gray-400 px-4 py-2 rounded-lg font-semibold text-sm cursor-not-allowed">
-                      Locked
-                    </button>
-                  )}
+                  <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-4 py-2 rounded-lg font-semibold text-sm transition-all">
+                    View Details
+                  </button>
                 </div>
               </div>
             ))}
 
             {/* Create New Journey Card */}
-            {hasActiveSubscription && (
-              <div className="bg-white rounded-xl shadow-sm border-2 border-dashed border-gray-200 p-6 hover:border-brand-teal hover:shadow-lg transition-all duration-300 group cursor-pointer">
-                <div className="text-center py-8">
-                  <div className="w-16 h-16 bg-brand-teal/10 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-teal/20 transition-colors">
-                    <Plus className="w-8 h-8 text-brand-teal" />
-                  </div>
-                  <h3 className="text-lg font-bold text-brand-navy mb-2 group-hover:text-brand-teal transition-colors">
-                    Create New Journey
-                  </h3>
-                  <p className="text-gray-600 text-sm">
-                    Map out a new customer journey and start tracking conversions
-                  </p>
+            <div className="bg-white rounded-xl shadow-sm border-2 border-dashed border-gray-200 p-6 hover:border-brand-teal hover:shadow-lg transition-all duration-300 group cursor-pointer">
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-brand-teal/10 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-teal/20 transition-colors">
+                  <Plus className="w-8 h-8 text-brand-teal" />
                 </div>
+                <h3 className="text-lg font-bold text-brand-navy mb-2 group-hover:text-brand-teal transition-colors">
+                  Create New Journey
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  Map out a new customer journey and start tracking conversions
+                </p>
               </div>
-            )}
-          </div>
-
-          {/* No Subscription State */}
-          {!hasActiveSubscription && (
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-              <h2 className="text-2xl font-bold text-brand-navy mb-4">Unlock Journey Management</h2>
-              <p className="text-gray-600 mb-8 max-w-md mx-auto">
-                Create unlimited customer journey maps and track detailed analytics with a premium subscription.
-              </p>
-              <Link 
-                to="/get-started"
-                className="bg-brand-teal hover:bg-brand-teal/90 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-lg inline-block"
-              >
-                Choose Your Plan
-              </Link>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>

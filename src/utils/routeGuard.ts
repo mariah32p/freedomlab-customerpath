@@ -1,15 +1,5 @@
 import { UserProfile } from '../types/auth'
 
-export const isInGracePeriod = (paymentIssueSince: string | null): boolean => {
-  if (!paymentIssueSince) return false
-  
-  const issueDate = new Date(paymentIssueSince)
-  const now = new Date()
-  const daysSinceIssue = Math.floor((now.getTime() - issueDate.getTime()) / (1000 * 60 * 60 * 24))
-  
-  return daysSinceIssue <= 30
-}
-
 export const getRedirectPath = (
   isAuthenticated: boolean, 
   profile: UserProfile | null
@@ -21,21 +11,4 @@ export const getRedirectPath = (
 
   // Everyone goes to dashboard - feature gating happens there
   return '/dashboard'
-}
-
-export const shouldShowPaymentBanner = (profile: UserProfile | null): boolean => {
-  if (!profile) return false
-  
-  return profile.subscription_status === 'past_due' && isInGracePeriod(profile.payment_issue_since)
-}
-
-export const getTrialDaysRemaining = (trialEndsAt: string | null): number => {
-  if (!trialEndsAt) return 0
-  
-  const trialEnd = new Date(trialEndsAt)
-  const now = new Date()
-  const diffTime = trialEnd.getTime() - now.getTime()
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-  
-  return Math.max(0, diffDays)
 }
